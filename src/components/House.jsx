@@ -63,7 +63,7 @@ function House({ onPolyCountUpdate, dayMode = false }) {
       <RolledNewspaper />
 
       {/* Video Texture on Roof - Hardware accelerated, excellent performance */}
-      <VideoRoofAnimation />
+      <VideoRoofAnimation videoSrc="/Movie.mov" />
     </group>
   );
 }
