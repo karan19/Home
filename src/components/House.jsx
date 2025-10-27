@@ -4,12 +4,13 @@ import * as THREE from 'three';
 import Structure from './Structure';
 import Stairs from './Stairs';
 import Furniture from './Furniture';
-import Balcony from './Balcony';
-import Compound from './Compound';
 import GridSystem from './GridSystem';
 import InteriorLights from './InteriorLights';
-import FlyingPaper from './FlyingPaper';
-import RolledNewspaper from './RolledNewspaper';
+// Outside components
+import Balcony from './outside/Balcony';
+import Compound from './outside/Compound';
+import FlyingPaper from './outside/FlyingPaper';
+import RolledNewspaper from './outside/RolledNewspaper';
 
 function House({ onPolyCountUpdate, showFloorGrids = false, showWallGrids = false, dayMode = false }) {
   const groupRef = useRef();

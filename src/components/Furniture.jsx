@@ -1,36 +1,54 @@
 import React from 'react';
-import KitchenIsland from './furniture/KitchenIsland';
-import Kitchen from './furniture/Kitchen';
-import Refrigerator from './furniture/Refrigerator';
-import Sofa from './furniture/Sofa';
-import TV from './furniture/TV';
-import PlayStation from './furniture/PlayStation';
-import PSController from './furniture/PSController';
-import BarcelonaCrest from './furniture/BarcelonaCrest';
-import Bed from './furniture/Bed';
-import Bookshelf from './furniture/Bookshelf';
-import CoffeeTable from './furniture/CoffeeTable';
-import WorkDesk from './furniture/WorkDesk';
-import AccentChair from './furniture/AccentChair';
-import SmallTable from './furniture/SmallTable';
-import PottedPlant from './furniture/PottedPlant';
-import Rug from './furniture/Rug';
-import WallClock from './furniture/WallClock';
-import TVTable from './furniture/TVTable';
-import WaterCooler from './furniture/WaterCooler';
-import DrawerTable from './furniture/DrawerTable';
-import BluetoothSpeaker from './furniture/BluetoothSpeaker';
-import OpenBook from './furniture/OpenBook';
-import Pen from './furniture/Pen';
-import CoffeeMachine from './furniture/CoffeeMachine';
-import CoffeeStationTable from './furniture/CoffeeStationTable';
-import MessiPoster from './furniture/MessiPoster';
-import PunchingBag from './furniture/PunchingBag';
-import AliPoster from './furniture/AliPoster';
-import Pillow from './furniture/Pillow';
-import JobsPoster from './furniture/JobsPoster';
-import MuskPoster from './furniture/MuskPoster';
-import BezosPost from './furniture/BezosPost';
+// Ground Floor - Kitchen
+import KitchenIsland from './ground-floor/kitchen/KitchenIsland';
+import Kitchen from './ground-floor/kitchen/Kitchen';
+import Refrigerator from './ground-floor/kitchen/Refrigerator';
+import CoffeeMachine from './ground-floor/kitchen/CoffeeMachine';
+import CoffeeStationTable from './ground-floor/kitchen/CoffeeStationTable';
+import WaterCooler from './ground-floor/kitchen/WaterCooler';
+import BarStool from './ground-floor/kitchen/BarStool';
+
+// Ground Floor - Living Room
+import Sofa from './ground-floor/living-room/Sofa';
+import CoffeeTable from './ground-floor/living-room/CoffeeTable';
+import BarcelonaCrest from './ground-floor/living-room/BarcelonaCrest';
+import Bookshelf from './ground-floor/living-room/Bookshelf';
+
+// Ground Floor - Entertainment
+import TV from './ground-floor/entertainment/TV';
+import TVTable from './ground-floor/entertainment/TVTable';
+import PlayStation from './ground-floor/entertainment/PlayStation';
+import PSController from './ground-floor/entertainment/PSController';
+
+// Upper Floor - Bedroom
+import Bed from './upper-floor/bedroom/Bed';
+import Pillow from './upper-floor/bedroom/Pillow';
+
+// Upper Floor - Office
+import WorkDesk from './upper-floor/office/WorkDesk';
+
+// Upper Floor - Seating Area
+import AccentChair from './upper-floor/seating-area/AccentChair';
+import SmallTable from './upper-floor/seating-area/SmallTable';
+import OpenBook from './upper-floor/seating-area/OpenBook';
+import Pen from './upper-floor/seating-area/Pen';
+
+// Upper Floor - Fitness
+import PunchingBag from './upper-floor/fitness/PunchingBag';
+
+// Upper Floor - Decorations
+import Rug from './upper-floor/decorations/Rug';
+import WallClock from './upper-floor/decorations/WallClock';
+import DrawerTable from './upper-floor/decorations/DrawerTable';
+import BluetoothSpeaker from './upper-floor/decorations/BluetoothSpeaker';
+import PottedPlant from './upper-floor/decorations/PottedPlant';
+
+// Interactive Posters
+import MessiPoster from './interactive/MessiPoster';
+import AliPoster from './interactive/AliPoster';
+import JobsPoster from './interactive/JobsPoster';
+import MuskPoster from './interactive/MuskPoster';
+import BezosPost from './interactive/BezosPost';
 
 function Furniture() {
   return (

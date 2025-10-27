@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
-import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { getFeatureConfig } from '../../../config/interactiveFeatures';
 
 function TV({ position }) {
   const config = getFeatureConfig('messi');

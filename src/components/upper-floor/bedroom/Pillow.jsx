@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { getFeatureConfig } from '../../../config/interactiveFeatures';
 
 function Pillow({ position = [0, 0, 0] }) {
   const config = getFeatureConfig('jobs');

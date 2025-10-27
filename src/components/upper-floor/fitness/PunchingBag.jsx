@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { getFeatureConfig } from '../../../config/interactiveFeatures';
 
 function PunchingBag({ position = [0, 3, 0] }) {
   const config = getFeatureConfig('ali');

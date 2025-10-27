@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { getFeatureConfig } from '../../../config/interactiveFeatures';
 
 function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const config = getFeatureConfig('bezos');
