@@ -1,0 +1,181 @@
+# 3D House Project - Workflow Rules
+
+## Development Workflow
+
+### 1. Step-by-Step Planning
+- Break down each phase into clear, manageable steps
+- Present the plan for each step before implementation
+- Wait for approval before proceeding to the next step
+
+### 2. Documentation Permission
+- Always ask for permission before creating new markdown files
+- Explain the purpose and content of the markdown file
+- Wait for explicit approval before creating
+
+### 3. Task Communication
+- **Before each task**: Clearly state what will be done
+- **After each task**: Report what was achieved
+- Provide context on how it fits into the overall project
+- Update the task progress checklist after each completion
+
+## Example Workflow
+
+**Before:**
+"I'm about to create the foundation and base platform (Phase 1, Step 1). This will include the 8m x 8m ground floor base slab with proper materials and the floor edge trim."
+
+**After:**
+"✓ Completed: Foundation and base platform created with gray concrete material (#E8E8E8) and edge trim. The base is positioned at Y=0 and ready for walls to be built on top."
+
+## Browser Usage Policy
+
+### Rule: No Automatic Browser Opening
+- **DO NOT** use the `browser_action` tool unless explicitly requested by the user
+- **DO NOT** open browsers as part of verification or testing workflows
+- **ONLY** open the browser when the user specifically asks to:
+  - "Open the browser"
+  - "Launch the browser"
+  - "Show me in the browser"
+  - "Test in browser"
+  - Or similar explicit requests
+
+### Alternative Verification Methods
+Instead of opening the browser:
+- Report what was completed
+- Describe expected visual results
+- Provide instructions for manual verification
+- Wait for user to verify and provide feedback
+
+### Example Communication
+**Instead of:** "Opening browser to verify changes..."
+**Say:** "Changes complete. To verify, please open http://localhost:8000 (or http://localhost:5173 for Vite) in your browser and check that [specific elements] are visible."
+
+---
+
+## Phase Verification Protocol
+
+After completing each phase, follow this verification process:
+
+### 1. Visual Verification
+- **DO NOT automatically open the browser** (see Browser Usage Policy above)
+- Provide instructions for user to manually verify in browser
+- Describe what should be visible and positioned correctly
+- List what to check for (visual artifacts, z-fighting, rendering issues)
+- Confirm materials and colors should match the specification
+
+### 2. Functional Verification
+- Test camera controls (rotate, zoom, pan)
+- Verify polygon count has updated in the UI
+- Check browser console for any errors or warnings
+- Test any new interactive features
+
+### 3. Quality Checks
+- Ensure proper shadows are being cast
+- Verify transparency works correctly (windows, glass)
+- Check that all objects are properly named
+- Confirm measurements match the specification
+
+### 4. User Confirmation
+- Present a summary of what was completed in the phase
+- List key elements added (with counts where applicable)
+- Report current polygon count
+- Ask: "Phase X complete. Please verify the model looks correct. Should I proceed to Phase Y?"
+- **Wait for explicit user approval before proceeding to next phase**
+
+### 5. Documentation
+- Update task progress checklist
+- Note any issues discovered and how they were resolved
+- Record polygon count after phase completion
+
+### Example Verification Report
+
+**Phase 2 Complete: Windows & Stairs**
+
+✓ Added Elements:
+- 8 windows with frames and transparent glass (4 back wall, 4 right wall)
+- 12 stair treads with landing platform
+- Stairwell divider wall and upper railings
+- Window lighting (8 area lights)
+
+✓ Verification:
+- All windows visible with proper transparency
+- Staircase connects ground to second floor correctly
+- No console errors
+- Polygon count: 3,245 triangles
+
+Ready to proceed to Phase 3 (Upper Level Furniture)?
+
+## Coordinates Reference Maintenance
+
+### Rule: Update COORDINATES_REFERENCE.md
+- **ALWAYS** remind the user to update COORDINATES_REFERENCE.md when:
+  - A new component is added to the scene
+  - An existing component's position is changed
+  - An existing component's rotation is changed
+  - A component is removed from the scene
+  
+### Update Process
+1. **After adding/modifying a component**, remind the user:
+   - "Remember to update COORDINATES_REFERENCE.md with the new/changed component coordinates"
+2. **Provide the exact coordinates** to add/update:
+   - Component name
+   - Position [X, Y, Z]
+   - Rotation (if applicable)
+   - Location/area
+3. **Offer to update** the document if user requests
+
+### Example Reminder
+**After adding furniture:**
+"✓ Completed: Added coffee table at [1.5, 0, 2.3]
+
+**Remember to update COORDINATES_REFERENCE.md:**
+- Component: Coffee Table
+- Position: [1.5, 0, 2.3]
+- Rotation: 0°
+- Location: Ground floor, living room, between sofa and TV"
+
+---
+
+## Available Space Maintenance
+
+### Rule: Update AVAILABLE_SPACE.md
+- **ALWAYS** remind the user to update AVAILABLE_SPACE.md when:
+  - A new component is added (reduces free space)
+  - A component is removed (increases free space)
+  - A component is moved (changes free space distribution)
+  
+### Update Process
+1. **After adding/removing a component**, remind the user:
+   - "Remember to update AVAILABLE_SPACE.md to reflect the space change"
+2. **Specify what changed**:
+   - Which free space area is now occupied
+   - New free space created (if component removed)
+   - Updated dimensions and boundaries
+3. **Offer to update** the document if user requests
+
+### Example Reminder
+**After adding furniture:**
+"✓ Completed: Added side table at [2.5, 0, 1]
+
+**Remember to update AVAILABLE_SPACE.md:**
+- Free Space 3 (Right of Sofa) is now partially occupied
+- Remaining free space: X: 2.9-3m, Z: 0.5-1.5m
+- New area: 0.1m × 1m = 0.1 m²"
+
+---
+
+## Project Structure
+- Follow the 7-phase implementation plan
+- Maintain the task progress checklist
+- Keep code modular and well-commented
+- **Execute Phase Verification Protocol after each phase**
+- **Maintain COORDINATES_REFERENCE.md** for all spatial changes
+
+## Implementation Phases
+
+1. **Phase 1**: Core Structure (Foundation, walls, floors, roof)
+2. **Phase 2**: Windows & Stairs (8 windows, staircase)
+3. **Phase 3**: Upper Level Furniture (Bedroom and office)
+4. **Phase 4**: Ground Level Furniture (Kitchen and living)
+5. **Phase 5**: Materials & Lighting (PBR materials, lighting)
+6. **Phase 6**: Export Functionality (GLB exporter)
+7. **Phase 7**: Polish & Optimization (Performance tuning)
