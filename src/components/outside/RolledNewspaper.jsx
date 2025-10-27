@@ -3,14 +3,11 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 function RolledNewspaper() {
-  // Check time BEFORE any hooks
+  const groupRef = useRef();
+  
+  // Check visibility - do this AFTER hooks to follow Rules of Hooks
   const hour = new Date().getHours();
   const isVisible = hour >= 6 && hour < 18;
-  
-  // Early return BEFORE hooks
-  if (!isVisible) return null;
-
-  const groupRef = useRef();
 
   useFrame((state) => {
     if (groupRef.current) {
@@ -51,8 +48,12 @@ function RolledNewspaper() {
         y = endPos.y + bounce;
         z = endPos.z;
         
-        // Slow rotation to final position
-        rotationX = THREE.MathUtils.lerp(time * 4, 0, t);
+        // Smoothly transition rotation from spinning to resting
+        // Calculate rotation value at end of Phase 1 (t=2)
+        const phase1EndRotX = (2 * 4) % (Math.PI * 2);
+        
+        // Interpolate from end of Phase 1 to final resting rotation
+        rotationX = THREE.MathUtils.lerp(phase1EndRotX, 0, t);
         rotationY = 0.3;
         rotationZ = Math.PI / 2;
         

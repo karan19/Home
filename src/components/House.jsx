@@ -11,6 +11,8 @@ import Balcony from './outside/Balcony';
 import Compound from './outside/Compound';
 import FlyingPaper from './outside/FlyingPaper';
 import RolledNewspaper from './outside/RolledNewspaper';
+import Car from './outside/Car';
+import Gym from './outside/Gym';
 // Outside coordinates
 import { OUTSIDE } from '../config/outsideCoordinates';
 
@@ -64,6 +66,12 @@ function House({ onPolyCountUpdate, dayMode = false }) {
 
       {/* Video Texture on Roof - Hardware accelerated, excellent performance */}
       <VideoRoofAnimation videoSrc="/Movie.mov" />
+
+      {/* Car Model - GLTF from Sketchfab - Uses centralized config */}
+      <Car />
+
+      {/* Gym Equipment - GLTF from Sketchfab - Uses centralized config */}
+      <Gym />
     </group>
   );
 }

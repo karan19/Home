@@ -54,11 +54,16 @@ function FlyingPaper() {
         y = THREE.MathUtils.lerp(2.5, mailboxPos.y + 0.2, eased);
         z = THREE.MathUtils.lerp(8.5, mailboxPos.z + 0.1, eased);
         
-        // Slow down rotation, start aligning
-        const rotSlowdown = 1 - t * 0.7;
-        rotationX = time * 0.8 * rotSlowdown;
-        rotationY = time * 0.6 * rotSlowdown;
-        rotationZ = time * 1.0 * rotSlowdown;
+        // Smoothly transition rotation from tumbling to aligned
+        // Calculate rotation values at end of Phase 1 (t=5)
+        const phase1EndRotX = (5 * 0.8) % (Math.PI * 2);
+        const phase1EndRotY = (5 * 0.6) % (Math.PI * 2);
+        const phase1EndRotZ = (5 * 1.0) % (Math.PI * 2);
+        
+        // Interpolate to aligned state (0 rotation)
+        rotationX = THREE.MathUtils.lerp(phase1EndRotX, 0, eased);
+        rotationY = THREE.MathUtils.lerp(phase1EndRotY, 0, eased);
+        rotationZ = THREE.MathUtils.lerp(phase1EndRotZ, 0, eased);
         scale = 1;
         visible = true;
         
