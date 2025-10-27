@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { ENTERTAINMENT } from '../../../config/groundFloorCoordinates';
 
 function TV({ position }) {
   const config = getFeatureConfig('messi');
+  const { frame, screen } = ENTERTAINMENT.tv;
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -59,30 +61,30 @@ function TV({ position }) {
     >
       {/* TV Frame with rounded edges */}
       <RoundedBox
-        args={[1.2, 0.7, 0.05]}
-        radius={0.02}
-        smoothness={4}
+        args={[frame.width, frame.height, frame.depth]}
+        radius={frame.radius}
+        smoothness={frame.smoothness}
         castShadow
       >
         <meshStandardMaterial
-          color={0x1C1C1C}
-          roughness={0.4}
-          metalness={0.3}
+          color={frame.color}
+          roughness={frame.roughness}
+          metalness={frame.metalness}
         />
       </RoundedBox>
 
       {/* Screen (slightly inset with emissive glow) */}
       <RoundedBox
-        args={[1.15, 0.65, 0.01]}
-        radius={0.015}
-        smoothness={4}
-        position={[0, 0, 0.03]}
+        args={[screen.width, screen.height, screen.depth]}
+        radius={screen.radius}
+        smoothness={screen.smoothness}
+        position={[0, 0, screen.positionZ]}
       >
         <meshStandardMaterial
-          color={isPlaying ? 0x1A1A3A : 0x0A0A1A}
-          emissive={isPlaying ? 0x2A2A5A : 0x0A0A1A}
-          emissiveIntensity={isPlaying ? 0.4 : 0.2}
-          roughness={0.1}
+          color={isPlaying ? screen.colorOn : screen.colorOff}
+          emissive={isPlaying ? screen.emissiveOn : screen.emissiveOff}
+          emissiveIntensity={isPlaying ? screen.emissiveIntensityOn : screen.emissiveIntensityOff}
+          roughness={screen.roughness}
         />
       </RoundedBox>
     </group>

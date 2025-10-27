@@ -1,32 +1,33 @@
 import React from 'react';
 import * as THREE from 'three';
+import { LIVING_ROOM } from '../../../config/groundFloorCoordinates';
 
 function CoffeeTable({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
+  const { material, tabletop, leg } = LIVING_ROOM.coffeeTable;
+
   return (
     <group position={position} rotation={rotation} name="Coffee_Table">
       {/* Tabletop */}
-      <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.2, 0.05, 0.6]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
+      <mesh position={[0, tabletop.positionY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[tabletop.width, tabletop.height, tabletop.depth]} />
+        <meshStandardMaterial 
+          color={material.color} 
+          roughness={material.roughness} 
+          metalness={material.metalness} 
+        />
       </mesh>
 
       {/* Legs (4 corners) */}
-      <mesh position={[-0.55, 0.175, -0.25]} castShadow>
-        <boxGeometry args={[0.05, 0.35, 0.05]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
-      </mesh>
-      <mesh position={[0.55, 0.175, -0.25]} castShadow>
-        <boxGeometry args={[0.05, 0.35, 0.05]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
-      </mesh>
-      <mesh position={[-0.55, 0.175, 0.25]} castShadow>
-        <boxGeometry args={[0.05, 0.35, 0.05]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
-      </mesh>
-      <mesh position={[0.55, 0.175, 0.25]} castShadow>
-        <boxGeometry args={[0.05, 0.35, 0.05]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
-      </mesh>
+      {leg.positions.map((pos, i) => (
+        <mesh key={i} position={pos} castShadow>
+          <boxGeometry args={[leg.width, leg.height, leg.depth]} />
+          <meshStandardMaterial 
+            color={material.color} 
+            roughness={material.roughness} 
+            metalness={material.metalness} 
+          />
+        </mesh>
+      ))}
     </group>
   );
 }

@@ -2,10 +2,13 @@ import React, { Suspense } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import * as THREE from 'three';
+import { LIVING_ROOM } from '../../../config/groundFloorCoordinates';
 
 function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
+  const { texturePath, frame, crest } = LIVING_ROOM.barcelonaCrest;
+  
   // Load the SVG as a texture
-  const texture = useLoader(TextureLoader, '/FCBCrest.svg');
+  const texture = useLoader(TextureLoader, texturePath);
   
   // Configure texture for best quality
   texture.minFilter = THREE.LinearFilter;
@@ -16,24 +19,24 @@ function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
     <group position={position} rotation={rotation} name="Barcelona_Crest">
       {/* Optional gold frame */}
       <mesh castShadow>
-        <boxGeometry args={[0.44 * scale, 0.54 * scale, 0.02]} />
+        <boxGeometry args={[frame.widthScale * scale, frame.heightScale * scale, frame.depth]} />
         <meshStandardMaterial
-          color={0xFFCC00}
-          roughness={0.3}
-          metalness={0.6}
+          color={frame.color}
+          roughness={frame.roughness}
+          metalness={frame.metalness}
         />
       </mesh>
 
       {/* Crest with SVG texture */}
-      <mesh position={[0, 0, 0.011]} castShadow>
-        <planeGeometry args={[0.4 * scale, 0.5 * scale]} />
+      <mesh position={[0, 0, crest.positionZ]} castShadow>
+        <planeGeometry args={[crest.widthScale * scale, crest.heightScale * scale]} />
         <meshStandardMaterial
           map={texture}
           transparent
-          alphaTest={0.1}
+          alphaTest={crest.alphaTest}
           side={THREE.DoubleSide}
-          roughness={0.4}
-          metalness={0.1}
+          roughness={crest.roughness}
+          metalness={crest.metalness}
         />
       </mesh>
     </group>

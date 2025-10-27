@@ -1,35 +1,46 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
+import { ENTERTAINMENT } from '../../../config/groundFloorCoordinates';
 
 function PSController({ position, rotation = [0, 0, 0] }) {
+  const { 
+    mainBody, 
+    grip, 
+    touchpad, 
+    psButton, 
+    analogStick, 
+    dpad, 
+    actionButtons 
+  } = ENTERTAINMENT.psController;
+
   const controllerMaterial = new THREE.MeshStandardMaterial({
-    color: 0xFFFFFF, // White DualSense
-    roughness: 0.5,
-    metalness: 0.1
+    color: mainBody.color,
+    roughness: mainBody.roughness,
+    metalness: mainBody.metalness
   });
 
   const blackMaterial = new THREE.MeshStandardMaterial({
-    color: 0x1C1C1C,
-    roughness: 0.4,
-    metalness: 0.2
+    color: analogStick.color,
+    roughness: analogStick.roughness,
+    metalness: analogStick.metalness
   });
 
   const blueMaterial = new THREE.MeshStandardMaterial({
-    color: 0x0066FF,
-    emissive: 0x0033AA,
-    emissiveIntensity: 0.3,
-    roughness: 0.3
+    color: psButton.color,
+    emissive: psButton.emissive,
+    emissiveIntensity: psButton.emissiveIntensity,
+    roughness: psButton.roughness
   });
 
   return (
     <group position={position} rotation={rotation} name="PS_Controller">
       {/* Main controller body */}
       <RoundedBox
-        args={[0.15, 0.04, 0.1]}
-        radius={0.01}
-        smoothness={4}
-        position={[0, 0.02, 0]}
+        args={[mainBody.width, mainBody.height, mainBody.depth]}
+        radius={mainBody.radius}
+        smoothness={mainBody.smoothness}
+        position={[0, mainBody.positionY, 0]}
         castShadow
         receiveShadow
       >
@@ -38,11 +49,11 @@ function PSController({ position, rotation = [0, 0, 0] }) {
 
       {/* Left grip */}
       <RoundedBox
-        args={[0.03, 0.06, 0.04]}
-        radius={0.008}
-        smoothness={4}
-        position={[-0.06, 0, -0.03]}
-        rotation={[0.3, 0, 0]}
+        args={[grip.width, grip.height, grip.depth]}
+        radius={grip.radius}
+        smoothness={grip.smoothness}
+        position={[grip.leftPositionX, grip.positionY, grip.positionZ]}
+        rotation={[grip.rotationX, 0, 0]}
         castShadow
       >
         <meshStandardMaterial {...controllerMaterial} />
@@ -50,11 +61,11 @@ function PSController({ position, rotation = [0, 0, 0] }) {
 
       {/* Right grip */}
       <RoundedBox
-        args={[0.03, 0.06, 0.04]}
-        radius={0.008}
-        smoothness={4}
-        position={[0.06, 0, -0.03]}
-        rotation={[0.3, 0, 0]}
+        args={[grip.width, grip.height, grip.depth]}
+        radius={grip.radius}
+        smoothness={grip.smoothness}
+        position={[grip.rightPositionX, grip.positionY, grip.positionZ]}
+        rotation={[grip.rotationX, 0, 0]}
         castShadow
       >
         <meshStandardMaterial {...controllerMaterial} />
@@ -62,73 +73,83 @@ function PSController({ position, rotation = [0, 0, 0] }) {
 
       {/* Touchpad (center) */}
       <RoundedBox
-        args={[0.06, 0.001, 0.03]}
-        radius={0.003}
-        smoothness={4}
-        position={[0, 0.041, 0.01]}
+        args={[touchpad.width, touchpad.height, touchpad.depth]}
+        radius={touchpad.radius}
+        smoothness={touchpad.smoothness}
+        position={[0, touchpad.positionY, touchpad.positionZ]}
         castShadow
       >
-        <meshStandardMaterial color={0x2C2C2C} roughness={0.2} metalness={0.4} />
+        <meshStandardMaterial 
+          color={touchpad.color} 
+          roughness={touchpad.roughness} 
+          metalness={touchpad.metalness} 
+        />
       </RoundedBox>
 
       {/* PlayStation button (center) */}
-      <mesh position={[0, 0.041, -0.02]} material={blueMaterial}>
-        <cylinderGeometry args={[0.006, 0.006, 0.002, 16]} />
+      <mesh 
+        position={[0, psButton.positionY, psButton.positionZ]} 
+        material={blueMaterial}
+      >
+        <cylinderGeometry args={[psButton.radius, psButton.radius, psButton.height, psButton.segments]} />
       </mesh>
 
       {/* Left analog stick */}
-      <group position={[-0.03, 0.041, -0.01]}>
+      <group position={[analogStick.leftPositionX, analogStick.positionY, analogStick.positionZ]}>
         <mesh castShadow material={blackMaterial}>
-          <cylinderGeometry args={[0.012, 0.012, 0.008, 16]} />
+          <cylinderGeometry args={[analogStick.baseRadius, analogStick.baseRadius, analogStick.baseHeight, analogStick.segments]} />
         </mesh>
-        <mesh position={[0, 0.006, 0]} material={blackMaterial}>
-          <cylinderGeometry args={[0.008, 0.008, 0.004, 16]} />
+        <mesh position={[0, analogStick.topPositionY, 0]} material={blackMaterial}>
+          <cylinderGeometry args={[analogStick.topRadius, analogStick.topRadius, analogStick.topHeight, analogStick.segments]} />
         </mesh>
       </group>
 
       {/* Right analog stick */}
-      <group position={[0.03, 0.041, -0.01]}>
+      <group position={[analogStick.rightPositionX, analogStick.positionY, analogStick.positionZ]}>
         <mesh castShadow material={blackMaterial}>
-          <cylinderGeometry args={[0.012, 0.012, 0.008, 16]} />
+          <cylinderGeometry args={[analogStick.baseRadius, analogStick.baseRadius, analogStick.baseHeight, analogStick.segments]} />
         </mesh>
-        <mesh position={[0, 0.006, 0]} material={blackMaterial}>
-          <cylinderGeometry args={[0.008, 0.008, 0.004, 16]} />
+        <mesh position={[0, analogStick.topPositionY, 0]} material={blackMaterial}>
+          <cylinderGeometry args={[analogStick.topRadius, analogStick.topRadius, analogStick.topHeight, analogStick.segments]} />
         </mesh>
       </group>
 
       {/* D-pad (left side) */}
       {[
-        [0, 0.008],    // Up
-        [0, -0.008],   // Down
-        [-0.008, 0],   // Left
-        [0.008, 0]     // Right
+        [0, dpad.upOffsetZ],
+        [0, dpad.downOffsetZ],
+        [dpad.leftOffsetX, 0],
+        [dpad.rightOffsetX, 0]
       ].map((offset, i) => (
         <RoundedBox
           key={i}
-          args={i < 2 ? [0.006, 0.002, 0.012] : [0.012, 0.002, 0.006]}
-          radius={0.001}
-          smoothness={2}
-          position={[-0.05 + offset[0], 0.042, 0.02 + offset[1]]}
+          args={i < 2 
+            ? [dpad.verticalWidth, dpad.verticalHeight, dpad.verticalDepth] 
+            : [dpad.horizontalWidth, dpad.horizontalHeight, dpad.horizontalDepth]
+          }
+          radius={dpad.radius}
+          smoothness={dpad.smoothness}
+          position={[dpad.basePositionX + offset[0], dpad.positionY, dpad.basePositionZ + offset[1]]}
           castShadow
         >
-          <meshStandardMaterial color={0x2C2C2C} roughness={0.4} />
+          <meshStandardMaterial color={dpad.color} roughness={dpad.roughness} />
         </RoundedBox>
       ))}
 
       {/* Action buttons (right side - X, O, Square, Triangle) */}
       {[
-        { x: 0, z: 0.008, color: 0x0066FF },      // Triangle (blue)
-        { x: 0, z: -0.008, color: 0xFF1493 },     // X (pink)
-        { x: -0.008, z: 0, color: 0xFF69B4 },     // Square (pink)
-        { x: 0.008, z: 0, color: 0xFF0000 }       // Circle (red)
+        actionButtons.triangle,
+        actionButtons.x,
+        actionButtons.square,
+        actionButtons.circle
       ].map((btn, i) => (
         <mesh
           key={i}
-          position={[0.05 + btn.x, 0.042, 0.02 + btn.z]}
+          position={[actionButtons.basePositionX + btn.offsetX, actionButtons.positionY, actionButtons.basePositionZ + btn.offsetZ]}
           castShadow
-          material={new THREE.MeshStandardMaterial({ color: btn.color, roughness: 0.3 })}
+          material={new THREE.MeshStandardMaterial({ color: btn.color, roughness: actionButtons.roughness })}
         >
-          <cylinderGeometry args={[0.006, 0.006, 0.002, 16]} />
+          <cylinderGeometry args={[actionButtons.radius, actionButtons.radius, actionButtons.height, actionButtons.segments]} />
         </mesh>
       ))}
     </group>

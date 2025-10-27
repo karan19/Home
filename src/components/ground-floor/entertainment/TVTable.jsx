@@ -1,76 +1,86 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
+import { ENTERTAINMENT } from '../../../config/groundFloorCoordinates';
 
 function TVTable({ position = [0, 0, 0] }) {
-  const legHeight = 0.5;
-  const legWidth = 0.05;
-  const tableTopWidth = 1.4;
-  const tableTopDepth = 0.4;
-  const tableTopThickness = 0.05;
-  
-  // Wood material properties
-  const woodMaterial = {
-    color: 0x5D4037,
-    roughness: 0.8,
-    metalness: 0.1
-  };
+  const { tabletop, leg, material } = ENTERTAINMENT.tvTable;
 
   return (
     <group position={position} name="Furniture_TVTable">
       {/* Tabletop */}
       <RoundedBox
-        args={[tableTopWidth, tableTopThickness, tableTopDepth]}
-        radius={0.01}
-        smoothness={4}
-        position={[0, legHeight, 0]}
+        args={[tabletop.width, tabletop.thickness, tabletop.depth]}
+        radius={tabletop.radius}
+        smoothness={tabletop.smoothness}
+        position={[0, tabletop.positionY, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial 
+          color={material.color}
+          roughness={material.roughness}
+          metalness={material.metalness}
+        />
       </RoundedBox>
 
       {/* Front Left Leg */}
       <RoundedBox
-        args={[legWidth, legHeight, legWidth]}
-        radius={0.005}
-        smoothness={4}
-        position={[-tableTopWidth/2 + legWidth/2, legHeight/2, tableTopDepth/2 - legWidth/2]}
+        args={[leg.width, leg.height, leg.depth]}
+        radius={leg.radius}
+        smoothness={leg.smoothness}
+        position={[-tabletop.width/2 + leg.width/2, leg.height/2, tabletop.depth/2 - leg.width/2]}
         castShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial 
+          color={material.color}
+          roughness={material.roughness}
+          metalness={material.metalness}
+        />
       </RoundedBox>
 
       {/* Front Right Leg */}
       <RoundedBox
-        args={[legWidth, legHeight, legWidth]}
-        radius={0.005}
-        smoothness={4}
-        position={[tableTopWidth/2 - legWidth/2, legHeight/2, tableTopDepth/2 - legWidth/2]}
+        args={[leg.width, leg.height, leg.depth]}
+        radius={leg.radius}
+        smoothness={leg.smoothness}
+        position={[tabletop.width/2 - leg.width/2, leg.height/2, tabletop.depth/2 - leg.width/2]}
         castShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial 
+          color={material.color}
+          roughness={material.roughness}
+          metalness={material.metalness}
+        />
       </RoundedBox>
 
       {/* Back Left Leg */}
       <RoundedBox
-        args={[legWidth, legHeight, legWidth]}
-        radius={0.005}
-        smoothness={4}
-        position={[-tableTopWidth/2 + legWidth/2, legHeight/2, -tableTopDepth/2 + legWidth/2]}
+        args={[leg.width, leg.height, leg.depth]}
+        radius={leg.radius}
+        smoothness={leg.smoothness}
+        position={[-tabletop.width/2 + leg.width/2, leg.height/2, -tabletop.depth/2 + leg.width/2]}
         castShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial 
+          color={material.color}
+          roughness={material.roughness}
+          metalness={material.metalness}
+        />
       </RoundedBox>
 
       {/* Back Right Leg */}
       <RoundedBox
-        args={[legWidth, legHeight, legWidth]}
-        radius={0.005}
-        smoothness={4}
-        position={[tableTopWidth/2 - legWidth/2, legHeight/2, -tableTopDepth/2 + legWidth/2]}
+        args={[leg.width, leg.height, leg.depth]}
+        radius={leg.radius}
+        smoothness={leg.smoothness}
+        position={[tabletop.width/2 - leg.width/2, leg.height/2, -tabletop.depth/2 + leg.width/2]}
         castShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial 
+          color={material.color}
+          roughness={material.roughness}
+          metalness={material.metalness}
+        />
       </RoundedBox>
     </group>
   );
