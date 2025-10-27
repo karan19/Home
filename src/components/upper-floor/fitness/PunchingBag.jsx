@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
 import { FITNESS } from '../../../config/upperFloorCoordinates';
+import { mediaManager } from '../../../utils/mediaManager';
 
 function PunchingBag({ position = [0, 3, 0] }) {
   const config = getFeatureConfig('ali');
   const { materials: mat, mount, chain, bag, animation } = FITNESS.punchingBag;
   const bagRef = useRef();
   const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const baseX = position[0];
 
   // Initialize audio
@@ -17,27 +17,13 @@ function PunchingBag({ position = [0, 3, 0] }) {
     audioRef.current = new Audio(config.audio.file);
     audioRef.current.loop = false;
     audioRef.current.addEventListener('ended', () => {
-      setIsPlaying(false);
-      window.dispatchEvent(new CustomEvent('punchingBagPlaying', { detail: false }));
+      window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
     });
   }
 
   const handleClick = async (e) => {
     e.stopPropagation();
-    if (audioRef.current.paused) {
-      try {
-        await audioRef.current.play();
-        setIsPlaying(true);
-        window.dispatchEvent(new CustomEvent(config.audio.playEvent, { detail: true }));
-      } catch (error) {
-        console.log('Audio play interrupted:', error);
-      }
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setIsPlaying(false);
-      window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
-    }
+    await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 
   useFrame((state) => {

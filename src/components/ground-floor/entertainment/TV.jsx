@@ -3,6 +3,7 @@ import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
 import { ENTERTAINMENT } from '../../../config/groundFloorCoordinates';
+import { mediaManager } from '../../../utils/mediaManager';
 
 function TV({ position }) {
   const config = getFeatureConfig('messi');
@@ -18,27 +19,19 @@ function TV({ position }) {
     // Auto-hide poster when audio ends
     audioRef.current.addEventListener('ended', () => {
       setIsPlaying(false);
-      window.dispatchEvent(new CustomEvent('tvPlaying', { detail: false }));
+      window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
     });
   }
 
   const handleClick = async (e) => {
     e.stopPropagation();
     
-    if (audioRef.current.paused) {
-      try {
-        await audioRef.current.play();
-        setIsPlaying(true);
-        window.dispatchEvent(new CustomEvent(config.audio.playEvent, { detail: true }));
-      } catch (error) {
-        console.log('Audio play interrupted:', error);
-      }
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setIsPlaying(false);
-      window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
-    }
+    // Use media manager to handle audio/poster
+    const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
+    
+    // Update local state for screen glow effect
+    setIsPlaying(!wasPlaying);
   };
 
   const handlePointerOver = (e) => {

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
 import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
+import { mediaManager } from '../../../utils/mediaManager';
 
 function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const config = getFeatureConfig('bezos');
@@ -23,23 +24,11 @@ function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
       audioRef.current = new Audio(config.audio.file);
       audioRef.current.loop = false;
       audioRef.current.addEventListener('ended', () => {
-        window.dispatchEvent(new Event(config.audio.endEvent));
+        window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
       });
     }
 
-    // Toggle play/pause with proper Promise handling
-    if (audioRef.current.paused) {
-      try {
-        await audioRef.current.play();
-        window.dispatchEvent(new Event(config.audio.playEvent));
-      } catch (error) {
-        console.log('Audio play interrupted:', error);
-      }
-    } else {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      window.dispatchEvent(new Event(config.audio.endEvent));
-    }
+    await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 
   return (
