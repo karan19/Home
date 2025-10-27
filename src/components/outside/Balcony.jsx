@@ -1,16 +1,17 @@
 import React from 'react';
 import * as THREE from 'three';
+import { OUTSIDE } from '../../config/outsideCoordinates';
 
 function Balcony({ position = [0, 3, 2] }) {
+  const { materials: mat, floor, glassRailing, posts, topRail, supportBrackets } = OUTSIDE.balcony;
+
   return (
     <group position={position} name="Balcony">
       {/* Balcony floor platform (lowered to prevent z-fighting with upper floor) */}
-      <mesh position={[0, -0.05, 0]} castShadow receiveShadow>
-        <boxGeometry args={[3, 0.1, 1.5]} />
+      <mesh position={[0, floor.positionY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[floor.width, floor.height, floor.depth]} />
         <meshStandardMaterial 
-          color="#C19A6B" 
-          roughness={0.4} 
-          metalness={0}
+          {...mat.floor}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -18,61 +19,36 @@ function Balcony({ position = [0, 3, 2] }) {
       </mesh>
 
       {/* Glass railing - Front */}
-      <mesh position={[0, 0.5, 0.75]} castShadow receiveShadow>
-        <boxGeometry args={[3, 1, 0.02]} />
-        <meshStandardMaterial 
-          color="#F0F8FF" 
-          transparent 
-          opacity={0.3}
-          roughness={0.1}
-          metalness={0.1}
-        />
+      <mesh position={[0, glassRailing.front.positionY, glassRailing.front.positionZ]} castShadow receiveShadow>
+        <boxGeometry args={[glassRailing.front.width, glassRailing.front.height, glassRailing.front.depth]} />
+        <meshStandardMaterial {...mat.glass} />
       </mesh>
 
       {/* Glass railing - Left side */}
-      <mesh position={[-1.5, 0.5, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.02, 1, 1.5]} />
-        <meshStandardMaterial 
-          color="#F0F8FF" 
-          transparent 
-          opacity={0.3}
-          roughness={0.1}
-          metalness={0.1}
-        />
+      <mesh position={[glassRailing.left.positionX, glassRailing.left.positionY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[glassRailing.left.width, glassRailing.left.height, glassRailing.left.depth]} />
+        <meshStandardMaterial {...mat.glass} />
       </mesh>
 
       {/* Glass railing - Right side */}
-      <mesh position={[1.5, 0.5, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.02, 1, 1.5]} />
-        <meshStandardMaterial 
-          color="#F0F8FF" 
-          transparent 
-          opacity={0.3}
-          roughness={0.1}
-          metalness={0.1}
-        />
+      <mesh position={[glassRailing.right.positionX, glassRailing.right.positionY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[glassRailing.right.width, glassRailing.right.height, glassRailing.right.depth]} />
+        <meshStandardMaterial {...mat.glass} />
       </mesh>
 
       {/* Metal posts (4 corners) */}
-      {[
-        [-1.5, 0.5, -0.75],
-        [1.5, 0.5, -0.75],
-        [-1.5, 0.5, 0.75],
-        [1.5, 0.5, 0.75]
-      ].map((pos, i) => (
+      {posts.positions.map((pos, i) => (
         <mesh key={i} position={pos} castShadow>
-          <cylinderGeometry args={[0.03, 0.03, 1, 8]} />
-          <meshStandardMaterial color="#808080" roughness={0.3} metalness={0.7} />
+          <cylinderGeometry args={[posts.radius, posts.radius, posts.height, posts.segments]} />
+          <meshStandardMaterial {...mat.metal} />
         </mesh>
       ))}
 
       {/* Top rail (metal) - Front */}
-      <mesh position={[0, 1, 0.75]} castShadow>
-        <boxGeometry args={[3, 0.05, 0.05]} />
+      <mesh position={[0, topRail.front.positionY, topRail.front.positionZ]} castShadow>
+        <boxGeometry args={[topRail.front.width, topRail.front.height, topRail.front.depth]} />
         <meshStandardMaterial 
-          color="#808080" 
-          roughness={0.3} 
-          metalness={0.7}
+          {...mat.metal}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -80,12 +56,10 @@ function Balcony({ position = [0, 3, 2] }) {
       </mesh>
 
       {/* Top rail (metal) - Left */}
-      <mesh position={[-1.5, 1, 0]} castShadow>
-        <boxGeometry args={[0.05, 0.05, 1.5]} />
+      <mesh position={[topRail.left.positionX, topRail.left.positionY, 0]} castShadow>
+        <boxGeometry args={[topRail.left.width, topRail.left.height, topRail.left.depth]} />
         <meshStandardMaterial 
-          color="#808080" 
-          roughness={0.3} 
-          metalness={0.7}
+          {...mat.metal}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -93,12 +67,10 @@ function Balcony({ position = [0, 3, 2] }) {
       </mesh>
 
       {/* Top rail (metal) - Right */}
-      <mesh position={[1.5, 1, 0]} castShadow>
-        <boxGeometry args={[0.05, 0.05, 1.5]} />
+      <mesh position={[topRail.right.positionX, topRail.right.positionY, 0]} castShadow>
+        <boxGeometry args={[topRail.right.width, topRail.right.height, topRail.right.depth]} />
         <meshStandardMaterial 
-          color="#808080" 
-          roughness={0.3} 
-          metalness={0.7}
+          {...mat.metal}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -106,10 +78,10 @@ function Balcony({ position = [0, 3, 2] }) {
       </mesh>
 
       {/* Support brackets (under platform) */}
-      {[-1, 0, 1].map((x, i) => (
-        <mesh key={i} position={[x, -0.15, 0]} castShadow>
-          <boxGeometry args={[0.1, 0.2, 1.5]} />
-          <meshStandardMaterial color="#808080" roughness={0.4} metalness={0.6} />
+      {supportBrackets.xPositions.map((x, i) => (
+        <mesh key={i} position={[x, supportBrackets.positionY, 0]} castShadow>
+          <boxGeometry args={[supportBrackets.width, supportBrackets.height, supportBrackets.depth]} />
+          <meshStandardMaterial {...mat.support} />
         </mesh>
       ))}
 

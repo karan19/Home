@@ -1,76 +1,57 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
+import { DECORATIONS } from '../../../config/upperFloorCoordinates';
 
 function DrawerTable({ position = [0, 0, 0] }) {
-  const tableWidth = 0.4;
-  const tableHeight = 0.5;
-  const tableDepth = 0.4;
-  
-  // Wood material
-  const woodMaterial = {
-    color: 0x8B4513,
-    roughness: 0.7,
-    metalness: 0.1
-  };
+  const { dimensions, materials: mat, cabinetBody, drawerFront, handle, tabletopTrim } = DECORATIONS.drawerTable;
+  const { tableWidth, tableHeight, tableDepth } = dimensions;
 
   return (
     <group position={position} name="Furniture_DrawerTable">
       {/* Main cabinet body */}
       <RoundedBox
         args={[tableWidth, tableHeight, tableDepth]}
-        radius={0.01}
-        smoothness={4}
+        radius={cabinetBody.radius}
+        smoothness={cabinetBody.smoothness}
         position={[0, tableHeight / 2, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial {...woodMaterial} />
+        <meshStandardMaterial {...mat.wood} />
       </RoundedBox>
 
       {/* Drawer front (slightly lighter wood) */}
       <RoundedBox
-        args={[tableWidth - 0.04, tableHeight * 0.3, 0.02]}
-        radius={0.005}
-        smoothness={4}
-        position={[0, tableHeight * 0.35, tableDepth / 2 + 0.01]}
+        args={[tableWidth - drawerFront.widthOffset, tableHeight * drawerFront.heightFactor, drawerFront.depth]}
+        radius={drawerFront.radius}
+        smoothness={drawerFront.smoothness}
+        position={[0, tableHeight * drawerFront.yFactor, tableDepth / 2 + drawerFront.zOffset]}
         castShadow
       >
-        <meshStandardMaterial
-          color={0xA0522D}
-          roughness={0.6}
-          metalness={0.1}
-        />
+        <meshStandardMaterial {...mat.drawerFront} />
       </RoundedBox>
 
       {/* Drawer handle (metal) */}
       <RoundedBox
-        args={[0.08, 0.015, 0.02]}
-        radius={0.003}
-        smoothness={4}
-        position={[0, tableHeight * 0.35, tableDepth / 2 + 0.03]}
+        args={[handle.width, handle.height, handle.depth]}
+        radius={handle.radius}
+        smoothness={handle.smoothness}
+        position={[0, tableHeight * handle.yFactor, tableDepth / 2 + handle.zOffset]}
         castShadow
       >
-        <meshStandardMaterial
-          color={0xC0C0C0}
-          roughness={0.3}
-          metalness={0.8}
-        />
+        <meshStandardMaterial {...mat.handle} />
       </RoundedBox>
 
       {/* Tabletop edge detail (darker wood trim) */}
       <RoundedBox
-        args={[tableWidth + 0.02, 0.03, tableDepth + 0.02]}
-        radius={0.005}
-        smoothness={4}
+        args={[tableWidth + tabletopTrim.widthOffset, tabletopTrim.height, tableDepth + tabletopTrim.depthOffset]}
+        radius={tabletopTrim.radius}
+        smoothness={tabletopTrim.smoothness}
         position={[0, tableHeight, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial
-          color={0x654321}
-          roughness={0.6}
-          metalness={0.1}
-        />
+        <meshStandardMaterial {...mat.trim} />
       </RoundedBox>
     </group>
   );

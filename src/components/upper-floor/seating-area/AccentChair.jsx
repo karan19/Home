@@ -1,56 +1,61 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
+import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
 
 function AccentChair({ position = [0, 0, 0], rotation = 0 }) {
+  // Determine which chair config to use based on position
+  const chairConfig = position[0] === 0 ? SEATING_AREA.accentChair1 : SEATING_AREA.accentChair2;
+  const { material, mainCushion, backrest, armrest } = chairConfig;
+
   return (
     <group position={position} rotation={[0, rotation, 0]} name="Accent_Chair">
       {/* Main cushion body (base + seat combined) */}
       <RoundedBox 
-        args={[0.6, 0.52, 0.6]} 
-        radius={0.08} 
-        smoothness={4}
-        position={[0, 0.26, 0]} 
+        args={[mainCushion.width, mainCushion.height, mainCushion.depth]} 
+        radius={mainCushion.radius} 
+        smoothness={mainCushion.smoothness}
+        position={[0, mainCushion.positionY, 0]} 
         castShadow 
         receiveShadow
       >
-        <meshStandardMaterial color="#808080" roughness={0.7} metalness={0} />
+        <meshStandardMaterial {...material} />
       </RoundedBox>
 
       {/* Backrest cushion (slanted, attached to seat) */}
       <RoundedBox 
-        args={[0.6, 0.5, 0.12]} 
-        radius={0.05} 
-        smoothness={4}
-        position={[0, 0.65, -0.28]} 
-        rotation={[-0.2, 0, 0]}
+        args={[backrest.width, backrest.height, backrest.depth]} 
+        radius={backrest.radius} 
+        smoothness={backrest.smoothness}
+        position={[0, backrest.positionY, backrest.positionZ]} 
+        rotation={[backrest.rotationX, 0, 0]}
         castShadow 
         receiveShadow
       >
-        <meshStandardMaterial color="#808080" roughness={0.7} metalness={0} />
+        <meshStandardMaterial {...material} />
       </RoundedBox>
 
       {/* Cushioned armrests (merged with seat) */}
       <RoundedBox 
-        args={[0.12, 0.4, 0.55]} 
-        radius={0.06} 
-        smoothness={4}
-        position={[-0.31, 0.45, 0]} 
+        args={[armrest.width, armrest.height, armrest.depth]} 
+        radius={armrest.radius} 
+        smoothness={armrest.smoothness}
+        position={[armrest.leftPositionX, armrest.positionY, 0]} 
         castShadow 
         receiveShadow
       >
-        <meshStandardMaterial color="#808080" roughness={0.7} metalness={0} />
+        <meshStandardMaterial {...material} />
       </RoundedBox>
 
       <RoundedBox 
-        args={[0.12, 0.4, 0.55]} 
-        radius={0.06} 
-        smoothness={4}
-        position={[0.31, 0.45, 0]} 
+        args={[armrest.width, armrest.height, armrest.depth]} 
+        radius={armrest.radius} 
+        smoothness={armrest.smoothness}
+        position={[armrest.rightPositionX, armrest.positionY, 0]} 
         castShadow 
         receiveShadow
       >
-        <meshStandardMaterial color="#808080" roughness={0.7} metalness={0} />
+        <meshStandardMaterial {...material} />
       </RoundedBox>
     </group>
   );

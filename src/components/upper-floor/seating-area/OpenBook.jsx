@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
 
 function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const config = getFeatureConfig('bezos');
+  const { materials: mat, leftPage, rightPage, binding, cover, pageStack } = SEATING_AREA.openBook;
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef(null);
 
@@ -51,77 +53,57 @@ function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
     >
       {/* Left page */}
       <RoundedBox
-        args={[0.11, 0.02, 0.16]}
-        radius={0.002}
-        smoothness={4}
-        position={[-0.055, 0, 0]}
-        rotation={[0, -0.12, 0]}
+        args={[leftPage.width, leftPage.height, leftPage.depth]}
+        radius={leftPage.radius}
+        smoothness={leftPage.smoothness}
+        position={[leftPage.positionX, 0, 0]}
+        rotation={[0, leftPage.rotationY, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial
-          color={0xFFFAF0}
-          roughness={0.9}
-          metalness={0.0}
-        />
+        <meshStandardMaterial {...mat.page} />
       </RoundedBox>
 
       {/* Right page */}
       <RoundedBox
-        args={[0.11, 0.02, 0.16]}
-        radius={0.002}
-        smoothness={4}
-        position={[0.055, 0, 0]}
-        rotation={[0, 0.12, 0]}
+        args={[rightPage.width, rightPage.height, rightPage.depth]}
+        radius={rightPage.radius}
+        smoothness={rightPage.smoothness}
+        position={[rightPage.positionX, 0, 0]}
+        rotation={[0, rightPage.rotationY, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial
-          color={0xFFFAF0}
-          roughness={0.9}
-          metalness={0.0}
-        />
+        <meshStandardMaterial {...mat.page} />
       </RoundedBox>
 
       {/* Spiral binding (metal coils) */}
-      {Array.from({ length: 15 }).map((_, i) => {
-        const z = -0.07 + i * 0.01;
+      {Array.from({ length: binding.count }).map((_, i) => {
+        const z = binding.startZ + i * binding.spacing;
         return (
-          <mesh key={i} position={[0, 0.01, z]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-            <torusGeometry args={[0.006, 0.001, 8, 12]} />
-            <meshStandardMaterial
-              color={0xC0C0C0}
-              roughness={0.3}
-              metalness={0.8}
-            />
+          <mesh key={i} position={[0, binding.positionY, z]} rotation={[binding.rotationX, 0, 0]} castShadow>
+            <torusGeometry args={[binding.radius, binding.tube, binding.radialSegments, binding.tubularSegments]} />
+            <meshStandardMaterial {...mat.binding} />
           </mesh>
         );
       })}
 
       {/* Cardboard cover (bottom) */}
       <RoundedBox
-        args={[0.23, 0.004, 0.165]}
-        radius={0.003}
-        smoothness={4}
-        position={[0, -0.012, 0]}
+        args={[cover.width, cover.height, cover.depth]}
+        radius={cover.radius}
+        smoothness={cover.smoothness}
+        position={[0, cover.positionY, 0]}
         castShadow
         receiveShadow
       >
-        <meshStandardMaterial
-          color={0x8B7355}
-          roughness={0.8}
-          metalness={0.0}
-        />
+        <meshStandardMaterial {...mat.cover} />
       </RoundedBox>
 
       {/* Page stack (shows thickness) */}
-      <mesh position={[0, -0.005, 0]} castShadow>
-        <boxGeometry args={[0.22, 0.015, 0.16]} />
-        <meshStandardMaterial
-          color={0xFFFAF0}
-          roughness={0.9}
-          metalness={0.0}
-        />
+      <mesh position={[0, pageStack.positionY, 0]} castShadow>
+        <boxGeometry args={[pageStack.width, pageStack.height, pageStack.depth]} />
+        <meshStandardMaterial {...mat.page} />
       </mesh>
     </group>
   );

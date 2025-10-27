@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { DECORATIONS } from '../../../config/upperFloorCoordinates';
 
 function WallClock({ position = [0, 2, -3.6], scale = 1 }) {
+  const { materials: mat, frame, text, glow } = DECORATIONS.wallClock;
   const [time, setTime] = useState('00:00:00');
 
   // Update time every frame
@@ -23,15 +25,15 @@ function WallClock({ position = [0, 2, -3.6], scale = 1 }) {
     <group position={position} name="Digital_Clock">
       {/* Clock frame/background */}
       <mesh castShadow receiveShadow>
-        <boxGeometry args={[0.6 * scale, 0.25 * scale, 0.05]} />
-        <meshStandardMaterial color="#1C1C1C" roughness={0.3} metalness={0.2} />
+        <boxGeometry args={[frame.widthScale * scale, frame.heightScale * scale, frame.depth]} />
+        <meshStandardMaterial {...mat.frame} />
       </mesh>
 
       {/* Digital display */}
       <Text
-        position={[0, 0, 0.03]}
-        fontSize={0.12 * scale}
-        color="#00FF00"
+        position={[0, 0, text.positionZ]}
+        fontSize={text.fontSizeScale * scale}
+        color={mat.textColor}
         anchorX="center"
         anchorY="middle"
       >
@@ -39,15 +41,9 @@ function WallClock({ position = [0, 2, -3.6], scale = 1 }) {
       </Text>
 
       {/* Glow effect behind text */}
-      <mesh position={[0, 0, 0.026]}>
-        <boxGeometry args={[0.55 * scale, 0.18 * scale, 0.001]} />
-        <meshStandardMaterial 
-          color="#003300"
-          emissive="#00FF00"
-          emissiveIntensity={0.2}
-          transparent
-          opacity={0.3}
-        />
+      <mesh position={[0, 0, glow.positionZ]}>
+        <boxGeometry args={[glow.widthScale * scale, glow.heightScale * scale, glow.depth]} />
+        <meshStandardMaterial {...mat.glow} />
       </mesh>
     </group>
   );

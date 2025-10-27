@@ -1,102 +1,86 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
+import { BEDROOM } from '../../../config/upperFloorCoordinates';
 
 function Bed({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
+  const { materials: mat, frame, mattress, blanket, pillows, legs } = BEDROOM.bed;
+
   return (
     <group position={position} rotation={rotation} name="Bed">
       {/* Bed Frame Base */}
-      <mesh position={[0, 0.25, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.8, 0.5, 2]} />
-        <meshStandardMaterial color="#D2B48C" roughness={0.4} metalness={0} />
+      <mesh position={[0, frame.positionY, 0]} castShadow receiveShadow>
+        <boxGeometry args={[frame.width, frame.height, frame.depth]} />
+        <meshStandardMaterial {...mat.frame} />
       </mesh>
 
       {/* Mattress/Cushion - with rounded corners */}
       <RoundedBox 
-        args={[1.7, 0.3, 1.9]} 
-        radius={0.05} 
-        smoothness={4}
-        position={[0, 0.55, 0]} 
+        args={[mattress.width, mattress.height, mattress.depth]} 
+        radius={mattress.radius} 
+        smoothness={mattress.smoothness}
+        position={[0, mattress.positionY, 0]} 
         castShadow 
         receiveShadow
       >
-        <meshStandardMaterial color="#FFFFFF" roughness={0.7} metalness={0} />
+        <meshStandardMaterial {...mat.mattress} />
       </RoundedBox>
 
       {/* Blanket - Folded and Flowing Design */}
       {/* Main blanket body - draped over bed */}
-      <mesh position={[0, 0.72, 0.3]} rotation={[0.1, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.5, 0.05, 1.2]} />
-        <meshStandardMaterial color="#808080" roughness={0.6} metalness={0} />
+      <mesh position={[0, blanket.mainBody.positionY, blanket.mainBody.positionZ]} rotation={[blanket.mainBody.rotationX, 0, 0]} castShadow receiveShadow>
+        <boxGeometry args={[blanket.mainBody.width, blanket.mainBody.height, blanket.mainBody.depth]} />
+        <meshStandardMaterial {...mat.blanket} />
       </mesh>
 
       {/* Blanket fold 1 - creates wave effect */}
-      <mesh position={[0, 0.75, -0.1]} rotation={[-0.15, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.5, 0.05, 0.4]} />
-        <meshStandardMaterial color="#808080" roughness={0.6} metalness={0} />
+      <mesh position={[0, blanket.fold1.positionY, blanket.fold1.positionZ]} rotation={[blanket.fold1.rotationX, 0, 0]} castShadow receiveShadow>
+        <boxGeometry args={[blanket.fold1.width, blanket.fold1.height, blanket.fold1.depth]} />
+        <meshStandardMaterial {...mat.blanket} />
       </mesh>
 
       {/* Blanket fold 2 - another wave */}
-      <mesh position={[0, 0.78, -0.4]} rotation={[0.1, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.5, 0.05, 0.3]} />
-        <meshStandardMaterial color="#808080" roughness={0.6} metalness={0} />
+      <mesh position={[0, blanket.fold2.positionY, blanket.fold2.positionZ]} rotation={[blanket.fold2.rotationX, 0, 0]} castShadow receiveShadow>
+        <boxGeometry args={[blanket.fold2.width, blanket.fold2.height, blanket.fold2.depth]} />
+        <meshStandardMaterial {...mat.blanket} />
       </mesh>
 
       {/* Blanket edge - draped over side */}
-      <mesh position={[0.7, 0.65, 0.5]} rotation={[0, 0, -0.3]} castShadow receiveShadow>
-        <boxGeometry args={[0.15, 0.05, 0.8]} />
-        <meshStandardMaterial color="#808080" roughness={0.6} metalness={0} />
+      <mesh position={[blanket.edge.positionX, blanket.edge.positionY, blanket.edge.positionZ]} rotation={[0, 0, blanket.edge.rotationZ]} castShadow receiveShadow>
+        <boxGeometry args={[blanket.edge.width, blanket.edge.height, blanket.edge.depth]} />
+        <meshStandardMaterial {...mat.blanket} />
       </mesh>
 
       {/* Blanket corner fold - adds asymmetry */}
-      <mesh position={[-0.6, 0.73, 0.6]} rotation={[0.2, 0.3, 0.1]} castShadow receiveShadow>
-        <boxGeometry args={[0.3, 0.05, 0.3]} />
-        <meshStandardMaterial color="#808080" roughness={0.6} metalness={0} />
+      <mesh position={[blanket.corner.positionX, blanket.corner.positionY, blanket.corner.positionZ]} rotation={[blanket.corner.rotationX, blanket.corner.rotationY, blanket.corner.rotationZ]} castShadow receiveShadow>
+        <boxGeometry args={[blanket.corner.width, blanket.corner.height, blanket.corner.depth]} />
+        <meshStandardMaterial {...mat.blanket} />
       </mesh>
 
-      {/* Pillow 1 - Conventional rectangular with rounded edges */}
-      {/* Main pillow body */}
-      <mesh position={[-0.4, 0.78, -0.7]} rotation={[-0.05, 0, -0.05]} castShadow receiveShadow>
-        <boxGeometry args={[0.5, 0.15, 0.35]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.7} metalness={0} />
-      </mesh>
-      
-      {/* Pillow 1 - soft rounded top */}
-      <mesh position={[-0.4, 0.85, -0.7]} rotation={[-0.05, 0, -0.05]} castShadow receiveShadow>
-        <boxGeometry args={[0.48, 0.08, 0.33]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.7} metalness={0} />
-      </mesh>
-
-      {/* Pillow 2 - Conventional rectangular with rounded edges */}
-      {/* Main pillow body */}
-      <mesh position={[0.4, 0.78, -0.7]} rotation={[-0.05, 0, 0.05]} castShadow receiveShadow>
-        <boxGeometry args={[0.5, 0.15, 0.35]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.7} metalness={0} />
-      </mesh>
-      
-      {/* Pillow 2 - soft rounded top */}
-      <mesh position={[0.4, 0.85, -0.7]} rotation={[-0.05, 0, 0.05]} castShadow receiveShadow>
-        <boxGeometry args={[0.48, 0.08, 0.33]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.7} metalness={0} />
-      </mesh>
+      {/* Pillows */}
+      {pillows.map((pillow, i) => (
+        <React.Fragment key={i}>
+          {/* Main pillow body */}
+          <mesh position={[pillow.body.positionX, pillow.body.positionY, pillow.body.positionZ]} rotation={[pillow.body.rotationX, 0, pillow.body.rotationZ]} castShadow receiveShadow>
+            <boxGeometry args={[pillow.body.width, pillow.body.height, pillow.body.depth]} />
+            <meshStandardMaterial {...mat.pillow} />
+          </mesh>
+          
+          {/* Pillow soft rounded top */}
+          <mesh position={[pillow.top.positionX, pillow.top.positionY, pillow.top.positionZ]} rotation={[pillow.top.rotationX, 0, pillow.top.rotationZ]} castShadow receiveShadow>
+            <boxGeometry args={[pillow.top.width, pillow.top.height, pillow.top.depth]} />
+            <meshStandardMaterial {...mat.pillow} />
+          </mesh>
+        </React.Fragment>
+      ))}
 
       {/* Bed Legs (4 corners) */}
-      <mesh position={[-0.85, 0.1, -0.95]} castShadow>
-        <boxGeometry args={[0.08, 0.2, 0.08]} />
-        <meshStandardMaterial color="#654321" roughness={0.3} metalness={0} />
-      </mesh>
-      <mesh position={[0.85, 0.1, -0.95]} castShadow>
-        <boxGeometry args={[0.08, 0.2, 0.08]} />
-        <meshStandardMaterial color="#654321" roughness={0.3} metalness={0} />
-      </mesh>
-      <mesh position={[-0.85, 0.1, 0.95]} castShadow>
-        <boxGeometry args={[0.08, 0.2, 0.08]} />
-        <meshStandardMaterial color="#654321" roughness={0.3} metalness={0} />
-      </mesh>
-      <mesh position={[0.85, 0.1, 0.95]} castShadow>
-        <boxGeometry args={[0.08, 0.2, 0.08]} />
-        <meshStandardMaterial color="#654321" roughness={0.3} metalness={0} />
-      </mesh>
+      {legs.positions.map((pos, i) => (
+        <mesh key={i} position={pos} castShadow>
+          <boxGeometry args={[legs.width, legs.height, legs.depth]} />
+          <meshStandardMaterial {...mat.legs} />
+        </mesh>
+      ))}
     </group>
   );
 }

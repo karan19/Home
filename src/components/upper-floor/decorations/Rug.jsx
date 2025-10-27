@@ -1,28 +1,23 @@
 import React from 'react';
 import * as THREE from 'three';
+import { DECORATIONS } from '../../../config/upperFloorCoordinates';
 
 function Rug({ position = [0, 0, 0], width = 2, depth = 2 }) {
+  const { materials: mat, surface, pattern } = DECORATIONS.rug;
+
   return (
     <group position={position} name="Rug">
       {/* Main rug surface */}
-      <mesh position={[0, 0.01, 0]} receiveShadow>
-        <boxGeometry args={[width, 0.01, depth]} />
-        <meshStandardMaterial 
-          color="#8B4513" 
-          roughness={0.9} 
-          metalness={0}
-        />
+      <mesh position={[0, surface.positionY, 0]} receiveShadow>
+        <boxGeometry args={[width, surface.height, depth]} />
+        <meshStandardMaterial {...mat.surface} />
       </mesh>
 
       {/* Rug pattern (simple stripes) */}
-      {[-0.3, 0, 0.3].map((offset, i) => (
-        <mesh key={i} position={[0, 0.015, offset * depth / 2]} receiveShadow>
-          <boxGeometry args={[width * 0.9, 0.005, 0.05]} />
-          <meshStandardMaterial 
-            color="#654321" 
-            roughness={0.9} 
-            metalness={0}
-          />
+      {pattern.offsets.map((offset, i) => (
+        <mesh key={i} position={[0, pattern.positionY, offset * depth / 2]} receiveShadow>
+          <boxGeometry args={[width * pattern.widthFactor, pattern.height, pattern.stripeWidth]} />
+          <meshStandardMaterial {...mat.pattern} />
         </mesh>
       ))}
     </group>

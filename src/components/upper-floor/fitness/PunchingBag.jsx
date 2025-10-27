@@ -2,9 +2,11 @@ import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { FITNESS } from '../../../config/upperFloorCoordinates';
 
 function PunchingBag({ position = [0, 3, 0] }) {
   const config = getFeatureConfig('ali');
+  const { materials: mat, mount, chain, bag, animation } = FITNESS.punchingBag;
   const bagRef = useRef();
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,9 +42,9 @@ function PunchingBag({ position = [0, 3, 0] }) {
 
   useFrame((state) => {
     if (bagRef.current) {
-      const swing = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+      const swing = Math.sin(state.clock.elapsedTime * animation.speed) * animation.swingAmplitude;
       bagRef.current.position.x = baseX + swing;
-      bagRef.current.rotation.z = swing * 0.3;
+      bagRef.current.rotation.z = swing * animation.rotationFactor;
     }
   });
 
@@ -55,21 +57,21 @@ function PunchingBag({ position = [0, 3, 0] }) {
       onPointerOut={(e) => { e.stopPropagation(); document.body.style.cursor = 'default'; }}
     >
       {/* Ceiling mount (touches ceiling at Y=6) */}
-      <mesh position={[0, 3.0, 0]} castShadow>
-        <cylinderGeometry args={[0.05, 0.05, 0.1, 16]} />
-        <meshStandardMaterial color={0x808080} metalness={0.8} roughness={0.3} />
+      <mesh position={[0, mount.positionY, 0]} castShadow>
+        <cylinderGeometry args={[mount.radius, mount.radius, mount.height, mount.segments]} />
+        <meshStandardMaterial {...mat.mount} />
       </mesh>
 
       {/* Chain */}
-      <mesh position={[0, 2.45, 0]} castShadow>
-        <cylinderGeometry args={[0.015, 0.015, 1.1, 8]} />
-        <meshStandardMaterial color={0x606060} metalness={0.9} roughness={0.4} />
+      <mesh position={[0, chain.positionY, 0]} castShadow>
+        <cylinderGeometry args={[chain.radius, chain.radius, chain.height, chain.segments]} />
+        <meshStandardMaterial {...mat.chain} />
       </mesh>
 
       {/* Main bag body with curved edges - smooth cylinder */}
-      <mesh position={[0, 1.4, 0]} castShadow receiveShadow>
-        <capsuleGeometry args={[0.175, 1.0, 16, 32]} />
-        <meshStandardMaterial color={0xFF0000} roughness={0.7} metalness={0.1} />
+      <mesh position={[0, bag.positionY, 0]} castShadow receiveShadow>
+        <capsuleGeometry args={[bag.radius, bag.length, bag.capSegments, bag.radialSegments]} />
+        <meshStandardMaterial {...mat.bag} />
       </mesh>
     </group>
   );

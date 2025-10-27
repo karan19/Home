@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { BEDROOM } from '../../../config/upperFloorCoordinates';
 
 function Pillow({ position = [0, 0, 0] }) {
   const config = getFeatureConfig('jobs');
+  const { size, radius, smoothness, material } = BEDROOM.pillow;
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -37,16 +39,16 @@ function Pillow({ position = [0, 0, 0] }) {
 
   return (
     <RoundedBox
-      args={[0.3, 0.1, 0.3]}
-      radius={0.05}
-      smoothness={4}
+      args={[size.width, size.height, size.depth]}
+      radius={radius}
+      smoothness={smoothness}
       position={position}
       onClick={handleClick}
       onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
       onPointerOut={(e) => { e.stopPropagation(); document.body.style.cursor = 'default'; }}
       castShadow
     >
-      <meshStandardMaterial color={0xF5F5DC} roughness={0.8} />
+      <meshStandardMaterial color={material.color} roughness={material.roughness} />
     </RoundedBox>
   );
 }

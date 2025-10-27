@@ -1,48 +1,42 @@
 import React from 'react';
 import * as THREE from 'three';
+import { KITCHEN } from '../../../config/groundFloorCoordinates';
 
 function BarStool({ position }) {
-  const woodMaterial = new THREE.MeshStandardMaterial({
-    color: 0xD2B48C,
-    roughness: 0.4,
-    metalness: 0.0
-  });
+  const { woodMaterial, legMaterial, seat, leg, footrest } = KITCHEN.barStool;
 
-  const legMaterial = new THREE.MeshStandardMaterial({
-    color: 0x2C2C2C,
-    metalness: 0.5,
-    roughness: 0.4
-  });
+  const woodMat = new THREE.MeshStandardMaterial(woodMaterial);
+  const legMat = new THREE.MeshStandardMaterial(legMaterial);
 
   return (
     <group position={position} name="Kitchen_Stool">
       {/* Seat */}
-      <mesh position={[0, 0.75, 0]} castShadow receiveShadow material={woodMaterial}>
-        <cylinderGeometry args={[0.2, 0.2, 0.05, 16]} />
+      <mesh position={[0, seat.positionY, 0]} castShadow receiveShadow material={woodMat}>
+        <cylinderGeometry args={[seat.radius, seat.radius, seat.height, seat.segments]} />
       </mesh>
 
       {/* Legs (4 legs angled outward) */}
-      {[0, 1, 2, 3].map((i) => {
-        const angle = (i / 4) * Math.PI * 2;
+      {[...Array(leg.count)].map((_, i) => {
+        const angle = (i / leg.count) * Math.PI * 2;
         return (
           <mesh
             key={i}
             position={[
-              Math.cos(angle) * 0.15,
-              0.375,
-              Math.sin(angle) * 0.15
+              Math.cos(angle) * leg.radialDistance,
+              leg.positionY,
+              Math.sin(angle) * leg.radialDistance
             ]}
             castShadow
-            material={legMaterial}
+            material={legMat}
           >
-            <cylinderGeometry args={[0.02, 0.025, 0.75, 8]} />
+            <cylinderGeometry args={[leg.radiusTop, leg.radiusBottom, leg.height, leg.segments]} />
           </mesh>
         );
       })}
 
       {/* Footrest ring */}
-      <mesh position={[0, 0.3, 0]} rotation={[Math.PI / 2, 0, 0]} material={legMaterial}>
-        <torusGeometry args={[0.15, 0.015, 8, 16]} />
+      <mesh position={[0, footrest.positionY, 0]} rotation={[footrest.rotationX, 0, 0]} material={legMat}>
+        <torusGeometry args={[footrest.radius, footrest.tube, footrest.radialSegments, footrest.tubularSegments]} />
       </mesh>
     </group>
   );

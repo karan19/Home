@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { DECORATIONS } from '../../../config/upperFloorCoordinates';
 
 function BluetoothSpeaker({ position = [0, 0, 0] }) {
+  const { materials: mat, body, light, animation } = DECORATIONS.bluetoothSpeaker;
   const lightRef = useRef();
 
   // Blinking animation
@@ -9,8 +11,8 @@ function BluetoothSpeaker({ position = [0, 0, 0] }) {
     if (lightRef.current) {
       // Blink every second (smooth sine wave)
       const time = state.clock.elapsedTime;
-      const intensity = Math.sin(time * 3) * 0.5 + 0.5; // Oscillates 0-1
-      lightRef.current.material.emissiveIntensity = intensity * 2;
+      const intensity = Math.sin(time * animation.speed) * 0.5 + 0.5; // Oscillates 0-1
+      lightRef.current.material.emissiveIntensity = intensity * animation.intensityMultiplier;
     }
   });
 
@@ -18,22 +20,14 @@ function BluetoothSpeaker({ position = [0, 0, 0] }) {
     <group position={position} name="Furniture_BluetoothSpeaker">
       {/* Main cylindrical body */}
       <mesh castShadow receiveShadow>
-        <cylinderGeometry args={[0.05, 0.05, 0.15, 32]} />
-        <meshStandardMaterial
-          color={0x2C2C2C}
-          roughness={0.6}
-          metalness={0.3}
-        />
+        <cylinderGeometry args={[body.radius, body.radius, body.height, body.segments]} />
+        <meshStandardMaterial {...mat.body} />
       </mesh>
 
       {/* Blinking light on top */}
-      <mesh ref={lightRef} position={[0, 0.08, 0]}>
-        <sphereGeometry args={[0.008, 16, 16]} />
-        <meshStandardMaterial
-          color={0x0080FF}
-          emissive={0x0080FF}
-          emissiveIntensity={2}
-        />
+      <mesh ref={lightRef} position={[0, light.positionY, 0]}>
+        <sphereGeometry args={[light.radius, light.segments, light.segments]} />
+        <meshStandardMaterial {...mat.light} />
       </mesh>
     </group>
   );
