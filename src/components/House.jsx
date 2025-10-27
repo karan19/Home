@@ -5,6 +5,7 @@ import Structure from './Structure';
 import Stairs from './Stairs';
 import Furniture from './Furniture';
 import InteriorLights from './InteriorLights';
+import VideoRoofAnimation from './VideoRoofAnimation';
 // Outside components
 import Balcony from './outside/Balcony';
 import Compound from './outside/Compound';
@@ -60,6 +61,9 @@ function House({ onPolyCountUpdate, dayMode = false }) {
 
       {/* Rolled Newspaper with Physics */}
       <RolledNewspaper />
+
+      {/* Video Texture on Roof - Hardware accelerated, excellent performance */}
+      <VideoRoofAnimation />
     </group>
   );
 }
