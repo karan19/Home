@@ -11,6 +11,8 @@ import Balcony from './outside/Balcony';
 import Compound from './outside/Compound';
 import FlyingPaper from './outside/FlyingPaper';
 import RolledNewspaper from './outside/RolledNewspaper';
+// Outside coordinates
+import { OUTSIDE } from '../config/outsideCoordinates';
 
 function House({ onPolyCountUpdate, showFloorGrids = false, showWallGrids = false, dayMode = false }) {
   const groupRef = useRef();
@@ -49,7 +51,7 @@ function House({ onPolyCountUpdate, showFloorGrids = false, showWallGrids = fals
       <Furniture />
 
       {/* Balcony on upper floor (hanging from front edge) */}
-      <Balcony position={[0.9, 3, 4.5]} />
+      <Balcony position={OUTSIDE.balcony.position} />
 
       {/* Grid System - Floor and Wall Grids */}
       <GridSystem showFloorGrids={showFloorGrids} showWallGrids={showWallGrids} />

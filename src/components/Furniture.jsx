@@ -1,4 +1,8 @@
 import React from 'react';
+// Coordinate Configurations
+import { ENTERTAINMENT, LIVING_ROOM, KITCHEN } from '../config/groundFloorCoordinates';
+import { BEDROOM, OFFICE, SEATING_AREA, FITNESS, DECORATIONS } from '../config/upperFloorCoordinates';
+
 // Ground Floor - Kitchen
 import KitchenIsland from './ground-floor/kitchen/KitchenIsland';
 import Kitchen from './ground-floor/kitchen/Kitchen';
@@ -56,35 +60,35 @@ function Furniture() {
       <group name="Furniture_GroundLevel">
         <group name="Kitchen">
           {/* Kitchen Island with bar stools */}
-          <KitchenIsland position={[-1.5, 0, -1.5]} />
+          <KitchenIsland position={KITCHEN.kitchenIsland.position} />
           
           {/* Kitchen counter with stove, sink, and toaster (behind island) */}
-          <Kitchen position={[-1.75, 0, -3.5]} />
+          <Kitchen position={KITCHEN.kitchen.position} />
           
           {/* French door refrigerator (left side of cabinets) */}
-          <Refrigerator position={[-3.5, 0, -3.5]} />
+          <Refrigerator position={KITCHEN.refrigerator.position} />
         </group>
         <group name="Living">
           {/* Sofa with rounded cushions */}
-          <Sofa position={[1.5, 0, 1]} />
+          <Sofa position={LIVING_ROOM.sofa.position} />
           
           {/* Coffee table between sofa and TV */}
-          <CoffeeTable position={[1.5, 0, 2.3]} />
+          <CoffeeTable position={LIVING_ROOM.coffeeTable.position} />
           
           {/* TV Table with 4 legs */}
-          <TVTable position={[1.5, 0, 3.7]} />
+          <TVTable position={ENTERTAINMENT.tvTable.position} />
           
           {/* TV on table (near front wall) */}
-          <TV position={[1.5, 0.875, 3.7]} rotation={[0, Math.PI, 0]} />
+          <TV position={ENTERTAINMENT.tv.position} rotation={ENTERTAINMENT.tv.rotation} />
           
           {/* PlayStation console (on table) */}
-          <PlayStation position={[1.5, 0.525, 3.6]} />
+          <PlayStation position={ENTERTAINMENT.playstation.position} />
           
           {/* PS Controller (on sofa) */}
-          <PSController position={[1.3, 0.5, 1.2]} rotation={[0, 0.3, 0]} />
+          <PSController position={ENTERTAINMENT.psController.position} rotation={ENTERTAINMENT.psController.rotation} />
           
           {/* Barcelona Crest on right wall */}
-          <BarcelonaCrest position={[3.7, 1.5, 1]} rotation={[0, -Math.PI / 2, 0]} />
+          <BarcelonaCrest position={LIVING_ROOM.barcelonaCrest.position} rotation={LIVING_ROOM.barcelonaCrest.rotation} />
           
           {/* Messi Poster on right wall (appears when TV plays) */}
           <MessiPoster />
@@ -93,24 +97,24 @@ function Furniture() {
           <AliPoster />
           
           {/* Bookshelf in back-right corner, against back wall, facing TV */}
-          <Bookshelf position={[3.25, 0, -3.55]} rotation={[0, 0, 0]} />
+          <Bookshelf position={LIVING_ROOM.bookshelf.position} rotation={LIVING_ROOM.bookshelf.rotation} />
           
           {/* Water cooler at K16 (pulled forward from back wall) */}
-          <WaterCooler position={[1.25, 0, -3.55]} />
+          <WaterCooler position={KITCHEN.waterCooler.position} />
           
           {/* Coffee station table at I16 (pulled forward to avoid wall) */}
-          <CoffeeStationTable position={[0.25, 0, -3.4]} />
+          <CoffeeStationTable position={KITCHEN.coffeeStationTable.position} />
           
           {/* Coffee machine on table at I16 */}
-          <CoffeeMachine position={[0.25, 0.825, -3.4]} />
+          <CoffeeMachine position={KITCHEN.coffeeMachine.position} />
         </group>
       </group>
       <group name="Furniture_UpperLevel">
         {/* Bed in back-right corner (where back wall meets right wall) */}
-        <Bed position={[2.5, 3, -2.5]} rotation={[0, 0, 0]} />
+        <Bed position={BEDROOM.bed.position} rotation={BEDROOM.bed.rotation} />
         
         {/* Pillow on bed (clickable for Steve Jobs audio) */}
-        <Pillow position={[2.5, 3.9, -2.3]} />
+        <Pillow position={BEDROOM.pillow.position} />
         
         {/* Jobs Poster on right wall (appears when pillow is clicked) */}
         <JobsPoster />
@@ -122,35 +126,35 @@ function Furniture() {
         <BezosPost />
         
         {/* Work desk with MacBook, monitor, and chair (against left wall) */}
-        <WorkDesk position={[-3, 3, -2]} rotation={Math.PI / 2} />
+        <WorkDesk position={OFFICE.workDesk.position} rotation={OFFICE.workDesk.rotation} />
         
         {/* Seating area on upper landing (chairs facing each other) */}
-        <AccentChair position={[0, 3, 1]} rotation={Math.PI / 2} />
-        <SmallTable position={[1, 3, 1]} />
-        <AccentChair position={[2, 3, 1]} rotation={-Math.PI / 2} />
+        <AccentChair position={SEATING_AREA.accentChair1.position} rotation={SEATING_AREA.accentChair1.rotation} />
+        <SmallTable position={SEATING_AREA.smallTable.position} />
+        <AccentChair position={SEATING_AREA.accentChair2.position} rotation={SEATING_AREA.accentChair2.rotation} />
         
         {/* Blog writing setup on small table (J6-K7 area) */}
-        <OpenBook position={[0.95, 3.525, 1.05]} rotation={[0, 0.3, 0]} />
-        <Pen position={[1.08, 3.525, 0.95]} rotation={[0, 0, Math.PI / 2.2]} />
+        <OpenBook position={SEATING_AREA.openBook.position} rotation={SEATING_AREA.openBook.rotation} />
+        <Pen position={SEATING_AREA.pen.position} rotation={SEATING_AREA.pen.rotation} />
         
         {/* Potted plants (in square C1, side by side) */}
-        <PottedPlant position={[-1.7, 3, 3.5]} height={1.2} />
-        <PottedPlant position={[-1.3, 3, 3.5]} height={1} />
+        <PottedPlant position={DECORATIONS.pottedPlant1.position} height={DECORATIONS.pottedPlant1.height} />
+        <PottedPlant position={DECORATIONS.pottedPlant2.position} height={DECORATIONS.pottedPlant2.height} />
         
         {/* Rug on upper floor (covers D7, E7, D6, E6 - all 4 squares) */}
-        <Rug position={[-0.5, 3, -2.5]} width={2} depth={2} />
+        <Rug position={DECORATIONS.rug.position} width={DECORATIONS.rug.width} depth={DECORATIONS.rug.depth} />
         
         {/* Wall clock (at G11 on back wall, upper floor) */}
-        <WallClock position={[-0.5, 5.25, -3.6]} scale={1} />
+        <WallClock position={DECORATIONS.wallClock.position} scale={DECORATIONS.wallClock.scale} />
         
         {/* Drawer table at A15 (upper floor, back-left corner) */}
-        <DrawerTable position={[-3.75, 3, -3.25]} />
+        <DrawerTable position={DECORATIONS.drawerTable.position} />
         
         {/* Bluetooth speaker on drawer table */}
-        <BluetoothSpeaker position={[-3.75, 3.6, -3.25]} />
+        <BluetoothSpeaker position={DECORATIONS.bluetoothSpeaker.position} />
         
         {/* Punching bag at N2 (upper floor, front area) */}
-        <PunchingBag position={[2.75, 3, 3.25]} />
+        <PunchingBag position={FITNESS.punchingBag.position} />
       </group>
     </group>
   );
