@@ -4,7 +4,6 @@ import * as THREE from 'three';
 import Structure from './Structure';
 import Stairs from './Stairs';
 import Furniture from './Furniture';
-import GridSystem from './GridSystem';
 import InteriorLights from './InteriorLights';
 // Outside components
 import Balcony from './outside/Balcony';
@@ -14,7 +13,7 @@ import RolledNewspaper from './outside/RolledNewspaper';
 // Outside coordinates
 import { OUTSIDE } from '../config/outsideCoordinates';
 
-function House({ onPolyCountUpdate, showFloorGrids = false, showWallGrids = false, dayMode = false }) {
+function House({ onPolyCountUpdate, dayMode = false }) {
   const groupRef = useRef();
   const { scene } = useThree();
 
@@ -52,9 +51,6 @@ function House({ onPolyCountUpdate, showFloorGrids = false, showWallGrids = fals
 
       {/* Balcony on upper floor (hanging from front edge) */}
       <Balcony position={OUTSIDE.balcony.position} />
-
-      {/* Grid System - Floor and Wall Grids */}
-      <GridSystem showFloorGrids={showFloorGrids} showWallGrids={showWallGrids} />
 
       {/* Interior Lights - Only active in night mode */}
       <InteriorLights active={!dayMode} />

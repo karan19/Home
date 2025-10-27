@@ -5,11 +5,10 @@ import { Physics } from '@react-three/rapier';
 import * as THREE from 'three';
 import House from './components/House';
 import UI from './components/UI';
+import CoordinateExplorer from './components/CoordinateExplorer';
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
-  const [showFloorGrids, setShowFloorGrids] = useState(false);
-  const [showWallGrids, setShowWallGrids] = useState(false);
   
   // Initialize dayMode based on current time
   const [dayMode, setDayMode] = useState(() => {
@@ -18,6 +17,10 @@ function App() {
   });
   
   const [polyCount, setPolyCount] = useState(0);
+  
+  // Coordinate Explorer state
+  const [previewPosition, setPreviewPosition] = useState({ x: 0, y: 0, z: 0 });
+  const [placedMarkers, setPlacedMarkers] = useState([]);
 
   // Auto-update theme based on time of day
   useEffect(() => {
@@ -100,11 +103,15 @@ function App() {
           {/* House Model */}
           <House 
             onPolyCountUpdate={setPolyCount}
-            showFloorGrids={showFloorGrids}
-            showWallGrids={showWallGrids}
             dayMode={dayMode}
           />
         </Physics>
+
+        {/* Coordinate Explorer with Markers */}
+        <CoordinateExplorer 
+          previewPosition={previewPosition}
+          placedMarkers={placedMarkers}
+        />
       </Canvas>
 
       {/* UI Overlay */}
@@ -112,12 +119,21 @@ function App() {
         polyCount={polyCount}
         showGrid={showGrid}
         onToggleGrid={() => setShowGrid(!showGrid)}
-        showFloorGrids={showFloorGrids}
-        onToggleFloorGrids={() => setShowFloorGrids(!showFloorGrids)}
-        showWallGrids={showWallGrids}
-        onToggleWallGrids={() => setShowWallGrids(!showWallGrids)}
         dayMode={dayMode}
         onToggleDayMode={() => setDayMode(!dayMode)}
+        previewPosition={previewPosition}
+        onPreviewPositionChange={setPreviewPosition}
+        placedMarkers={placedMarkers}
+        onPlaceMarker={() => {
+          setPlacedMarkers([...placedMarkers, { 
+            id: Date.now(), 
+            ...previewPosition 
+          }]);
+        }}
+        onDeleteMarker={(id) => {
+          setPlacedMarkers(placedMarkers.filter(m => m.id !== id));
+        }}
+        onClearMarkers={() => setPlacedMarkers([])}
       />
     </div>
   );
