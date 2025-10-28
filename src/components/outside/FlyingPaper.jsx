@@ -1,14 +1,21 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { TIME_BASED_CONFIG, isMailTime } from '../../config/timeBasedSettings';
 
 function FlyingPaper() {
   const paperRef = useRef();
+  
+  // Check environment mode for time simulation
+  const isDevelopment = import.meta.env.MODE === 'development';
+  
+  // Check if within mail delivery hours (uses simulated time in dev mode)
+  const isDeliveryTime = isMailTime(isDevelopment);
 
   useFrame((state) => {
-    if (paperRef.current) {
+    if (paperRef.current && isDeliveryTime) {
       const time = state.clock.elapsedTime;
-      const cycleTime = 38; // Total: 8s animation + 30s wait
+      const cycleTime = TIME_BASED_CONFIG.mail.intervalMinutes * 60; // Convert minutes to seconds
       const animTime = time % cycleTime;
 
       // Mailbox target position
@@ -104,6 +111,9 @@ function FlyingPaper() {
       paperRef.current.rotation.set(rotationX, rotationY, rotationZ);
       paperRef.current.scale.set(scale, scale, scale);
       paperRef.current.visible = visible;
+    } else if (paperRef.current && !isDeliveryTime) {
+      // Hide mail outside delivery hours
+      paperRef.current.visible = false;
     }
   });
 

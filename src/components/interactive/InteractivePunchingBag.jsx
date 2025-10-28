@@ -1,68 +1,57 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { FITNESS } from '../../config/upperFloorCoordinates';
+import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { mediaManager } from '../../utils/mediaManager';
 
 /**
  * Interactive Punching Bag Component
  * 
  * Features:
- * - Click to make it swing
+ * - Swings continuously (always animated)
+ * - Click to play audio and show poster (like TV, Pillow, etc.)
  * - Realistic pendulum physics
- * - Hover effect
- * - Auto-dampening (gradually stops swinging)
  */
 
 function InteractivePunchingBag({ position = [0, 0, 0] }) {
+  const config = getFeatureConfig('ali');
   const { materials: mat, mount, chain, bag, animation } = FITNESS.punchingBag;
-  const [isSwinging, setIsSwinging] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const bagRef = useRef();
-  const swingAngle = useRef(0);
-  const swingVelocity = useRef(0);
-  const swingAmplitude = useRef(0);
+  const audioRef = useRef(null);
 
+  // Initialize audio
+  if (!audioRef.current) {
+    audioRef.current = new Audio(config.audio.file);
+    audioRef.current.loop = false;
+    audioRef.current.addEventListener('ended', () => {
+      window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
+    });
+  }
+
+  // Continuous swinging animation
   useFrame((state) => {
-    if (bagRef.current && isSwinging) {
+    if (bagRef.current) {
       const time = state.clock.elapsedTime;
       
-      // Damped pendulum motion
-      if (swingAmplitude.current > 0.001) {
-        // Apply damping
-        swingAmplitude.current *= 0.98;
-        
-        // Calculate swing angle
-        swingAngle.current = swingAmplitude.current * Math.sin(time * animation.speed);
-        
-        // Apply rotation
-        bagRef.current.rotation.z = swingAngle.current * animation.rotationFactor;
-      } else {
-        // Stop swinging when amplitude is too small
-        setIsSwinging(false);
-        swingAmplitude.current = 0;
-        swingAngle.current = 0;
-        bagRef.current.rotation.z = 0;
-      }
+      // Continuous gentle swinging
+      const swingAngle = animation.swingAmplitude * Math.sin(time * animation.speed);
+      bagRef.current.rotation.z = swingAngle * animation.rotationFactor;
     }
   });
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.stopPropagation();
-    
-    // Start swinging with initial amplitude
-    setIsSwinging(true);
-    swingAmplitude.current = animation.swingAmplitude;
+    await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 
   const handlePointerOver = (e) => {
     e.stopPropagation();
-    setIsHovered(true);
     document.body.style.cursor = 'pointer';
   };
 
   const handlePointerOut = (e) => {
     e.stopPropagation();
-    setIsHovered(false);
     document.body.style.cursor = 'default';
   };
 
@@ -92,7 +81,7 @@ function InteractivePunchingBag({ position = [0, 0, 0] }) {
         >
           <capsuleGeometry args={[bag.radius, bag.length, bag.capSegments, bag.radialSegments]} />
           <meshStandardMaterial 
-            color={isHovered ? new THREE.Color(mat.bag.color).multiplyScalar(1.2) : mat.bag.color}
+            color={mat.bag.color}
             roughness={mat.bag.roughness}
             metalness={mat.bag.metalness}
           />

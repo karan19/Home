@@ -1,23 +1,27 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { TIME_BASED_CONFIG, isNewspaperTime } from '../../config/timeBasedSettings';
 
 function RolledNewspaper() {
   const groupRef = useRef();
+  const [hasPlayed, setHasPlayed] = useState(false);
   
-  // Check visibility - do this AFTER hooks to follow Rules of Hooks
-  const hour = new Date().getHours();
-  const isVisible = hour >= 6 && hour < 18;
+  // Check environment mode for time simulation
+  const isDevelopment = import.meta.env.MODE === 'development';
+  
+  // Check if within newspaper delivery hours (uses simulated time in dev mode)
+  const isDeliveryTime = isNewspaperTime(isDevelopment);
+  const shouldAnimate = isDeliveryTime && !hasPlayed;
+
+  // Define positions at component level so they're always available
+  const startPos = new THREE.Vector3(-8, 3, 10);
+  const endPos = new THREE.Vector3(0, 0, 4.5);
 
   useFrame((state) => {
-    if (groupRef.current) {
+    if (groupRef.current && shouldAnimate) {
       const time = state.clock.elapsedTime;
-      const cycleTime = 15; // 15 second cycle
-      const animTime = time % cycleTime;
-
-      // Start and end positions
-      const startPos = new THREE.Vector3(-8, 3, 10);
-      const endPos = new THREE.Vector3(0, 0, 4.5);
+      const animTime = time;
 
       let x, y, z, rotationX, rotationY, rotationZ;
 
@@ -58,7 +62,7 @@ function RolledNewspaper() {
         rotationZ = Math.PI / 2;
         
       } else {
-        // Phase 3: Rest (3-15 seconds)
+        // Phase 3: Rest - animation complete
         x = endPos.x;
         y = endPos.y;
         z = endPos.z;
@@ -66,12 +70,24 @@ function RolledNewspaper() {
         rotationX = 0;
         rotationY = 0.3;
         rotationZ = Math.PI / 2;
+        
+        // Mark as played after animation completes
+        if (animTime >= 3 && !hasPlayed) {
+          setHasPlayed(true);
+        }
       }
 
       groupRef.current.position.set(x, y, z);
       groupRef.current.rotation.set(rotationX, rotationY, rotationZ);
+    } else if (groupRef.current && hasPlayed) {
+      // Keep newspaper at final position after animation
+      groupRef.current.position.set(endPos.x, endPos.y, endPos.z);
+      groupRef.current.rotation.set(0, 0.3, Math.PI / 2);
     }
   });
+
+  // Don't render if outside delivery hours
+  if (!isDeliveryTime) return null;
 
   return (
     <group ref={groupRef} name="Rolled_Newspaper">
