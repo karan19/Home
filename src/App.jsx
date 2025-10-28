@@ -7,6 +7,7 @@ import House from './components/House';
 import PostProcessing from './components/PostProcessing';
 import WeatherSystem from './components/weather/WeatherSystem';
 import SettingsPanel from './components/ui/SettingsPanel';
+import CoordinateExplorer from './components/CoordinateExplorer';
 import { TIME_BASED_CONFIG, isDayTime } from './config/timeBasedSettings';
 
 function App() {
@@ -166,6 +167,18 @@ function App() {
             dayMode={dayMode}
           />
         </Physics>
+
+        {/* Coordinate Explorer - Shows preview marker at slider position */}
+        {isDevelopment && (
+          <CoordinateExplorer 
+            previewPosition={{ 
+              x: settings.x || 0, 
+              y: settings.y || 0, 
+              z: settings.z || 0 
+            }}
+            placedMarkers={[]}
+          />
+        )}
 
         {/* Weather System - Sky, Rain, Snow */}
         <WeatherSystem 

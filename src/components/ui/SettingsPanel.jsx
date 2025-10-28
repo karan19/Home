@@ -60,6 +60,31 @@ function SettingsPanel({ onSettingsChange }) {
       }
     }),
     
+    // Coordinate Explorer
+    'Coordinate Explorer': folder({
+      x: {
+        value: 0,
+        min: -10,
+        max: 10,
+        step: 0.1,
+        label: 'X Position'
+      },
+      y: {
+        value: 0,
+        min: 0,
+        max: 10,
+        step: 0.1,
+        label: 'Y Position'
+      },
+      z: {
+        value: 0,
+        min: -10,
+        max: 10,
+        step: 0.1,
+        label: 'Z Position'
+      }
+    }),
+    
     // Weather Settings
     Weather: folder({
       weather: {

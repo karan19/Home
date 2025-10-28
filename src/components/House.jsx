@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import Structure from './Structure';
@@ -16,10 +16,14 @@ import Gym from './outside/Gym';
 import InteractiveElements from './InteractiveElements';
 // Outside coordinates
 import { OUTSIDE } from '../config/outsideCoordinates';
+import { getRandomVideo } from '../config/roofVideos';
 
 function House({ onPolyCountUpdate, dayMode = false }) {
   const groupRef = useRef();
   const { scene } = useThree();
+  
+  // Select random video once on mount
+  const [roofVideo] = useState(() => getRandomVideo());
 
   // Calculate and update polygon count
   useEffect(() => {
@@ -68,8 +72,8 @@ function House({ onPolyCountUpdate, dayMode = false }) {
       {/* Rolled Newspaper with Physics */}
       <RolledNewspaper />
 
-      {/* Video Texture on Roof - Hardware accelerated, excellent performance */}
-      <VideoRoofAnimation videoSrc="/Movie.mov" />
+      {/* Video Texture on Roof - Random video selected on page load */}
+      <VideoRoofAnimation videoSrc={roofVideo} />
 
       {/* Car Model - GLTF from Sketchfab - Uses centralized config */}
       <Car />
