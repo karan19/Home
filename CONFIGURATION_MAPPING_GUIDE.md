@@ -204,9 +204,13 @@ Manages video rotation on the roof. Random video selected on each page load.
 ### Configuration:
 ```javascript
 export const ROOF_VIDEOS = [
-  '/Videos/Marvel.mov',
-  '/Videos/Spiral.MP4',
-  '/Videos/Visualization.MP4'
+  '/Videos/Animation1.mp4',
+  '/Videos/Animation2.mp4',
+  '/Videos/Animation3.mp4',
+  '/Videos/Animation4.mp4',
+  '/Videos/Animation5.mp4',
+  '/Videos/Animation6.mp4',
+  '/Videos/Animation7.mp4'
 ];
 ```
 
@@ -304,9 +308,13 @@ dayNight: {
 ```javascript
 // src/config/roofVideos.js
 export const ROOF_VIDEOS = [
-  '/Videos/Marvel.mov',
-  '/Videos/Spiral.MP4',
-  '/Videos/Visualization.MP4',
+  '/Videos/Animation1.mp4',
+  '/Videos/Animation2.mp4',
+  '/Videos/Animation3.mp4',
+  '/Videos/Animation4.mp4',
+  '/Videos/Animation5.mp4',
+  '/Videos/Animation6.mp4',
+  '/Videos/Animation7.mp4',
   '/Videos/YourNewVideo.mp4'  // Add here
 ];
 ```
@@ -476,9 +484,13 @@ Colors use hexadecimal format with `0x` prefix:
 ## 🎬 Roof Video System
 
 ### Current Videos:
-1. Marvel.mov
-2. Spiral.MP4
-3. Visualization.MP4
+1. Animation1.mp4
+2. Animation2.mp4
+3. Animation3.mp4
+4. Animation4.mp4
+5. Animation5.mp4
+6. Animation6.mp4
+7. Animation7.mp4
 
 ### Random Selection:
 - One video randomly selected on page load

@@ -6,9 +6,11 @@
  */
 
 export const ROOF_VIDEOS = [
-  '/Videos/Marvel.mov',
-  '/Videos/Spiral.MP4',
-  '/Videos/Visualization.MP4'
+  '/Videos/Animation3.mp4',
+  '/Videos/Animation4.mp4',
+  '/Videos/Animation5.mp4',
+  '/Videos/Animation6.mp4',
+  '/Videos/Animation7.mp4'
 ];
 
 /**
