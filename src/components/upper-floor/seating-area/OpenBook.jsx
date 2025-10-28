@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { getFeatureConfig, getRandomAudioFile } from '../../../config/interactiveFeatures';
 import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
 import { mediaManager } from '../../../utils/mediaManager';
 
@@ -9,6 +9,16 @@ function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const { materials: mat, leftPage, rightPage, binding, cover, pageStack } = SEATING_AREA.openBook;
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef(null);
+  const ensureRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('bezos');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
 
   // Handle cursor change on hover
   useEffect(() => {
@@ -21,11 +31,16 @@ function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const handleClick = async () => {
     // Create audio on first click using config
     if (!audioRef.current) {
-      audioRef.current = new Audio(config.audio.file);
+      audioRef.current = new Audio();
       audioRef.current.loop = false;
       audioRef.current.addEventListener('ended', () => {
         window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
       });
+    }
+
+    const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    if (!wasPlaying) {
+      ensureRandomAudioSource();
     }
 
     await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);

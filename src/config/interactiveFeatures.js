@@ -20,12 +20,12 @@ export const INTERACTIVE_FEATURES = {
       rotation: [0, Math.PI, 0]
     },
     audio: {
-      file: '/Messi.mp3',
+      files: ['/celebrities/messi/Messi.mp3'],
       playEvent: 'tvPlaying',
       endEvent: 'tvPlaying'
     },
     poster: {
-      svg: '/messi.svg',
+      svg: '/celebrities/messi/messi.svg',
       position: [3.7, 1.75, 3],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0], // [width, height] in meters
@@ -40,12 +40,12 @@ export const INTERACTIVE_FEATURES = {
       position: [2.75, 3, 3.25]
     },
     audio: {
-      file: '/MAli.mp3',
+      files: ['/celebrities/ali/MAli.mp3'],
       playEvent: 'punchingBagPlaying',
       endEvent: 'punchingBagPlaying'
     },
     poster: {
-      svg: '/MAli.svg',
+      svg: '/celebrities/ali/MAli.svg',
       position: [3.7, 4.75, 3],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
@@ -60,12 +60,12 @@ export const INTERACTIVE_FEATURES = {
       position: [2.5, 3.9, -2.3]
     },
     audio: {
-      file: '/SteveJobs.mp3',
+      files: ['/celebrities/jobs/SteveJobs.mp3'],
       playEvent: 'pillowPlaying',
       endEvent: 'pillowPlaying'
     },
     poster: {
-      svg: '/SteveJobs.svg',
+      svg: '/celebrities/jobs/SteveJobs.svg',
       position: [3.7, 5.0, -2.5],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
@@ -81,12 +81,12 @@ export const INTERACTIVE_FEATURES = {
       rotation: [Math.PI / 2, 0, 0]
     },
     audio: {
-      file: '/ElonMusk.mp3',
+      files: ['/celebrities/musk/ElonMusk.mp3'],
       playEvent: 'laptopPlaying',
       endEvent: 'laptopPlaying'
     },
     poster: {
-      svg: '/ElonMusk.svg',
+      svg: '/celebrities/musk/ElonMusk.svg',
       position: [-3, 5.25, -3.6],
       rotation: [0, 0, 0],
       size: [0.8, 1.0],
@@ -102,12 +102,12 @@ export const INTERACTIVE_FEATURES = {
       rotation: [0, 0.3, 0]
     },
     audio: {
-      file: '/JeffBezos.mp3',
+      files: ['/celebrities/bezos/JeffBezos.mp3'],
       playEvent: 'bezosAudioPlay',
       endEvent: 'bezosAudioEnd'
     },
     poster: {
-      svg: '/JeffBezos.svg',
+      svg: '/celebrities/bezos/JeffBezos.svg',
       position: [3.7, 4.5, 0.5],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
@@ -123,6 +123,23 @@ export const INTERACTIVE_FEATURES = {
  */
 export const getFeatureConfig = (featureName) => {
   return INTERACTIVE_FEATURES[featureName];
+};
+
+const getRandomItem = (items = []) => {
+  if (!items.length) return null;
+  const index = Math.floor(Math.random() * items.length);
+  return items[index];
+};
+
+/**
+ * Get a random audio file path for a feature
+ * @param {string} featureName
+ * @returns {string|null}
+ */
+export const getRandomAudioFile = (featureName) => {
+  const feature = INTERACTIVE_FEATURES[featureName];
+  if (!feature || !feature.audio) return null;
+  return getRandomItem(feature.audio.files);
 };
 
 /**

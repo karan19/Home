@@ -5,11 +5,20 @@
  * A random video is selected on each page load
  */
 
-export const ROOF_VIDEOS = [
-  '/Videos/Animation3.mp4',
-  '/Videos/Animation6.mp4',
-  '/Videos/Animation7.mp4'
+const videoModules = import.meta.glob('../assets/roofVideos/*.{mp4,MP4,webm,WEBM,mov,MOV}', {
+  eager: true,
+  import: 'default'
+});
+
+const AUTO_DISCOVERED_VIDEOS = Object.values(videoModules).filter(Boolean);
+
+const FALLBACK_VIDEOS = [
+  new URL('../assets/roofVideos/Animation3.mp4', import.meta.url).href
 ];
+
+export const ROOF_VIDEOS = AUTO_DISCOVERED_VIDEOS.length
+  ? AUTO_DISCOVERED_VIDEOS
+  : FALLBACK_VIDEOS;
 
 /**
  * Select a random video from the array

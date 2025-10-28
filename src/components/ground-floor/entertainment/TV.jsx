@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
-import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { getFeatureConfig, getRandomAudioFile } from '../../../config/interactiveFeatures';
 import { ENTERTAINMENT } from '../../../config/groundFloorCoordinates';
 import { mediaManager } from '../../../utils/mediaManager';
 
@@ -11,10 +11,22 @@ function TV({ position }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const setRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('messi');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
+
   // Initialize audio on first render
   if (!audioRef.current) {
-    audioRef.current = new Audio(config.audio.file);
+    audioRef.current = new Audio();
     audioRef.current.loop = false;
+    setRandomAudioSource();
     
     // Auto-hide poster when audio ends
     audioRef.current.addEventListener('ended', () => {
@@ -28,6 +40,9 @@ function TV({ position }) {
     
     // Use media manager to handle audio/poster
     const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    if (!wasPlaying) {
+      setRandomAudioSource();
+    }
     await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
     
     // Update local state for screen glow effect

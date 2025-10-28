@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { FITNESS } from '../../config/upperFloorCoordinates';
-import { getFeatureConfig } from '../../config/interactiveFeatures';
+import { getFeatureConfig, getRandomAudioFile } from '../../config/interactiveFeatures';
 import { mediaManager } from '../../utils/mediaManager';
 
 /**
@@ -19,11 +19,22 @@ function InteractivePunchingBag({ position = [0, 0, 0] }) {
   const { materials: mat, mount, chain, bag, animation } = FITNESS.punchingBag;
   const bagRef = useRef();
   const audioRef = useRef(null);
+  const setRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('ali');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
 
   // Initialize audio
   if (!audioRef.current) {
-    audioRef.current = new Audio(config.audio.file);
+    audioRef.current = new Audio();
     audioRef.current.loop = false;
+    setRandomAudioSource();
     audioRef.current.addEventListener('ended', () => {
       window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
     });
@@ -42,6 +53,10 @@ function InteractivePunchingBag({ position = [0, 0, 0] }) {
 
   const handleClick = async (e) => {
     e.stopPropagation();
+    const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    if (!wasPlaying) {
+      setRandomAudioSource();
+    }
     await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { getFeatureConfig, getRandomAudioFile } from '../../../config/interactiveFeatures';
 import { FITNESS } from '../../../config/upperFloorCoordinates';
 import { mediaManager } from '../../../utils/mediaManager';
 
@@ -10,12 +10,33 @@ function PunchingBag({ position = [0, 3, 0] }) {
   const { materials: mat, mount, chain, bag, animation } = FITNESS.punchingBag;
   const bagRef = useRef();
   const audioRef = useRef(null);
+  const ensureRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('ali');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
+  const setRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('ali');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
   const baseX = position[0];
 
   // Initialize audio
   if (!audioRef.current) {
-    audioRef.current = new Audio(config.audio.file);
+    audioRef.current = new Audio();
     audioRef.current.loop = false;
+    ensureRandomAudioSource();
     audioRef.current.addEventListener('ended', () => {
       window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
     });
@@ -23,6 +44,10 @@ function PunchingBag({ position = [0, 3, 0] }) {
 
   const handleClick = async (e) => {
     e.stopPropagation();
+    const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    if (!wasPlaying) {
+      ensureRandomAudioSource();
+    }
     await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 

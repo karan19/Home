@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
-import { getFeatureConfig } from '../../../config/interactiveFeatures';
+import { getFeatureConfig, getRandomAudioFile } from '../../../config/interactiveFeatures';
 import { OFFICE } from '../../../config/upperFloorCoordinates';
 import { mediaManager } from '../../../utils/mediaManager';
 
@@ -9,10 +9,21 @@ function WorkDesk({ position = [2, 3, -2], rotation = 0 }) {
   const config = getFeatureConfig('musk');
   const { materials: mat, desk, macbook, monitor, chair } = OFFICE.workDesk;
   const audioRef = useRef(null);
+  const setRandomAudioSource = () => {
+    if (!audioRef.current) return;
+    const randomSrc = getRandomAudioFile('musk');
+    if (!randomSrc) return;
+    const absoluteNext = new URL(randomSrc, window.location.origin).href;
+    if (audioRef.current.src !== absoluteNext) {
+      audioRef.current.src = randomSrc;
+      audioRef.current.load();
+    }
+  };
 
   if (!audioRef.current) {
-    audioRef.current = new Audio(config.audio.file);
+    audioRef.current = new Audio();
     audioRef.current.loop = false;
+    setRandomAudioSource();
     audioRef.current.addEventListener('ended', () => {
       window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
     });
@@ -20,6 +31,10 @@ function WorkDesk({ position = [2, 3, -2], rotation = 0 }) {
 
   const handleMacBookClick = async (e) => {
     e.stopPropagation();
+    const wasPlaying = mediaManager.isPlaying(audioRef.current);
+    if (!wasPlaying) {
+      setRandomAudioSource();
+    }
     await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
   };
 

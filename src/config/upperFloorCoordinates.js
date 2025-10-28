@@ -169,14 +169,14 @@ export const SEATING_AREA = {
       binding: { color: 0xC0C0C0, roughness: 0.3, metalness: 0.8 },
       cover: { color: 0x8B7355, roughness: 0.8, metalness: 0.0 }
     },
-    leftPage: { width: 0.11, height: 0.02, depth: 0.16, radius: 0.002, smoothness: 4, positionX: -0.055, rotationY: -0.12 },
-    rightPage: { width: 0.11, height: 0.02, depth: 0.16, radius: 0.002, smoothness: 4, positionX: 0.055, rotationY: 0.12 },
+    leftPage: { width: 0.16, height: 0.024, depth: 0.22, radius: 0.003, smoothness: 4, positionX: -0.08, rotationY: -0.12 },
+    rightPage: { width: 0.16, height: 0.024, depth: 0.22, radius: 0.003, smoothness: 4, positionX: 0.08, rotationY: 0.12 },
     binding: {
       count: 15, radius: 0.006, tube: 0.001, radialSegments: 8, tubularSegments: 12,
-      startZ: -0.07, spacing: 0.01, positionY: 0.01, rotationX: Math.PI / 2
+      startZ: -0.1, spacing: 0.014, positionY: 0.012, rotationX: Math.PI / 2
     },
-    cover: { width: 0.23, height: 0.004, depth: 0.165, radius: 0.003, smoothness: 4, positionY: -0.012 },
-    pageStack: { width: 0.22, height: 0.015, depth: 0.16, positionY: -0.005 }
+    cover: { width: 0.32, height: 0.005, depth: 0.24, radius: 0.004, smoothness: 4, positionY: -0.015 },
+    pageStack: { width: 0.3, height: 0.02, depth: 0.22, positionY: -0.007 }
   },
   pen: { 
     position: [1.08, 3.525, 0.95], 
