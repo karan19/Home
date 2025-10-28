@@ -42,16 +42,16 @@ export const OUTSIDE = {
     }
   },
   car: {
-    position: [6.35, 0.85, 0],
+    position: [6.35, -0.15, 0],
     rotation: 0,
-    targetSize: 6,
-    modelPath: '/Car/scene-compressed.gltf'
+    targetSize: 5,
+    modelPath: '/Car/scene.gltf'
   },
   gym: {
-    position: [-6.45, 0, 0],
-    rotation: 0,
+    position: [-6.8, -0.05, 0],
+    rotation: Math.PI / 2,
     targetSize: 1.8,
-    modelPath: '/Gym/scene-compressed.gltf'
+    modelPath: '/Gym/scene.gltf'
   }
   // Note: Compound, FlyingPaper, and RolledNewspaper have internal animation logic
   // and don't use static coordinates from this config

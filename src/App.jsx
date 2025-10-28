@@ -123,83 +123,84 @@ function App() {
           outputColorSpace: THREE.SRGBColorSpace
         }}
       >
+        <Suspense fallback={null}>
+          {/* Controls */}
+          <OrbitControls
+            enableDamping
+            dampingFactor={0.05}
+            minDistance={5}
+            maxDistance={50}
+            maxPolarAngle={Math.PI / 2}
+            target={[0, 3, 0]}
+          />
 
-        {/* Controls */}
-        <OrbitControls
-          enableDamping
-          dampingFactor={0.05}
-          minDistance={5}
-          maxDistance={50}
-          maxPolarAngle={Math.PI / 2}
-          target={[0, 3, 0]}
-        />
+          {/* Scene Background */}
+          <color attach="background" args={[backgroundColor]} />
 
-        {/* Scene Background */}
-        <color attach="background" args={[backgroundColor]} />
+          {/* Lighting */}
+          <ambientLight intensity={ambientIntensity} />
+          <directionalLight
+            position={[10, 15, 10]}
+            intensity={mainLightIntensity}
+            color="#FFE4B5"
+            castShadow
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+            shadow-camera-left={-15}
+            shadow-camera-right={15}
+            shadow-camera-top={15}
+            shadow-camera-bottom={-15}
+            shadow-camera-near={0.1}
+            shadow-camera-far={50}
+            shadow-bias={-0.0001}
+          />
+          <directionalLight position={[-10, 10, -10]} intensity={secondaryLightIntensity} />
+          <hemisphereLight args={['#ffffff', '#888888', hemisphereIntensity]} />
 
-        {/* Lighting */}
-        <ambientLight intensity={ambientIntensity} />
-        <directionalLight
-          position={[10, 15, 10]}
-          intensity={mainLightIntensity}
-          color="#FFE4B5"
-          castShadow
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-          shadow-camera-left={-15}
-          shadow-camera-right={15}
-          shadow-camera-top={15}
-          shadow-camera-bottom={-15}
-          shadow-camera-near={0.1}
-          shadow-camera-far={50}
-          shadow-bias={-0.0001}
-        />
-        <directionalLight position={[-10, 10, -10]} intensity={secondaryLightIntensity} />
-        <hemisphereLight args={['#ffffff', '#888888', hemisphereIntensity]} />
+          {/* Grid Helper */}
+          {showGrid && <gridHelper args={[20, 20, 0x888888, 0xcccccc]} />}
 
-        {/* Grid Helper */}
-        {showGrid && <gridHelper args={[20, 20, 0x888888, 0xcccccc]} />}
+          {/* Physics World */}
+          <Physics gravity={[0, -9.81, 0]}>
+            {/* House Model */}
+            <House 
+              onPolyCountUpdate={setPolyCount}
+              dayMode={dayMode}
+            />
+          </Physics>
 
-        {/* Physics World */}
-        <Physics gravity={[0, -9.81, 0]}>
-          {/* House Model */}
-          <House 
-            onPolyCountUpdate={setPolyCount}
+          {/* Coordinate Explorer - Shows preview marker at slider position */}
+          {isDevelopment && (
+            <CoordinateExplorer 
+              previewPosition={{ 
+                x: settings.x || 0, 
+                y: settings.y || 0, 
+                z: settings.z || 0 
+              }}
+              placedMarkers={[]}
+            />
+          )}
+
+          {/* Weather System - Sky, Rain, Snow */}
+          <WeatherSystem 
             dayMode={dayMode}
+            weather={settings.weather}
           />
-        </Physics>
 
-        {/* Coordinate Explorer - Shows preview marker at slider position */}
-        {isDevelopment && (
-          <CoordinateExplorer 
-            previewPosition={{ 
-              x: settings.x || 0, 
-              y: settings.y || 0, 
-              z: settings.z || 0 
-            }}
-            placedMarkers={[]}
+          {/* Spatial Audio System - Ambient sounds (DISABLED - See AUDIO_SETUP_GUIDE.md) */}
+          {/* <SpatialAudioSystem 
+            dayMode={dayMode}
+            enabled={settings.enabled}
+          /> */}
+
+          {/* Post-Processing Effects - Bloom & SSAO */}
+          <PostProcessing 
+            bloomEnabled={settings.bloom}
+            bloomIntensity={settings.bloomIntensity}
+            ssaoEnabled={settings.ssao}
+            ssaoIntensity={settings.ssaoIntensity}
           />
-        )}
-
-        {/* Weather System - Sky, Rain, Snow */}
-        <WeatherSystem 
-          dayMode={dayMode}
-          weather={settings.weather}
-        />
-
-        {/* Spatial Audio System - Ambient sounds (DISABLED - See AUDIO_SETUP_GUIDE.md) */}
-        {/* <SpatialAudioSystem 
-          dayMode={dayMode}
-          enabled={settings.enabled}
-        /> */}
-
-        {/* Post-Processing Effects - Bloom & SSAO */}
-        <PostProcessing 
-          bloomEnabled={settings.bloom}
-          bloomIntensity={settings.bloomIntensity}
-          ssaoEnabled={settings.ssao}
-          ssaoIntensity={settings.ssaoIntensity}
-        />
+        </Suspense>
       </Canvas>
 
       {/* Unified Settings Panel - Only visible in development mode */}

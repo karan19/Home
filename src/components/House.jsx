@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { useThree } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import Structure from './Structure';
 import Stairs from './Stairs';
@@ -21,9 +22,17 @@ import { getRandomVideo } from '../config/roofVideos';
 function House({ onPolyCountUpdate, dayMode = false }) {
   const groupRef = useRef();
   const { scene } = useThree();
+  const [exteriorReady, setExteriorReady] = useState(false);
   
   // Select random video once on mount
   const [roofVideo] = useState(() => getRandomVideo());
+  const exteriorDelayMs = 900;
+
+  // Preload exterior GLTF assets during the introductory animation
+  useEffect(() => {
+    useGLTF.preload(OUTSIDE.car.modelPath);
+    useGLTF.preload(OUTSIDE.gym.modelPath);
+  }, []);
 
   // Calculate and update polygon count
   useEffect(() => {
@@ -42,6 +51,12 @@ function House({ onPolyCountUpdate, dayMode = false }) {
       onPolyCountUpdate(Math.floor(totalTriangles));
     }
   }, [onPolyCountUpdate]);
+
+  // Defer exterior spawn for performance and staging animation
+  useEffect(() => {
+    const timeout = setTimeout(() => setExteriorReady(true), exteriorDelayMs);
+    return () => clearTimeout(timeout);
+  }, [exteriorDelayMs]);
 
   return (
     <group ref={groupRef} name="House">
@@ -75,10 +90,8 @@ function House({ onPolyCountUpdate, dayMode = false }) {
       {/* Video Texture on Roof - Random video selected on page load */}
       <VideoRoofAnimation videoSrc={roofVideo} />
 
-      {/* Car Model - GLTF from Sketchfab - Uses centralized config */}
+      {/* Exterior assets */}
       <Car />
-
-      {/* Gym Equipment - GLTF from Sketchfab - Uses centralized config */}
       <Gym />
     </group>
   );

@@ -118,19 +118,21 @@ Car/textures/
 
 #### Update Config Files:
 
-**For Car:**
+**Car (depending on whether you compress):**
 ```javascript
 // src/config/outsideCoordinates.js
 car: {
-  modelPath: '/Car/scene-compressed.gltf'  // Update path
+  modelPath: '/Car/scene.gltf'               // Default lightweight model
+  // modelPath: '/Car/scene-compressed.gltf' // Use this path only if you run the Draco step above
 }
 ```
 
-**For Gym:**
+**Gym (ships as the lighter default GLTF unless you recompress):**
 ```javascript
 // src/config/outsideCoordinates.js
 gym: {
-  modelPath: '/Gym/scene-compressed.gltf'  // Update path
+  modelPath: '/Gym/scene.gltf'               // Default lightweight model
+  // modelPath: '/Gym/scene-compressed.gltf' // Swap to this after running Draco
 }
 ```
 

@@ -7,8 +7,6 @@
 
 export const ROOF_VIDEOS = [
   '/Videos/Animation3.mp4',
-  '/Videos/Animation4.mp4',
-  '/Videos/Animation5.mp4',
   '/Videos/Animation6.mp4',
   '/Videos/Animation7.mp4'
 ];

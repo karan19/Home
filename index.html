@@ -4,10 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/HouseOutline.svg">
-    <title>3D House Model - React Three Fiber</title>
+    <title>Home</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            background: #cdcdd9;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url('/Home.svg') center center / 48vmin no-repeat;
+            transform: scale(0.55);
+            opacity: 1;
+            transform-origin: center;
+            will-change: transform;
+            animation: introScale 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            pointer-events: none;
+        }
+
+        #root {
+            opacity: 0;
+            animation: revealScene 1.05s ease forwards;
+            animation-delay: 1.8s;
+        }
+
+        @keyframes introScale {
+            from { transform: scale(0.55); }
+            to { transform: scale(1.75); }
+        }
+
+        @keyframes revealScene {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root" class="app-root"></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
