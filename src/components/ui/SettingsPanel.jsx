@@ -116,6 +116,42 @@ function SettingsPanel({ onSettingsChange }) {
       }
     }),
     
+    // Performance
+    Performance: folder({
+      performanceMode: {
+        value: 'High',
+        options: ['Low', 'Medium', 'High'],
+        label: 'Quality Preset',
+        onChange: (value) => {
+          // Apply performance presets
+          const presets = {
+            Low: {
+              bloom: false,
+              ssao: false,
+              bloomIntensity: 0,
+              ssaoIntensity: 0
+            },
+            Medium: {
+              bloom: true,
+              ssao: false,
+              bloomIntensity: 0.3,
+              ssaoIntensity: 0
+            },
+            High: {
+              bloom: true,
+              ssao: true,
+              bloomIntensity: 0.5,
+              ssaoIntensity: 30
+            }
+          };
+          
+          if (onSettingsChange && presets[value]) {
+            onSettingsChange({ ...settings, ...presets[value] });
+          }
+        }
+      }
+    }),
+    
     // Post-Processing
     'Post-Processing': folder({
       bloom: {

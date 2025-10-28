@@ -45,11 +45,11 @@ function WeatherSystem({
     }
   }, [dayMode]);
 
-  // Rain particles
+  // Rain particles (reduced for performance)
   const rainParticles = useMemo(() => {
     if (weather !== 'rain') return null;
 
-    const count = 1000;
+    const count = 500; // Reduced from 1000
     const positions = new Float32Array(count * 3);
     const velocities = new Float32Array(count);
 
@@ -63,11 +63,11 @@ function WeatherSystem({
     return { positions, velocities, count };
   }, [weather]);
 
-  // Snow particles
+  // Snow particles (reduced for performance)
   const snowParticles = useMemo(() => {
     if (weather !== 'snow') return null;
 
-    const count = 500;
+    const count = 250; // Reduced from 500
     const positions = new Float32Array(count * 3);
     const velocities = new Float32Array(count);
 

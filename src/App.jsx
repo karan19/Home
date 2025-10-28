@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
@@ -8,6 +8,7 @@ import PostProcessing from './components/PostProcessing';
 import WeatherSystem from './components/weather/WeatherSystem';
 import SettingsPanel from './components/ui/SettingsPanel';
 import CoordinateExplorer from './components/CoordinateExplorer';
+import LoadingScreen from './components/LoadingScreen';
 import { TIME_BASED_CONFIG, isDayTime } from './config/timeBasedSettings';
 
 function App() {
@@ -143,8 +144,8 @@ function App() {
           intensity={mainLightIntensity}
           color="#FFE4B5"
           castShadow
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
           shadow-camera-left={-15}
           shadow-camera-right={15}
           shadow-camera-top={15}

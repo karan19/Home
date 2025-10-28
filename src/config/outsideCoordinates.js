@@ -45,13 +45,13 @@ export const OUTSIDE = {
     position: [6.35, 0.85, 0],
     rotation: 0,
     targetSize: 6,
-    modelPath: '/Car/scene.gltf'
+    modelPath: '/Car/scene-compressed.gltf'
   },
   gym: {
     position: [-6.45, 0, 0],
     rotation: 0,
     targetSize: 1.8,
-    modelPath: '/Gym/scene.gltf'
+    modelPath: '/Gym/scene-compressed.gltf'
   }
   // Note: Compound, FlyingPaper, and RolledNewspaper have internal animation logic
   // and don't use static coordinates from this config
