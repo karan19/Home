@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import House from './components/House';
 import UI from './components/UI';
 import CoordinateExplorer from './components/CoordinateExplorer';
+import PostProcessing from './components/PostProcessing';
 
 function App() {
   const [showGrid, setShowGrid] = useState(true);
@@ -112,6 +113,9 @@ function App() {
           previewPosition={previewPosition}
           placedMarkers={placedMarkers}
         />
+
+        {/* Post-Processing Effects - Bloom & SSAO */}
+        <PostProcessing />
       </Canvas>
 
       {/* UI Overlay */}

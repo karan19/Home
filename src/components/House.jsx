@@ -13,6 +13,7 @@ import FlyingPaper from './outside/FlyingPaper';
 import RolledNewspaper from './outside/RolledNewspaper';
 import Car from './outside/Car';
 import Gym from './outside/Gym';
+import InteractiveElements from './InteractiveElements';
 // Outside coordinates
 import { OUTSIDE } from '../config/outsideCoordinates';
 
@@ -57,6 +58,9 @@ function House({ onPolyCountUpdate, dayMode = false }) {
 
       {/* Interior Lights - Only active in night mode */}
       <InteriorLights active={!dayMode} />
+
+      {/* Interactive Elements - Doors, Punching Bag, Books */}
+      <InteractiveElements />
 
       {/* Flying Paper Animation */}
       <FlyingPaper />
