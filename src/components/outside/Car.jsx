@@ -1,68 +1,50 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OUTSIDE } from '../../config/outsideCoordinates';
 
-/**
- * Car Model
- * 
- * Loads GLTF car model from Sketchfab
- * Auto-scales to appropriate size
- * Configuration centralized in outsideCoordinates.js
- */
-
 function Car() {
   const { position, rotation, targetSize, modelPath } = OUTSIDE.car;
   const groupRef = useRef();
-  const baseScaleRef = useRef(1);
+  const baseScaleRef = useRef(0); // Start at 0 for spawn animation
   const { scene } = useGLTF(modelPath);
-  const [spawnProgress, setSpawnProgress] = useState(0);
-  const [spawned, setSpawned] = useState(false);
+  const spawnProgressRef = useRef(0);
+  const spawnedRef = useRef(false);
   const animationDuration = 0.6; // seconds
 
-  // Initialize position and scale the model
+  // Initialize position and scale the model once
   useEffect(() => {
-    if (groupRef.current) {
-      // Set initial position IMMEDIATELY to prevent any drift
+    if (groupRef.current && scene) {
+      // Set fixed position and initial rotation once
       groupRef.current.position.set(position[0], position[1], position[2]);
+      groupRef.current.rotation.y = rotation;
       
-      if (scene) {
-        // Calculate bounding box
-        const box = new THREE.Box3().setFromObject(scene);
-        const size = box.getSize(new THREE.Vector3());
-        
-        // Use target size from config
-        const maxDimension = Math.max(size.x, size.y, size.z);
-        const scale = targetSize / maxDimension;
-        baseScaleRef.current = scale;
-
-        console.log('Car model loaded and scaled:', scale);
-        console.log('Car position set to:', position);
-      }
+      // Calculate bounding box and scale
+      const box = new THREE.Box3().setFromObject(scene);
+      const size = box.getSize(new THREE.Vector3());
+      const maxDimension = Math.max(size.x, size.y, size.z);
+      const scale = targetSize / maxDimension;
+      baseScaleRef.current = scale;
+      
+      // Initial state
+      groupRef.current.scale.setScalar(0);
     }
-  }, [scene, targetSize, position]);
+  }, [scene, targetSize, position, rotation]);
 
-  // Lock car position on every frame to prevent any movement during camera drag
+  // Animate spawn only
   useFrame((state, delta) => {
-    if (groupRef.current) {
-      // Force all three axes to stay fixed at configured position
-      groupRef.current.position.x = position[0];
-      groupRef.current.position.y = position[1];
-      groupRef.current.position.z = position[2];
-
-      if (!spawned) {
-        setSpawnProgress(prev => {
-          const next = Math.min(prev + delta / animationDuration, 1);
-          if (next >= 1) {
-            setSpawned(true);
-          }
-          return next;
-        });
+    if (groupRef.current && !spawnedRef.current) {
+      spawnProgressRef.current = Math.min(spawnProgressRef.current + delta / animationDuration, 1);
+      
+      if (spawnProgressRef.current >= 1) {
+        spawnedRef.current = true;
       }
 
-      const eased = spawnProgress < 1 ? easeOutElastic(spawnProgress) : 1;
+      const eased = easeOutElastic(spawnProgressRef.current);
       groupRef.current.scale.setScalar(baseScaleRef.current * eased);
+      
+      // Subtle entry effects
       groupRef.current.rotation.y = rotation + (1 - eased) * 0.6;
       groupRef.current.position.y = position[1] + (1 - eased) * 0.6;
     }
@@ -73,7 +55,7 @@ function Car() {
   return (
     <group ref={groupRef}>
       <primitive 
-        object={scene.clone()} 
+        object={scene} // No need to clone if only one car exists
         castShadow 
         receiveShadow 
       />

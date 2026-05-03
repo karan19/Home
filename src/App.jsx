@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, useGLTF } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 import * as THREE from 'three';
 import House from './components/House';
@@ -10,6 +10,9 @@ import SettingsPanel from './components/ui/SettingsPanel';
 import CoordinateExplorer from './components/CoordinateExplorer';
 import LoadingScreen from './components/LoadingScreen';
 import { TIME_BASED_CONFIG, isDayTime } from './config/timeBasedSettings';
+
+// Configure Draco decoder globally
+useGLTF.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 
 function App() {
   // Check if running in development mode
@@ -144,15 +147,15 @@ function App() {
             intensity={mainLightIntensity}
             color="#FFE4B5"
             castShadow
-            shadow-mapSize-width={1024}
+            shadow-mapSize-width={1024} // Optimized resolution
             shadow-mapSize-height={1024}
-            shadow-camera-left={-15}
-            shadow-camera-right={15}
-            shadow-camera-top={15}
-            shadow-camera-bottom={-15}
-            shadow-camera-near={0.1}
-            shadow-camera-far={50}
-            shadow-bias={-0.0001}
+            shadow-camera-left={-10} // Tightened frustum
+            shadow-camera-right={10}
+            shadow-camera-top={10}
+            shadow-camera-bottom={-10}
+            shadow-camera-near={0.5}
+            shadow-camera-far={40}
+            shadow-bias={-0.0005} // Adjusted for better contact shadows
           />
           <directionalLight position={[-10, 10, -10]} intensity={secondaryLightIntensity} />
           <hemisphereLight args={['#ffffff', '#888888', hemisphereIntensity]} />
