@@ -48,6 +48,7 @@ import Rug from './upper-floor/decorations/Rug';
 import WallClock from './upper-floor/decorations/WallClock';
 import DrawerTable from './upper-floor/decorations/DrawerTable';
 import BluetoothSpeaker from './upper-floor/decorations/BluetoothSpeaker';
+import SupplementBox from './upper-floor/decorations/SupplementBox';
 import PottedPlant from './upper-floor/decorations/PottedPlant';
 
 // Interactive Posters
@@ -166,6 +167,7 @@ function Furniture() {
         
         {/* Bluetooth speaker on drawer table */}
         <BluetoothSpeaker position={DECORATIONS.bluetoothSpeaker.position} />
+        <SupplementBox />
         
         {/* Punching bag at N2 (upper floor, front area) */}
         <PunchingBag position={FITNESS.punchingBag.position} />

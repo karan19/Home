@@ -187,7 +187,6 @@ function App() {
           outputColorSpace: THREE.SRGBColorSpace
         }}
       >
-        <LoadingScreen />
         {showDevTools && <SceneMetrics onSample={setMetrics} />}
         {settings.performanceMode === 'Auto' && modelReady && visible && <AdaptiveQuality onDecline={lowerAutoQuality} />}
 
@@ -281,6 +280,7 @@ function App() {
           />
         </Suspense>
       </Canvas>
+      <LoadingScreen sceneReady={modelReady} />
 
       {showDevTools && metrics && <output data-testid="scene-metrics" data-metrics={JSON.stringify(metrics)} style={{position:'absolute',left:16,bottom:16,color:'#fff',background:'#222b',padding:'6px 10px',borderRadius:8,font:'11px monospace',pointerEvents:'none'}}>{qualityName} · {metrics.frameMs} ms · {metrics.calls} draws · DPR {metrics.dpr}</output>}
       {showDevTools && <SceneToolbar

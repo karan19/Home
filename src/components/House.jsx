@@ -36,7 +36,7 @@ function House({
   const handleAssetReady = useCallback((id, ready) => {
     setLoaded(previous => previous[id] === ready ? previous : { ...previous, [id]: ready });
   }, []);
-  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym);
+  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym && loaded.resident);
   useEffect(() => {
     onModelReadyChange(allReady);
     return () => onModelReadyChange(false);
@@ -115,7 +115,7 @@ function House({
       {/* Furniture */}
       <AssetBoundary id="furniture" onReady={handleAssetReady}><Furniture /></AssetBoundary>
 
-      <AssetBoundary id="lofi resident"><LofiResident /></AssetBoundary>
+      <AssetBoundary id="resident" onReady={handleAssetReady}><LofiResident /></AssetBoundary>
 
       {/* Balcony on upper floor (hanging from front edge) */}
       <Balcony position={OUTSIDE.balcony.position} />

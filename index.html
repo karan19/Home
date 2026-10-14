@@ -6,50 +6,13 @@
     <link rel="icon" type="image/svg+xml" href="/HouseOutline.svg">
     <title>Home</title>
     <style>
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            position: relative;
-            margin: 0;
-            background: #cdcdd9;
-            overflow: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: url('/Home.svg') center center / 48vmin no-repeat;
-            transform: scale(0.55);
-            opacity: 1;
-            transform-origin: center;
-            will-change: transform;
-            animation: introScale 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-            pointer-events: none;
-        }
-
-        #root {
-            opacity: 0;
-            animation: revealScene 1.05s ease forwards;
-            animation-delay: 1.8s;
-        }
-
-        @keyframes introScale {
-            from { transform: scale(0.55); }
-            to { transform: scale(1.75); }
-        }
-
-        @keyframes revealScene {
-            to {
-                opacity: 1;
-            }
-        }
+        html, body { height: 100%; }
+        body { margin: 0; background: #eaece4; overflow: hidden; }
+        .boot-loading { height: 100vh; display: grid; place-items: center; color: #344333; font: 16px system-ui; }
     </style>
 </head>
 <body>
-    <div id="root" class="app-root"></div>
+    <div id="root" class="app-root"><div class="boot-loading" role="status">Getting your home ready…</div></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

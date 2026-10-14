@@ -4,7 +4,7 @@ import { Html } from '@react-three/drei';
 class AssetError extends React.Component {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(error) { console.error(`Could not load ${this.props.label}:`, error); }
+  componentDidCatch(error) { window.dispatchEvent(new Event('house-asset-error')); console.error(`Could not load ${this.props.label}:`, error); }
   render() {
     if (this.state.failed) return <Html center><div role="alert" style={{background:'#302b28',color:'white',padding:12,borderRadius:8,width:220}}>Could not load {this.props.label}. Reload to try again.</div></Html>;
     return this.props.children;

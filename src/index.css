@@ -21,3 +21,28 @@ body {
 canvas {
   display: block;
 }
+
+.house-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background: #eaece4;
+  color: #344333;
+  transition: opacity 400ms ease;
+  touch-action: none;
+}
+.house-loading--done { opacity: 0; }
+.house-loading__card { width: min(320px, calc(100vw - 48px)); text-align: center; }
+.house-loading__icon { font-size: 58px; line-height: 1; margin-bottom: 24px; }
+.house-loading h1 { font-size: 23px; font-weight: 500; letter-spacing: -.6px; }
+.house-loading p { margin: 12px 0 28px; font-size: 13px; color: #63715e; }
+.house-loading__track { height: 5px; background: #d3d9cb; border-radius: 8px; overflow: hidden; }
+.house-loading__fill { height: 100%; background: #65795d; border-radius: inherit; transition: width 200ms ease; }
+.house-loading__percent { display: block; margin-top: 12px; font-size: 12px; font-variant-numeric: tabular-nums; color: #63715e; }
+.house-loading button { margin-top: 22px; padding: 10px 20px; border: 1px solid #65795d; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+.house-loading button:focus-visible { outline: 2px solid #344333; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .house-loading, .house-loading__fill { transition: none; }
+}
