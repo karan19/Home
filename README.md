@@ -1,355 +1,333 @@
-# Modern House 3D Model - Cutaway View
-## Interactive Web-Based 3D Viewer with GLB Export
+# Home
 
-A procedurally-generated two-story residential cutaway model built with Three.js, featuring complete interior furnishing and GLB export capability.
+Interactive 3D home scene built with Vite, React, React Three Fiber, Drei, and Three.js.
 
----
+The current app lives in `src/`. Older vanilla Three.js files remain under `js/` and `css/` for reference, but they are not loaded by the active Vite entry point.
 
-## 🎯 Project Overview
+## Run
 
-This project implements a detailed 3D model of a modern two-story house with a cutaway view, allowing you to see the interior layout and furnishings. The model is built entirely with code (no external 3D modeling software required) and can be exported to GLB format for use in any 3D application.
-
-### Key Features
-
-- ✅ **Complete House Structure**: Foundation, walls, floors, roof with proper cutaway view
-- ✅ **8 Windows**: Transparent glass with PBR materials and realistic refraction
-- ✅ **Staircase**: 12 treads connecting ground floor to second floor
-- ✅ **Fully Furnished**: Bedroom, office, kitchen, and living room with detailed furniture
-- ✅ **PBR Materials**: Physically-based rendering with proper roughness/metalness
-- ✅ **Professional Lighting**: Ambient, directional, and window lights with shadows
-- ✅ **GLB Export**: One-click export to industry-standard format
-- ✅ **Interactive Controls**: Orbit, zoom, and pan camera
-- ✅ **Optimized**: Only 5,576 triangles (11% of target budget)
-
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Python 3 (for local server)
-
-### Running the Application
-
-1. **Start the local server:**
-   ```bash
-   cd /Users/hkknch/workplace/FrontEndTests/ShutterStock
-   python3 -m http.server 8000
-   ```
-
-2. **Open in browser:**
-   ```
-   http://localhost:8000
-   ```
-
-3. **Interact with the model:**
-   - **Rotate**: Click and drag
-   - **Zoom**: Scroll wheel
-   - **Pan**: Right-click and drag
-
-4. **Export GLB:**
-   - Click the "Export GLB" button
-   - File downloads as `modern_house_cutaway.glb`
-
----
-
-## 📁 Project Structure
-
-```
-ShutterStock/
-├── index.html                          # Main HTML file
-├── css/
-│   └── style.css                      # UI styling
-├── js/
-│   ├── main.js                        # Application entry point
-│   ├── windows.js                     # Window generation
-│   ├── stairs.js                      # Staircase generation
-│   ├── furniture-upper.js             # Upper level furniture
-│   └── furniture-ground.js            # Ground level furniture
-├── .clinerules                        # Development workflow rules
-├── 3DModelingSpecificationModernHouse.md  # Original specification
-├── MATERIALS_AND_LIGHTING.md          # Materials reference
-└── README.md                          # This file
+```bash
+npm install
+npm run dev
 ```
 
----
+Vite serves the app at `http://localhost:3000` by default.
 
-## 🏗️ Model Specifications
+Production build:
 
-### Dimensions
-- **Overall Size**: 8m x 8m x 6m (W x D x H)
-- **Ground Floor**: 3m ceiling height
-- **Second Floor**: 3m ceiling height
-- **Wall Thickness**: 0.25m
-- **Floor Thickness**: 0.3m
-
-### Polygon Count
-- **Total Triangles**: 5,576
-- **Target Budget**: 50,000-100,000 triangles
-- **Budget Usage**: 5.6% - 11.2% ✅
-
-### Materials
-- **Type**: PBR (Physically Based Rendering)
-- **Count**: ~15 unique materials
-- **Textures**: None (solid colors with PBR properties)
-- **Compliance**: Fully matches specification Section 9
-
----
-
-## 🎨 What's Included
-
-### Structure
-- Foundation and base platform
-- Exterior walls (back and right - cutaway view)
-- Ground floor and second floor platforms
-- Flat roof with exposed beams
-
-### Windows & Stairs
-- 8 windows with wood frames and transparent glass
-- 12-tread staircase with landing
-- Stairwell divider wall
-- Upper level railings
-
-### Upper Level Furniture
-
-**Bedroom:**
-- Four-poster bed with mattress, blanket, and pillows
-- Reading chair with decorative pillow
-- Wall shelf unit with books and decorative items
-- 2 purple circular wall art pieces
-
-**Office:**
-- L-shaped desk
-- Ergonomic office chair
-- Monitor with emissive display
-- Desk accessories (plant, decorative objects)
-- Floating shelf
-
-### Ground Level Furniture
-
-**Kitchen:**
-- Base cabinets with marble countertops
-- Refrigerator (dark gray)
-- Oven/range (stainless steel)
-- Kitchen island with 2 bar stools
-- Decorative bowl with fruit
-
-**Living Room:**
-- L-shaped sectional sofa with throw pillows
-- Coffee table
-- TV stand/media console
-- Wall-mounted flat screen TV
-- Ladder shelf with decorative items
-- Large floor plant
-
----
-
-## 🎮 Controls & Features
-
-### Camera Controls
-- **Orbit**: Click and drag to rotate around the model
-- **Zoom**: Scroll wheel to zoom in/out
-- **Pan**: Right-click and drag to move the view
-- **Reset**: Click "Reset Camera" to return to default view
-
-### UI Controls
-- **Export GLB**: Download the model as a GLB file
-- **Reset Camera**: Return to isometric view
-- **Show Grid**: Toggle ground grid visibility
-- **Polygon Count**: Real-time triangle count display
-
----
-
-## 📦 GLB Export
-
-### What's Exported
-- ✅ All geometry (5,576 triangles)
-- ✅ All PBR materials with colors and properties
-- ✅ Proper hierarchy structure (Section 12 compliant)
-- ✅ Object names and organization
-- ✅ Directional lights
-
-### Export Settings
-- **Format**: Binary glTF 2.0 (.glb)
-- **Compression**: Optional Draco compression
-- **Max Texture Size**: 2048x2048 (not used - solid colors)
-- **File Size**: Estimated <2MB
-
-### Using the Exported GLB
-
-The exported file can be used in:
-- **3D Applications**: Blender, Maya, 3ds Max, Cinema 4D
-- **Web Frameworks**: Three.js, Babylon.js, React Three Fiber, A-Frame
-- **Game Engines**: Unity, Unreal Engine (with import)
-- **Online Viewers**: https://gltf-viewer.donmccurdy.com/
-
----
-
-## 🏛️ Hierarchy Structure
-
-The model follows professional 3D organization standards (Specification Section 12):
-
-```
-House
-├── Structure
-│   ├── Foundation
-│   ├── Walls
-│   ├── Floors
-│   └── Roof
-├── Windows
-│   ├── Frames
-│   └── Glass
-├── Stairs
-│   ├── Treads
-│   └── Supports
-├── Furniture_UpperLevel
-│   ├── Bedroom
-│   └── Office
-├── Furniture_GroundLevel
-│   ├── Kitchen
-│   └── Living
-└── Lighting
-    ├── Window_Lights
-    └── Interior_Lights
+```bash
+npm run build
+npm run preview
 ```
 
-This organization makes it easy to:
-- Show/hide specific sections
-- Modify individual components
-- Understand the model structure
-- Work with the model in other applications
+## What The App Does
 
----
+- Renders a two-story cutaway house with interior furniture and exterior yard elements.
+- Uses time-based day/night lighting.
+- Shows rain or snow during night mode.
+- Plays a random video texture on the roof.
+- Loads compressed GLB assets for the car and outdoor gym.
+- Provides a viewer toolbar with reset view, grid toggle, and GLB export.
+- Provides clickable interactive objects:
+  - TV shows the Messi poster and plays audio.
+  - Pillow shows the Steve Jobs poster and plays audio.
+  - MacBook shows the Elon Musk poster and plays audio.
+  - Open book shows the Jeff Bezos poster and plays audio.
+  - Punching bag shows the Muhammad Ali poster and plays audio.
+- Runs development-only controls through Leva.
 
-## 🔧 Technical Details
+## Current Source Structure
 
-### Technology Stack
-- **Three.js**: r160+ (3D rendering engine)
-- **OrbitControls**: Interactive camera controls
-- **GLTFExporter**: GLB export functionality
-- **Vanilla JavaScript**: No framework dependencies
-- **ES6 Modules**: Modern JavaScript imports
+```text
+src/
+  App.jsx                         # Canvas, lighting, controls, settings, scene shell
+  main.jsx                        # React entry point
+  components/
+    House.jsx                     # Main scene composition
+    Structure.jsx                 # Foundation, walls, floors, roof
+    Furniture.jsx                 # Interior furniture and poster mounts
+    InteractiveElements.jsx       # Door and shared scene interactions
+    weather/WeatherSystem.jsx     # Sky, rain, snow
+    outside/                      # Compound, balcony, car, gym, mail/newspaper animations
+    ground-floor/                 # Kitchen, living room, entertainment components
+    upper-floor/                  # Bedroom, office, seating, fitness, decorations
+    interactive/                  # Posters and door
+    ui/                           # Development/debug UI components
+  config/
+    groundFloorCoordinates.js
+    upperFloorCoordinates.js
+    outsideCoordinates.js
+    interactiveFeatures.js
+    timeBasedSettings.js
+    roofVideos.js
+  hooks/
+    useInteractiveAudio.js        # Shared audio/poster interaction behavior
+  utils/
+    mediaManager.js               # Ensures one audio/poster interaction at a time
+```
 
-### Browser Requirements
-- **WebGL 2.0**: Required for rendering
-- **ES6 Modules**: Required for imports
-- **Modern Browser**: Chrome, Firefox, Safari, Edge (latest versions)
+## Development Notes
 
-### Performance
-- **Frame Rate**: 60 FPS on mid-range hardware
-- **Load Time**: <1 second
-- **Memory Usage**: ~50-100MB
-- **File Size**: HTML/CSS/JS ~100KB total
+- `src/config/` is the preferred place to adjust positions, dimensions, feature assets, and time windows.
+- The viewer toolbar is available in development and production.
+- Development mode also shows the grid by default, Leva settings panel, and coordinate explorer.
+- Production mode hides the Leva development controls.
+- Ambient spatial audio is still disabled in `src/App.jsx`; add files to `public/sounds/` before enabling it.
+- `dist/` is generated by `npm run build`.
 
----
+## Meshy Furniture
 
-## 📋 Specification Compliance
+The sofa, corner bookshelf, bed, two accent chairs, and two plants load textured Meshy GLBs. The chair and plant reuse cached geometry and textures across instances. Their placement, fitted dimensions, rotation, and floor offset live in `LIVING_ROOM` in `src/config/groundFloorCoordinates.js`. Upper-floor model placement is in `src/config/upperFloorCoordinates.js`. All use `src/components/FittedModel.jsx`, which preserves the cached assets, enables shadows, and keeps them in the house GLB export.
 
-This implementation follows the complete specification document:
+| Asset | File | Triangles | Download size | Total Meshy credits |
+| --- | --- | ---: | ---: | ---: |
+| Sofa | `public/models/sofa/sofa.glb` | 9,224 | 3.1 MB | 35 |
+| Bookshelf | `public/models/bookshelf/bookshelf.glb` | 6,474 | 2.7 MB | 30 |
+| Bed | `public/models/bed/bed.glb` | 9,791 | 4.2 MB | 30 |
+| Accent chair (used twice) | `public/models/chair/chair.glb` | 5,512 | 4.2 MB | 30 |
+| Plant (used twice) | `public/models/plant/plant.glb` | 4,087 | 3.2 MB | 30 |
 
-- ✅ **Section 1-2**: Project overview and global specifications
-- ✅ **Section 3-7**: All structural elements and furniture
-- ✅ **Section 8**: Lighting specifications
-- ✅ **Section 9**: Material library (all materials implemented)
-- ✅ **Section 10**: Export specifications (GLB format)
-- ✅ **Section 11**: Naming conventions
-- ✅ **Section 12**: Layer/collection organization
-- ✅ **Section 13**: Quality assurance (all checks passed)
+The sofa was remeshed from 315,628 triangles. The bookshelf targeted 10,000 triangles during initial generation. Embedded data maps are at most 1,024 pixels. Bed and chair color maps retain 2,048 pixels and linear minification to avoid bleeding between their dense UV islands; the other color maps are 1,024 pixels. Base colors use JPEG and data maps use PNG. The texture step verifies that non-image buffers remain byte-for-byte unchanged.
 
----
+Task IDs, actual costs, source locations, and packing settings are recorded in `artifacts/{sofa,bookshelf,bed,chair,plant}/generation.json`. The latest three assets consumed 90 credits total. The in-scene screenshot and export measurements are under `artifacts/furniture/`. Source GLBs and raw Meshy task history are preserved in the ignored `.meshy/` directory, outside the public asset directory.
 
-## 🎯 Quality Metrics
+To optimize another embedded PNG/JPEG GLB locally on macOS, using a new output filename:
 
-### Visual Quality
-- ✅ All materials render correctly with PBR
-- ✅ Glass transparency works properly
-- ✅ Wood grain direction consistent
-- ✅ Colors match specification
-- ✅ Shadows render correctly
-- ✅ No z-fighting or visual artifacts
+```bash
+node scripts/optimize-glb-textures.mjs source.glb output.glb 1024
+```
 
-### Technical Quality
-- ✅ No gaps between connected surfaces
-- ✅ All faces have correct normal direction
-- ✅ Proper object naming throughout
-- ✅ Clean hierarchy structure
-- ✅ Optimized polygon count
+## Legacy Code
 
-### Performance
-- ✅ File size under target (<10MB)
-- ✅ Loads quickly (<3 seconds)
-- ✅ Renders at 60fps
-- ✅ Polygon count well within budget (5.6% used)
+The old vanilla Three.js implementation is still present in:
 
----
+```text
+js/
+css/
+```
 
-## 🛠️ Development
+Those files include earlier GLB export and DOM-based control code. They are retained as migration reference only. Any new feature work should target `src/` unless the feature is being deliberately ported from the legacy implementation.
 
-### Modular Architecture
+## Rendering and loading
 
-The code is organized into separate modules for maintainability:
+Auto quality starts at High, caps DPR at 1.5, and steps down after sustained rendering below 40 fps. Loading warmup, hidden tabs and long pauses are excluded; cooldowns prevent rapid changes. Medium removes SSAO and interior shadows; Low also removes bloom and the effect composer and caps DPR at 1. Manual presets override Auto. Development-only frame/draw-call counters appear at the bottom left.
 
-- **main.js**: Scene setup, camera, renderer, animation loop
-- **windows.js**: Window frame and glass generation
-- **stairs.js**: Staircase with treads and supports
-- **furniture-upper.js**: Bedroom and office furniture
-- **furniture-ground.js**: Kitchen and living room furniture
+Daylight uses a neutral warm key and soft fill, with modest AO and explicit ACES tone mapping. Nighttime uses one shadow-casting interior key and three unshadowed fills. Tiny decorative meshes skip shadows. Static repetitions (lamp parts, lawn stripes, desk/table/stool legs, caster wheels) are merged by material into ordinary exportable meshes.
 
-Each module is self-contained and can be modified independently.
+The structure renders while a separate furniture boundary loads; car and gym have their own loading boundaries. Export stays disabled until every group is committed and the car spawn animation completes. Asset failures retain the rest of the scene with a reload message. The roof video pauses on hidden tabs and disposes its media/texture on unmount; the canvas also suspends hidden-tab rendering. Weather motion uses elapsed time rather than frame count.
 
-### Adding New Elements
+The imported bed includes its visible pillows. A transparent, non-exported hit region preserves the Jobs audio interaction without drawing a duplicate pillow.
 
-To add new furniture or elements:
+Validation: `node --test scripts/render-quality.test.mjs`; `npm run build`; and `node scripts/inspect-house-export.mjs /absolute/path/to/export.glb`. Export bounds and before/after local rendering samples live in `artifacts/optimization/`. The reset-camera, 664 × 928, DPR 1 samples showed approximately 20% fewer daytime draw calls and 13% fewer nighttime calls. These are local frame measurements, not GPU timings or a cross-device benchmark.
 
-1. Create a new function in the appropriate module
-2. Use Three.js primitives (BoxGeometry, CylinderGeometry, etc.)
-3. Apply PBR materials with proper roughness/metalness
-4. Add to the correct group in the hierarchy
-5. Enable shadows (castShadow/receiveShadow)
-6. Test in browser and verify polygon count
+Packing a bed/chair with the same settings (choose a new output filename):
 
----
+```sh
+node scripts/optimize-glb-textures.mjs source.glb output.glb 1024 2048 linear
+```
 
-## 📝 Notes
+### Clean furniture finish
 
-### Cutaway View
-The model represents a cutaway view with the front and left walls completely absent. This "dollhouse" effect allows full visibility of the interior from an isometric angle.
+The bed, accent chairs, sofa, and bookshelf use smooth vertex colors baked from
+Meshy's original albedo. Interior UV sampling and eight edge-aware smoothing
+passes retain broad fabric/wood/book colors while removing fine speckling.
+Noisy normal and reflectance maps are replaced with a matte finish. Mesh positions,
+indices, normals, UVs, and transforms are preserved; unused texture payloads are
+removed. The standard glTF vertex colors also survive GLB export.
 
-### Lighting in GLB
-RectAreaLight and HemisphereLight don't export to GLB format (not supported by the standard). The exported file contains all geometry and materials, and lighting can be re-added in the target application.
+Rebuild with `node scripts/clean-furniture-textures.mjs source.glb output.glb`
+(`sharp` is a development dependency). Original local assets are backed up in
+`.meshy/texture-originals/`. This intentionally favors a clean stylized finish
+over fine fabric weave and wood grain.
 
-### Optimization
-The model is highly optimized at only 5,576 triangles, leaving plenty of room for additional details if needed. The target budget is 50,000-100,000 triangles.
+The same vertex-color finish is applied to the potted plants. Exterior car and gym
+assets retain their authored color/alpha textures, with softer normal detail,
+mipmapped filtering, and calmer opaque reflections (rebuild via
+`scripts/soften-model-materials.mjs`). Other opaque, untextured props receive a
+minimum roughness of 0.65; glass, artwork, and emissive media stay distinct.
+The desk has rounded desktop/monitor edges, a hinged laptop with keyboard and
+trackpad, a lower monitor pedestal, and a five-spoke chair base. Post-processing
+uses four MSAA samples to reduce jagged silhouettes.
 
----
+### Meshy office furniture
 
-## 🎓 Learning Resources
+The upstairs desk and office chair now load separate Meshy GLBs, fitted to
+1.5 × 0.775 × 0.8 m and 0.58 × 0.98 × 0.6 m respectively. The laptop and monitor
+remain independent, with the existing laptop audio interaction. Both assets use
+the same smooth vertex-color finish as the other furniture and local
+`scripts/simplify-colored-model.mjs` simplification to 12,000 triangles each.
 
-### Three.js Documentation
-- Official Docs: https://threejs.org/docs/
-- Examples: https://threejs.org/examples/
-- Manual: https://threejs.org/manual/
+Models: `public/models/office-desk/office-desk.glb` and
+`public/models/office-chair/office-chair.glb`. Task lineage, project folders,
+actual charges, and final asset sizes are recorded in
+`artifacts/office-desk/generation.json` and `artifacts/office-chair/generation.json`.
+Meshy charged 20 preview + 10 refine credits per object, 60 credits total.
+Source models and rendered previews remain in the recorded `.meshy` projects.
 
-### GLB/glTF Format
-- glTF Specification: https://www.khronos.org/gltf/
-- glTF Viewer: https://gltf-viewer.donmccurdy.com/
-- Babylon.js Sandbox: https://sandbox.babylonjs.com/
+### Matching interactive portraits
 
----
+All seven celebrity portraits use real vector paths in `public/celebrities/gallery/`,
+with charcoal artwork and transparent backgrounds.
+`scripts/build-portrait-gallery.mjs` rebuilds them from the original illustrations
+and the generated Musk stencil. It removes pale checkerboard pixels before tracing
+and isolated scan debris from the Bezos artwork; original assets remain available.
 
-## 📄 License
+Portraits appear only when the corresponding audio interaction is active. A shared
+poster component handles both same-event and separate play/end events, including
+Bezos. SVG outlines draw themselves directly onto the wall, followed by the filled
+artwork, without frames or labels. They fade away when audio stops and retrace on
+replay. Upstairs portraits share a hanging height. Runtime-only portraits remain
+excluded from GLB export.
 
-This project was created as a demonstration of procedural 3D modeling with Three.js based on a detailed specification document.
+Kalam activates from the downstairs bookshelf and appears on the adjacent right wall.
+Einstein activates from the upstairs digital clock and appears to its right. Both
+use archival speech recordings. Sources, authors, licenses and conversion details
+are available at `public/celebrities/credits.html`, linked from the scene toolbar.
 
----
+### Lofi resident
 
-## 🙏 Acknowledgments
+A Meshy character now follows a repeatable walking circuit through both floors,
+with a slower pace on the stairs and a Pause/Resume control. The runtime character
+is excluded from the static house GLB export. Route waypoints are in
+`src/components/character/residentRoute.js`; the independent skeleton and walking
+mixer are in `LofiResident.jsx`. The initial version uses the bundled walking cycle
+on the stairs; it does not yet include per-foot stair IK, sitting, reading or pull-ups.
 
-Built following the comprehensive specification document `3DModelingSpecificationModernHouse.md` which provided detailed measurements, materials, and organizational requirements.
+Asset: `public/models/lofi-resident/walking.glb`. Task lineage and actual charges
+(35 credits total) are recorded in `artifacts/lofi-resident/generation.json`.
+The textured source was locally reduced from 416,010 to 33,280 triangles before
+rigging, preserving its UVs. Regenerate neither model nor rig for future animations;
+reuse the rigging task recorded in that file.
 
----
+The active resident is now the selected cream/olive character with a buzz cut and
+rust headphones. V2 assets live in `public/models/lofi-resident-v2/`; the original
+resident is retained as a backup. V2 task IDs and the confirmed 38-credit cost are
+in `artifacts/lofi-resident-v2/generation.json`.
 
-**Version**: 1.0  
-**Last Updated**: October 25, 2025  
-**Status**: Production Ready ✅
+The controller accelerates and decelerates, slows for corners, matches gait timing
+to measured stride length, and blends into a standing idle at stops. Pausing on
+stairs is deferred until the landing. Short automatic breaks happen at open route
+points. Reduced-motion preference starts the resident at rest. Idle animation is
+stored without a duplicate character mesh (124 KB). Per-foot stair IK and furniture
+activities are still not implemented.
+
+### Resident activity routine
+
+The buzzcut resident now cycles through upstairs desk work, laptop pickup, a stairway trip,
+sofa laptop/TV time, and returning the laptop to the desk. The bottom-left activity selector
+jumps to Desk, Walk, or Sofa + TV; Pause freezes the character and TV landscape. Reduced
+motion starts paused. These shortcuts deliberately jump to a preview; normal playback uses
+the continuous route.
+
+`residentRoutine.js` owns the activity timeline and prop ownership. `ResidentContext` shares
+its current sample with the desk laptop, cable connector and TV. The TV faces the sofa and
+plays a locally drawn, silent landscape; clicking it still controls the existing Messi audio.
+The Meshy seated clip is animation-only (~301 KB), sharing the existing character mesh.
+Two-bone IK adjusts wrists to the keyboard/carry/lap positions, seated feet to the floor,
+and feet above stair treads. Sitting/standing blends the idle and seated clips. This is a
+scripted animation system, not physics navigation or full motion-captured object handling;
+pickup/release and stair contacts remain approximations.
+
+Meshy animation task: `01a13781-1718-77ad-b986-13e8b25f29e3`, action 33,
+3 consumed credits; reused rig `01a1377a-5444-739b-bef9-291b612c25e4`.
+Project: `.meshy/20261013_155149_lofi-buzzcut_01a13776`.
+Asset: `public/models/lofi-resident-v2/seated.glb`.
+Validation: `node --test scripts/resident-*.test.mjs` and `npm run build`.
+
+### Staircase-first character pass (active)
+
+The broader routine is now parked in `RoutineResident.jsx`. `LofiResident` runs only the
+staircase study: controlled ascent or descent, stopping on the landing. Replay and direction
+selection reset the study; they do not represent in-world turns. Focus stairs provides a close
+camera, and the inspection slider pauses on any point of the movement.
+
+`config/staircase.js` supplies both visible treads and foot-contact surfaces. The first tread
+was raised to the ground surface rather than remaining buried in it. The final tread contact
+allows for the upper floor's overhang. `stairMotion.js` uses a deliberate step-to gait, keeping
+one shoe fixed while the other lifts, moves across the riser, and lands. Pelvis height follows
+the weight transfer. `stairRig.js` stabilizes lower boot skin weights and measures each shoe's
+sole/ankle offset independently; geometry is cloned, so cached model assets remain untouched.
+
+Validation: `node --test scripts/stair-*.test.mjs`. The rig test loads the actual character,
+samples both directions at 60 ms intervals, checks ankle reach and all deformed mesh vertices
+against staircase surfaces. This is sampled geometric validation, not a general physics or
+collision system. The current gait intentionally places both feet on each tread before moving
+on; free roaming and furniture activities remain disabled until this movement is approved.
+No additional Meshy generation or credits were used for this pass.
+
+### Static resident placements (current)
+
+The resident now stays still. Choose one of five activity spots using the
+location selector. Selection fades the character out, applies a frozen pose, and fades him
+back in; reduced-motion preferences make the switch instant. Focus frames the selected
+placement, and Hide/Show controls visibility. There is no automatic routine, navigation,
+stair climbing, laptop carrying, or ongoing skeletal animation. The laptop stays on the desk;
+the TV's silent landscape remains active while the visible resident sits on the sofa.
+
+The sofa pose has its own seat height and forward offset to clear the cushions. Poses use
+matching Meshy character/idle/seated assets. Previous movement implementations are parked in `RoutineResident.jsx` and
+`StairResident.jsx`, neither mounted by House.
+
+### Expanded still placements
+
+The location selector includes sofa, desk, cooking at the stove, choosing a book at the
+bookshelf, and the outdoor pull-up station. All are frozen poses with a fade between them.
+The sofa uses a reclined spine pose, higher seat contact, and forward feet. Standing activities
+have individual world-space hand targets; cooking adds a pan, food, and a wooden utensil only
+while that placement is visible. The pull-up station's longest dimension is now 2 m to fit
+the resident, and he faces its bar rather than the side of the frame.
+
+The active model is `public/models/lofi-resident-v3/resident.glb`: a fresh buzzcut character
+with a cream crewneck, olive trousers, complete head/neck, and no headphones. V3 has its own
+Meshy rig and matching idle/seated clips. Its 44,214-triangle mesh and authored skin weights
+are preserved; neither the retired headset-removal script nor V2 leg repairs run on it.
+The sofa anchor is adjusted to fit the new proportions. Before measuring standing floor
+contact, updateMatrixWorld refreshes the skinned mesh bind inverse after relocation.
+
+The runtime model is about 4.2 MB; animation-only files avoid loading duplicate meshes/textures.
+`artifacts/lofi-resident-v3/generation.json` records the reference, project, four task IDs,
+and actual 41-credit total. Original generated assets are retained in that artifact folder.
+`node --test scripts/resident-v3.test.mjs scripts/resident-clips.test.mjs scripts/resident-ik.test.mjs`
+checks the actual replacement's head geometry, clip binding, and IK. The five spots were
+also visually checked in the local app. The older headset-removal experiment is retired.
+
+Pose refinement: the sofa's overall height is now 0.78 m, giving a seat around 0.55 m
+world Y (floor Y 0.1). The resident uses separate foot targets and a lumbar/mid-spine
+recline. Wrist rotations remain authored instead of being forced onto one global axis;
+arm bend targets differ by activity. The Focus camera for the sofa is inside the room
+to avoid the front door blocking the view. The Meshy rig has no individual finger bones,
+so hand grips remain an acknowledged limitation of cooking and gym poses.
+
+### Selected option 1 — single-pose review (current)
+
+The user restarted character design and selected the cream rolled-sleeve shirt / olive
+trousers concept. `LofiResident.jsx` now mounts `BookReachResident.jsx`; the previous five
+placements remain parked in `PlacedResident.jsx`. Only Character and Bookshelf reach are
+available for now. Reach for book / Lower arm moves one arm over 0.9 seconds, or instantly
+with reduced motion. Both feet and the opposite arm stay in their authored neutral stance.
+The arm is restored from a captured bone pose before IK on every update, preventing mixer
+cache behavior from leaving residual arm rotations after lowering it.
+
+Model and matching standing source: `public/models/lofi-resident-v4/`. The selected image,
+generation trail and actual 38-credit charge are in `artifacts/lofi-resident-v4/`.
+This is an initial reach review, not a completed finger grip or book pickup. Tea, couch,
+desk, cross-legged reading and dips await individual pose review.
+Validation: `node --test scripts/resident-v4.test.mjs` and `npm run build`.
+
+The generated idle clip is retained as a source but is not used at runtime: its bent-knee
+stance was rejected during review. The active character starts from its unmodified bind
+pose with locally authored relaxed arms, then layers the bookshelf reach.
+
+### Selected character: three seated activities
+
+Resident view now includes Desk chair, Downstairs sofa, and Upstairs reading seat.
+`seatedPoses.js` places the pelvis against measured seat heights and solves each arm and
+leg from the V4 bind pose. Reading uses an ankle-over-knee pose in the existing upstairs
+lounge chair, with the open book held above the lap and the head inclined toward it.
+The table copy of the interactive book hides during reading and returns when the resident
+is hidden or changes location. The downstairs sofa activates the existing silent TV scene.
+
+Foot support measurements include toe-weighted sole vertices; the old ankle-only filter
+missed the bottom of the V4 shoes. `resident-seating.test.mjs` loads the actual rig and
+checks all three poses for reachable planted feet and floor penetration. No new Meshy
+assets or credits were required for these poses.

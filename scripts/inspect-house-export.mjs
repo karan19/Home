@@ -1,0 +1,44 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { Box3, Vector3 } from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const file = process.argv[2];
+const b = fs.readFileSync(file);
+assert.equal(b.readUInt32LE(0), 0x46546c67);
+assert.equal(b.readUInt32LE(8), b.length);
+const len = b.readUInt32LE(12);
+const doc = JSON.parse(b.subarray(20, 20 + len));
+const images = doc.images?.length ?? 0;
+assert.ok(doc.images.every(image => image.bufferView !== undefined), 'All images should be embedded');
+assert.ok(!doc.nodes.some(node => ['Pillow_Audio_Hotspot', 'Video_Roof_Animation'].includes(node.name)), 'Runtime-only objects must not export');
+for (const mesh of doc.meshes) for (const primitive of mesh.primitives) delete primitive.material;
+delete doc.materials; delete doc.textures; delete doc.images;
+doc.buffers[0].uri = 'data:application/octet-stream;base64,' + b.subarray(28 + len).toString('base64');
+globalThis.ProgressEvent ??= class ProgressEvent {};
+const { scene } = await new GLTFLoader().parseAsync(JSON.stringify(doc), '');
+scene.updateMatrixWorld(true);
+const assets = [];
+scene.traverse(object => {
+  if (!/^(Meshy_(Bed|AccentChair|Plant|Sofa|Bookshelf|OfficeDesk|OfficeChair)|Gym_Model|Car_Model)/.test(object.name)) return;
+  const bounds = new Box3().setFromObject(object);
+  let triangles = 0;
+  object.traverse(child => { if (child.isMesh) triangles += (child.geometry.index?.count ?? child.geometry.attributes.position.count) / 3; });
+  assets.push({name:object.name,triangles,min:bounds.min.toArray(),max:bounds.max.toArray(),size:bounds.getSize(new Vector3()).toArray()});
+});
+assert.equal(assets.filter(a => a.name.startsWith('Meshy_AccentChair')).length, 2);
+assert.equal(assets.filter(a => a.name.startsWith('Meshy_Plant')).length, 2);
+const bed = assets.find(a => a.name === 'Meshy_Bed');
+assert.ok(bed && Math.abs(bed.min[1] - 3) < 0.001);
+assert.ok(Math.abs(bed.size[0] - 1.8) < 0.001 && Math.abs(bed.size[2] - 2.1) < 0.001);
+for (const asset of assets.filter(a => /Meshy_(AccentChair|Plant)/.test(a.name))) assert.ok(Math.abs(asset.min[1] - 3) < 0.001);
+const officeDesk = assets.find(a => a.name === 'Meshy_OfficeDesk');
+const officeChair = assets.find(a => a.name === 'Meshy_OfficeChair');
+assert.ok(officeDesk && officeChair, 'Both Meshy office assets must export');
+for (const asset of [officeDesk, officeChair]) assert.ok(Math.abs(asset.min[1] - 3) < 0.001, 'Office furniture must meet the floor');
+assert.ok(Math.abs(officeDesk.size[1] - 0.775) < 0.001, 'Desktop must support existing electronics');
+assert.ok(Math.abs(officeChair.size[1] - 0.98) < 0.001, 'Chair scale must match desk');
+// Draco accessor bounds can differ slightly from decoded vertex bounds (5 mm tolerance).
+assert.ok(Math.abs(Math.max(...assets.find(a => a.name === 'Gym_Model').size) - 1.8) < 0.005);
+assert.ok(Math.abs(Math.max(...assets.find(a => a.name === 'Car_Model').size) - 5) < 0.005);
+console.log(JSON.stringify({file,bytes:b.length,embeddedImages:images,assets},null,2));

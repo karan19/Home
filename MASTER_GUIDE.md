@@ -2,6 +2,10 @@
 
 This document consolidates all technical specifications, setup guides, and optimization manuals for the Modern House 3D project.
 
+## Current Implementation Note
+
+The active application is the Vite/React implementation in `src/`, launched from `src/main.jsx` and `src/App.jsx`. The older vanilla Three.js implementation in `js/` and `css/` is retained for migration reference only and is not loaded by the current `index.html`.
+
 ---
 
 ## Table of Contents

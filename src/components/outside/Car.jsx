@@ -1,74 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
 import { OUTSIDE } from '../../config/outsideCoordinates';
+import FittedModel from '../FittedModel';
 
-function Car() {
+export default function Car({ onReady }) {
   const { position, rotation, targetSize, modelPath } = OUTSIDE.car;
-  const groupRef = useRef();
-  const baseScaleRef = useRef(0); // Start at 0 for spawn animation
-  const { scene } = useGLTF(modelPath);
-  const spawnProgressRef = useRef(0);
-  const spawnedRef = useRef(false);
-  const animationDuration = 0.6; // seconds
-
-  // Initialize position and scale the model once
+  const group = useRef();
+  const progress = useRef(0);
   useEffect(() => {
-    if (groupRef.current && scene) {
-      // Set fixed position and initial rotation once
-      groupRef.current.position.set(position[0], position[1], position[2]);
-      groupRef.current.rotation.y = rotation;
-      
-      // Calculate bounding box and scale
-      const box = new THREE.Box3().setFromObject(scene);
-      const size = box.getSize(new THREE.Vector3());
-      const maxDimension = Math.max(size.x, size.y, size.z);
-      const scale = targetSize / maxDimension;
-      baseScaleRef.current = scale;
-      
-      // Initial state
-      groupRef.current.scale.setScalar(0);
-    }
-  }, [scene, targetSize, position, rotation]);
-
-  // Animate spawn only
-  useFrame((state, delta) => {
-    if (groupRef.current && !spawnedRef.current) {
-      spawnProgressRef.current = Math.min(spawnProgressRef.current + delta / animationDuration, 1);
-      
-      if (spawnProgressRef.current >= 1) {
-        spawnedRef.current = true;
-      }
-
-      const eased = easeOutElastic(spawnProgressRef.current);
-      groupRef.current.scale.setScalar(baseScaleRef.current * eased);
-      
-      // Subtle entry effects
-      groupRef.current.rotation.y = rotation + (1 - eased) * 0.6;
-      groupRef.current.position.y = position[1] + (1 - eased) * 0.6;
-    }
+    if (progress.current === 1) onReady?.('car', true);
+    return () => onReady?.('car', false);
+  }, [onReady]);
+  useFrame((_, delta) => {
+    if (!group.current || progress.current === 1) return;
+    progress.current = Math.min(progress.current + Math.min(delta, 0.05) / 0.6, 1);
+    const t = progress.current;
+    const eased = 1 - Math.pow(1 - t, 3);
+    group.current.scale.setScalar(eased);
+    if (t === 1) onReady?.('car', true);
   });
-
-  if (!scene) return null;
-
-  return (
-    <group ref={groupRef}>
-      <primitive 
-        object={scene} // No need to clone if only one car exists
-        castShadow 
-        receiveShadow 
-      />
+  return <group name="Outdoor_Car" position={position} rotation={[0, rotation, 0]}>
+    <group ref={group} scale={0}>
+      <FittedModel modelPath={modelPath} targetSize={targetSize} name="Car_Model" />
     </group>
-  );
+  </group>;
 }
-
-const easeOutElastic = (t) => {
-  if (t === 0 || t === 1) return t;
-  const c4 = (2 * Math.PI) / 3;
-  return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
-};
-
-export default Car;
-
 useGLTF.preload(OUTSIDE.car.modelPath);

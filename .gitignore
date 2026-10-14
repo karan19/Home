@@ -1,2 +1,9 @@
 /node_modules
 /dist
+/.meshy/
+
+# Local previews, generated review evidence, and machine-specific files
+/artifacts/
+.DS_Store
+.env
+.env.*

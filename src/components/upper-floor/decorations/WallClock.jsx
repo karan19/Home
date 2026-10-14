@@ -1,3 +1,4 @@
+import { useInteractiveAudio } from '../../../hooks/useInteractiveAudio';
 import React, { useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
@@ -5,6 +6,7 @@ import * as THREE from 'three';
 import { DECORATIONS } from '../../../config/upperFloorCoordinates';
 
 function WallClock({ position = [0, 2, -3.6], scale = 1 }) {
+  const { toggle } = useInteractiveAudio('einstein');
   const { materials: mat, frame, text, glow } = DECORATIONS.wallClock;
   const [time, setTime] = useState('00:00:00');
 
@@ -22,7 +24,10 @@ function WallClock({ position = [0, 2, -3.6], scale = 1 }) {
   });
 
   return (
-    <group position={position} name="Digital_Clock">
+    <group position={position} name="Digital_Clock"
+      onClick={event => { event.stopPropagation(); toggle(); }}
+      onPointerOver={event => { event.stopPropagation(); document.body.style.cursor = 'pointer'; }}
+      onPointerOut={() => { document.body.style.cursor = 'auto'; }}>
       {/* Clock frame/background */}
       <mesh castShadow receiveShadow>
         <boxGeometry args={[frame.widthScale * scale, frame.heightScale * scale, frame.depth]} />

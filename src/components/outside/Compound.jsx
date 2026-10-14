@@ -1,23 +1,17 @@
 import React from 'react';
-import { RigidBody, CuboidCollider } from '@react-three/rapier';
-import * as THREE from 'three';
+import RepeatedMesh from '../RepeatedMesh';
 
 function Compound({ dayMode = false }) {
   // Simple toggle: ON = day (white), OFF = night (orange)
   const lightColor = dayMode ? '#FFFFCC' : '#FFA500';
   return (
     <group name="Compound">
-      {/* Physics Ground Collider (explicit) */}
-      <RigidBody type="fixed">
-        <CuboidCollider args={[10, 0.1, 10]} position={[0, -0.2, 0]} />
-      </RigidBody>
-
       {/* GROUND PLANE - Mixed surfaces */}
       {/* Grass areas - very light green with texture (lowered to prevent z-fighting) */}
       <mesh position={[0, -0.3, 0]} receiveShadow>
         <boxGeometry args={[16, 0.1, 16]} />
         <meshStandardMaterial 
-          color="#B0FFB0" 
+          color="#9eb38b"
           roughness={0.9} 
           metalness={0}
           flatShading={false}
@@ -25,12 +19,9 @@ function Compound({ dayMode = false }) {
       </mesh>
 
       {/* Grass texture stripes (subtle ridges) */}
-      {[-6, -4, -2, 0, 2, 4, 6].map((x) => (
-        <mesh key={x} position={[x, -0.24, 0]} receiveShadow>
-          <boxGeometry args={[0.5, 0.005, 16]} />
-          <meshStandardMaterial color="#A0F0A0" roughness={0.9} metalness={0} />
-        </mesh>
-      ))}
+      <RepeatedMesh name="Lawn_Stripes" args={[0.5, 0.005, 16]}
+        positions={[-6, -4, -2, 0, 2, 4, 6].map(x => [x, -0.24, 0])}
+        material={{color:'#91aa83',roughness:0.95}} receiveShadow />
 
       {/* Concrete pathway (from gate to house) */}
       <mesh position={[0, -0.18, 2]} receiveShadow>
@@ -91,31 +82,12 @@ function Compound({ dayMode = false }) {
       </group>
 
       {/* LAMP POSTS (4 at corners of green field) */}
-      {[
-        [-7, -0.25, -7],  // Back-left corner
-        [7, -0.25, -7],   // Back-right corner
-        [-7, -0.25, 7],   // Front-left corner
-        [7, -0.25, 7]     // Front-right corner
-      ].map((pos, i) => (
-        <group key={i} position={pos} name={`Lamp_${i + 1}`}>
-          {/* Pole */}
-          <mesh position={[0, 1.5, 0]} castShadow>
-            <cylinderGeometry args={[0.05, 0.05, 3, 8]} />
-            <meshStandardMaterial color="#2C2C2C" roughness={0.4} metalness={0.6} />
-          </mesh>
-          {/* Light fixture */}
-          <mesh position={[0, 3, 0]} castShadow>
-            <boxGeometry args={[0.2, 0.2, 0.2]} />
-            <meshStandardMaterial 
-              color={lightColor}
-              emissive={lightColor}
-              emissiveIntensity={0.5}
-              roughness={0.2}
-              metalness={0}
-            />
-          </mesh>
-        </group>
-      ))}
+      <RepeatedMesh name="Lamp_Posts" shape="cylinder" args={[0.05, 0.05, 3, 8]}
+        positions={[[-7, 1.25, -7],[7, 1.25, -7],[-7, 1.25, 7],[7, 1.25, 7]]}
+        material={{color:'#35332e',roughness:0.4,metalness:0.6}} castShadow />
+      <RepeatedMesh name="Lamp_Fixtures" args={[0.2, 0.2, 0.2]}
+        positions={[[-7, 2.75, -7],[7, 2.75, -7],[-7, 2.75, 7],[7, 2.75, 7]]}
+        material={{color:lightColor,emissive:lightColor,emissiveIntensity:dayMode ? 0.2 : 1.5,roughness:0.2}} />
 
     </group>
   );

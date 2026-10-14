@@ -12,6 +12,30 @@
  */
 
 export const INTERACTIVE_FEATURES = {
+  kalam: {
+    trigger: { component: 'Bookshelf', position: [3.25, 0, -3.55] },
+    audio: {
+      files: ['/celebrities/kalam/speech.mp3'],
+      playEvent: 'kalamPlaying', endEvent: 'kalamPlaying'
+    },
+    poster: {
+      image: '/celebrities/gallery/kalam.svg',
+      position: [3.72, 1.9, -2.0], rotation: [0, -Math.PI / 2, 0],
+      size: [0.8, 1.0], wall: 'right'
+    }
+  },
+  einstein: {
+    trigger: { component: 'WallClock', position: [-0.5, 5.25, -3.6] },
+    audio: {
+      files: ['/celebrities/einstein/speech.mp3'],
+      playEvent: 'einsteinPlaying', endEvent: 'einsteinPlaying'
+    },
+    poster: {
+      image: '/celebrities/gallery/einstein.svg',
+      position: [0.65, 4.85, -3.72], rotation: [0, 0, 0],
+      size: [0.8, 1.0], wall: 'back'
+    }
+  },
   messi: {
     // TV on ground floor
     trigger: {
@@ -25,8 +49,8 @@ export const INTERACTIVE_FEATURES = {
       endEvent: 'tvPlaying'
     },
     poster: {
-      svg: '/celebrities/messi/messi.svg',
-      position: [3.7, 1.75, 3],
+      image: '/celebrities/gallery/messi.svg',
+      position: [3.72, 1.85, 2.6],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0], // [width, height] in meters
       wall: 'right'
@@ -45,8 +69,8 @@ export const INTERACTIVE_FEATURES = {
       endEvent: 'punchingBagPlaying'
     },
     poster: {
-      svg: '/celebrities/ali/MAli.svg',
-      position: [3.7, 4.75, 3],
+      image: '/celebrities/gallery/ali.svg',
+      position: [3.72, 4.85, 2.0],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
       wall: 'right'
@@ -65,8 +89,8 @@ export const INTERACTIVE_FEATURES = {
       endEvent: 'pillowPlaying'
     },
     poster: {
-      svg: '/celebrities/jobs/SteveJobs.svg',
-      position: [3.7, 5.0, -2.5],
+      image: '/celebrities/gallery/jobs.svg',
+      position: [3.72, 4.85, -2.6],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
       wall: 'right'
@@ -86,8 +110,8 @@ export const INTERACTIVE_FEATURES = {
       endEvent: 'laptopPlaying'
     },
     poster: {
-      svg: '/celebrities/musk/ElonMusk.svg',
-      position: [-3, 5.25, -3.6],
+      image: '/celebrities/gallery/musk.svg',
+      position: [-3, 4.85, -3.72],
       rotation: [0, 0, 0],
       size: [0.8, 1.0],
       wall: 'back'
@@ -107,8 +131,8 @@ export const INTERACTIVE_FEATURES = {
       endEvent: 'bezosAudioEnd'
     },
     poster: {
-      svg: '/celebrities/bezos/JeffBezos.svg',
-      position: [3.7, 4.5, 0.5],
+      image: '/celebrities/gallery/bezos.svg',
+      position: [3.72, 4.85, -0.3],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
       wall: 'right'

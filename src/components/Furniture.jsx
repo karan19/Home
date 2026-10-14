@@ -1,4 +1,6 @@
+import AnimatedPoster from './interactive/AnimatedPoster';
 import React from 'react';
+import FittedModel from './FittedModel';
 // Coordinate Configurations
 import { ENTERTAINMENT, LIVING_ROOM, KITCHEN } from '../config/groundFloorCoordinates';
 import { BEDROOM, OFFICE, SEATING_AREA, FITNESS, DECORATIONS } from '../config/upperFloorCoordinates';
@@ -10,11 +12,11 @@ import Refrigerator from './ground-floor/kitchen/Refrigerator';
 import CoffeeMachine from './ground-floor/kitchen/CoffeeMachine';
 import CoffeeStationTable from './ground-floor/kitchen/CoffeeStationTable';
 import WaterCooler from './ground-floor/kitchen/WaterCooler';
-import BarStool from './ground-floor/kitchen/BarStool';
 
 // Ground Floor - Living Room
 import Sofa from './ground-floor/living-room/Sofa';
 import CoffeeTable from './ground-floor/living-room/CoffeeTable';
+import WorldCupDisplay from './ground-floor/living-room/WorldCupDisplay';
 import BarcelonaCrest from './ground-floor/living-room/BarcelonaCrest';
 import Bookshelf from './ground-floor/living-room/Bookshelf';
 
@@ -78,9 +80,16 @@ function Furniture() {
           {/* TV Table with 4 legs */}
           <TVTable position={ENTERTAINMENT.tvTable.position} />
           
+          {/* Parked on the lawn behind the TV, clear of the stand and entrance. */}
+          <group position={[3.68,-.2375,5.3]} rotation={[0,Math.PI/2,0]} name="Bicycle_Behind_TV">
+            <FittedModel modelPath="/models/bicycle/bicycle.glb" targetSize={1.8} name="Bicycle" />
+          </group>
+
           {/* TV on table (near front wall) */}
           <TV position={ENTERTAINMENT.tv.position} rotation={ENTERTAINMENT.tv.rotation} />
           
+          <WorldCupDisplay />
+
           {/* PlayStation console (on table) */}
           <PlayStation position={ENTERTAINMENT.playstation.position} />
           
@@ -124,6 +133,8 @@ function Furniture() {
         
         {/* Bezos Poster on right wall (appears when OpenBook is clicked) */}
         <BezosPost />
+        <AnimatedPoster featureName="kalam" />
+        <AnimatedPoster featureName="einstein" />
         
         {/* Work desk with MacBook, monitor, and chair (against left wall) */}
         <WorkDesk position={OFFICE.workDesk.position} rotation={OFFICE.workDesk.rotation} />
@@ -138,8 +149,8 @@ function Furniture() {
         <Pen position={SEATING_AREA.pen.position} rotation={SEATING_AREA.pen.rotation} />
         
         {/* Potted plants (in square C1, side by side) */}
-        <PottedPlant position={DECORATIONS.pottedPlant1.position} height={DECORATIONS.pottedPlant1.height} />
-        <PottedPlant position={DECORATIONS.pottedPlant2.position} height={DECORATIONS.pottedPlant2.height} />
+        <PottedPlant position={DECORATIONS.pottedPlant1.position} height={DECORATIONS.pottedPlant1.height} rotation={DECORATIONS.pottedPlant1.rotation} />
+        <PottedPlant position={DECORATIONS.pottedPlant2.position} height={DECORATIONS.pottedPlant2.height} rotation={DECORATIONS.pottedPlant2.rotation} />
         
         {/* Rug on upper floor (covers D7, E7, D6, E6 - all 4 squares) */}
         <Rug position={DECORATIONS.rug.position} width={DECORATIONS.rug.width} depth={DECORATIONS.rug.depth} />

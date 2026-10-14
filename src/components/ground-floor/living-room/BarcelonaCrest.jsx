@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { useLoader } from '@react-three/fiber';
+import React, { useLayoutEffect } from 'react';
+import { useLoader, useThree } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import * as THREE from 'three';
 import { LIVING_ROOM } from '../../../config/groundFloorCoordinates';
@@ -10,10 +10,15 @@ function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
   // Load the SVG as a texture
   const texture = useLoader(TextureLoader, texturePath);
   
-  // Configure texture for best quality
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
-  texture.generateMipmaps = false;
+  const gl = useThree(state => state.gl);
+  useLayoutEffect(() => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.generateMipmaps = true;
+    texture.anisotropy = Math.min(8, gl.capabilities.getMaxAnisotropy());
+    texture.needsUpdate = true;
+  }, [texture, gl]);
 
   return (
     <group position={position} rotation={rotation} name="Barcelona_Crest">
@@ -28,28 +33,22 @@ function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
       </mesh>
 
       {/* Crest with SVG texture */}
-      <mesh position={[0, 0, crest.positionZ]} castShadow>
+      <mesh position={[0, 0, crest.positionZ]}>
         <planeGeometry args={[crest.widthScale * scale, crest.heightScale * scale]} />
-        <meshStandardMaterial
+        <meshBasicMaterial
           map={texture}
           transparent
           alphaTest={crest.alphaTest}
-          side={THREE.DoubleSide}
-          roughness={crest.roughness}
-          metalness={crest.metalness}
+          toneMapped={false}
+          depthWrite={false}
+          polygonOffset
+          polygonOffsetFactor={-1}
+          polygonOffsetUnits={-1}
         />
       </mesh>
     </group>
   );
 }
 
-// Wrap with Suspense fallback for loading
-function BarcelonaCrestWithSuspense(props) {
-  return (
-    <Suspense fallback={null}>
-      <BarcelonaCrest {...props} />
-    </Suspense>
-  );
-}
-
-export default BarcelonaCrestWithSuspense;
+// The furniture boundary waits for this texture before enabling export.
+export default BarcelonaCrest;

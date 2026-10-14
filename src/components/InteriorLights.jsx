@@ -1,81 +1,17 @@
 import React from 'react';
 
-function InteriorLights({ active = false }) {
+export default function InteriorLights({ active = false, shadows = true }) {
   if (!active) return null;
-
   return (
     <group name="Interior_Lights">
-      {/* Ground Floor - Living Room Ceiling Light */}
-      <pointLight
-        position={[1.5, 2.0, 1.5]}
-        intensity={1.1}
-        distance={1.8}
-        decay={3.0}
-        color="#FFFFFF"
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-near={0.1}
-        shadow-camera-far={3}
-      />
-
-      {/* Ground Floor - Kitchen Ceiling Light */}
-      <pointLight
-        position={[-1.5, 2.0, -2.5]}
-        intensity={1.1}
-        distance={1.8}
-        decay={3.0}
-        color="#FFFFFF"
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-near={0.1}
-        shadow-camera-far={3}
-      />
-
-      {/* Ground Floor - Above Sofa (enhanced intensity) */}
-      <pointLight
-        position={[1.5, 2.0, 1.0]}
-        intensity={1.3}
-        distance={1.8}
-        decay={3.0}
-        color="#FFFFFF"
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-near={0.1}
-        shadow-camera-far={3}
-      />
-
-      {/* Upper Floor - Bedroom Ceiling Light */}
-      <pointLight
-        position={[2.5, 5.8, -2.5]}
-        intensity={0.7}
-        distance={4}
-        decay={2}
-        color="#FFFFFF"
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-near={0.1}
-        shadow-camera-far={8}
-      />
-
-      {/* Desk Lamp on Work Desk (converted to PointLight) */}
-      <pointLight
-        position={[-3, 4.2, -2]}
-        intensity={1.0}
-        distance={2.5}
-        decay={2}
-        color="#FFFFEE"
-        castShadow
-        shadow-mapSize-width={512}
-        shadow-mapSize-height={512}
-        shadow-camera-near={0.1}
-        shadow-camera-far={5}
-      />
+      {/* Only the living-room key casts a cube shadow; fills need no shadow maps. */}
+      <pointLight position={[1.5, 2.35, 1]} intensity={5} distance={5} decay={2}
+        color="#ffe5bf" castShadow={shadows} shadow-mapSize={[512, 512]}
+        shadow-camera-near={0.15} shadow-camera-far={5}
+        shadow-bias={-0.0003} shadow-normalBias={0.02} />
+      <pointLight position={[-1.8, 2.4, -2]} intensity={4} distance={4.5} decay={2} color="#ffe5bf" />
+      <pointLight position={[2.5, 5.6, -2.5]} intensity={4} distance={4.5} decay={2} color="#ffe5bf" />
+      <pointLight position={[-3, 4.2, -2]} intensity={1.5} distance={2.5} decay={2} color="#ffdfad" />
     </group>
   );
 }
-
-export default InteriorLights;

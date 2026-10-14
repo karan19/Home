@@ -1,6 +1,6 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
-import * as THREE from 'three';
+import RepeatedMesh from '../../RepeatedMesh';
 import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
 
 function SmallTable({ position = [0, 0, 0] }) {
@@ -21,12 +21,8 @@ function SmallTable({ position = [0, 0, 0] }) {
       </RoundedBox>
 
       {/* Legs (4 corners) */}
-      {leg.positions.map((pos, i) => (
-        <mesh key={i} position={pos} castShadow>
-          <cylinderGeometry args={[leg.radius, leg.radius, leg.height, leg.segments]} />
-          <meshStandardMaterial {...material} />
-        </mesh>
-      ))}
+      <RepeatedMesh name="Table_Legs" shape="cylinder" args={[leg.radius, leg.radius, leg.height, leg.segments]}
+        positions={leg.positions} material={material} castShadow />
     </group>
   );
 }

@@ -1,47 +1,21 @@
 import React from 'react';
-import { EffectComposer, Bloom, SSAO } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
+import { EffectComposer, Bloom, SSAO, ToneMapping } from '@react-three/postprocessing';
+import { BlendFunction, ToneMappingMode } from 'postprocessing';
 
-/**
- * Post-Processing Effects
- * 
- * Adds visual enhancements to the scene:
- * - Bloom: Makes lights and bright surfaces glow
- * - SSAO: Adds ambient occlusion for realistic shadows in corners
- */
-
-function PostProcessing({ 
-  bloomEnabled = true,
-  bloomIntensity = 0.5,
-  ssaoEnabled = true,
-  ssaoIntensity = 30
+export default function PostProcessing({
+  bloomEnabled = true, bloomIntensity = 0.2,
+  ssaoEnabled = true, ssaoIntensity = 1.5,
 }) {
+  // No offscreen render targets or fullscreen passes in the low quality tier.
+  if (!bloomEnabled && !ssaoEnabled) return null;
   return (
-    <EffectComposer>
-      {/* Bloom Effect - Makes lights and emissive materials glow */}
-      {bloomEnabled && (
-        <Bloom
-          intensity={bloomIntensity}   // Glow intensity (0.3-2.0)
-          luminanceThreshold={0.9}     // Brightness threshold for bloom (0.8-1.0)
-          luminanceSmoothing={0.9}     // Smoothness of bloom transition
-          mipmapBlur={true}            // Better quality bloom
-          blendFunction={BlendFunction.ADD}
-        />
-      )}
-      
-      {/* SSAO Effect - Ambient occlusion for depth and realism */}
-      {ssaoEnabled && (
-        <SSAO
-          samples={31}                 // Quality (11-31, higher = better but slower)
-          radius={0.1}                 // Effect radius (0.05-0.2)
-          intensity={ssaoIntensity}    // Shadow intensity (10-50)
-          luminanceInfluence={0.6}     // How much lighting affects AO
-          color="black"                // Shadow color
-          blendFunction={BlendFunction.MULTIPLY}
-        />
-      )}
+    <EffectComposer enableNormalPass={ssaoEnabled} multisampling={4}>
+      {bloomEnabled && <Bloom intensity={bloomIntensity} luminanceThreshold={1}
+        luminanceSmoothing={0.5} mipmapBlur blendFunction={BlendFunction.ADD} />}
+      {ssaoEnabled && <SSAO samples={16} rings={4} radius={0.05} bias={0.025} worldProximityThreshold={0.3} worldProximityFalloff={0.1}
+        intensity={ssaoIntensity} luminanceInfluence={0.6}
+        color="black" blendFunction={BlendFunction.MULTIPLY} />}
+      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
     </EffectComposer>
   );
 }
-
-export default PostProcessing;

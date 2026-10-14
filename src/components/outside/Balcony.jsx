@@ -1,8 +1,10 @@
 import React from 'react';
+import { useHousePalette } from '../../context/HousePalette';
 import * as THREE from 'three';
 import { OUTSIDE } from '../../config/outsideCoordinates';
 
 function Balcony({ position = [0, 3, 2] }) {
+  const palette = useHousePalette();
   const { materials: mat, floor, glassRailing, posts, topRail, supportBrackets } = OUTSIDE.balcony;
 
   return (
@@ -11,7 +13,7 @@ function Balcony({ position = [0, 3, 2] }) {
       <mesh position={[0, floor.positionY, 0]} castShadow receiveShadow>
         <boxGeometry args={[floor.width, floor.height, floor.depth]} />
         <meshStandardMaterial 
-          {...mat.floor}
+          {...mat.floor} color={palette.floor}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -40,7 +42,7 @@ function Balcony({ position = [0, 3, 2] }) {
       {posts.positions.map((pos, i) => (
         <mesh key={i} position={pos} castShadow>
           <cylinderGeometry args={[posts.radius, posts.radius, posts.height, posts.segments]} />
-          <meshStandardMaterial {...mat.metal} />
+          <meshStandardMaterial {...mat.metal} color={palette.rail} />
         </mesh>
       ))}
 
@@ -48,7 +50,7 @@ function Balcony({ position = [0, 3, 2] }) {
       <mesh position={[0, topRail.front.positionY, topRail.front.positionZ]} castShadow>
         <boxGeometry args={[topRail.front.width, topRail.front.height, topRail.front.depth]} />
         <meshStandardMaterial 
-          {...mat.metal}
+          {...mat.metal} color={palette.rail}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -59,7 +61,7 @@ function Balcony({ position = [0, 3, 2] }) {
       <mesh position={[topRail.left.positionX, topRail.left.positionY, 0]} castShadow>
         <boxGeometry args={[topRail.left.width, topRail.left.height, topRail.left.depth]} />
         <meshStandardMaterial 
-          {...mat.metal}
+          {...mat.metal} color={palette.rail}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}
@@ -70,7 +72,7 @@ function Balcony({ position = [0, 3, 2] }) {
       <mesh position={[topRail.right.positionX, topRail.right.positionY, 0]} castShadow>
         <boxGeometry args={[topRail.right.width, topRail.right.height, topRail.right.depth]} />
         <meshStandardMaterial 
-          {...mat.metal}
+          {...mat.metal} color={palette.rail}
           polygonOffset={true}
           polygonOffsetFactor={-1}
           polygonOffsetUnits={-1}

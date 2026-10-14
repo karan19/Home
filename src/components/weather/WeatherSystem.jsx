@@ -82,13 +82,14 @@ function WeatherSystem({
   }, [weather]);
 
   // Animate rain and snow
-  useFrame((state) => {
+  useFrame((state, delta) => {
+    const frameScale = Math.min(delta, 0.05) * 60;
     // Animate rain
     if (rainRef.current && weather === 'rain' && rainParticles) {
       const positions = rainRef.current.geometry.attributes.position.array;
       
       for (let i = 0; i < rainParticles.count; i++) {
-        positions[i * 3 + 1] -= rainParticles.velocities[i];
+        positions[i * 3 + 1] -= rainParticles.velocities[i] * frameScale;
         
         if (positions[i * 3 + 1] < 0) {
           positions[i * 3 + 1] = 15;
@@ -106,10 +107,10 @@ function WeatherSystem({
       
       for (let i = 0; i < snowParticles.count; i++) {
         // Move snow down slowly
-        positions[i * 3 + 1] -= snowParticles.velocities[i];
+        positions[i * 3 + 1] -= snowParticles.velocities[i] * frameScale;
         
         // Add gentle side-to-side drift
-        positions[i * 3] += Math.sin(state.clock.elapsedTime + i) * 0.01;
+        positions[i * 3] += Math.sin(state.clock.elapsedTime + i) * 0.01 * frameScale;
         
         // Reset to top when hits ground
         if (positions[i * 3 + 1] < 0) {

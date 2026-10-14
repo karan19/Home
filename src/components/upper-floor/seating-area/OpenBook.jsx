@@ -1,24 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useResident } from '../../../context/ResidentContext';
 import { RoundedBox } from '@react-three/drei';
-import { getFeatureConfig, getRandomAudioFile } from '../../../config/interactiveFeatures';
 import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
-import { mediaManager } from '../../../utils/mediaManager';
+import { useInteractiveAudio } from '../../../hooks/useInteractiveAudio';
 
-function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
-  const config = getFeatureConfig('bezos');
+function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0], held = false }) {
+  const group=useRef();
+  const resident=useResident();
+  useFrame(()=>{if(group.current){const reading=resident?.current?.location==='reading'&&!resident.current.hidden;group.current.visible=held?reading:!reading;
+   if(held)group.current.traverse(object=>{if(object.isMesh){object.material.transparent=true;object.material.opacity=resident.current.formation??1;object.castShadow=object.material.opacity>.95;}});}});
+  const { toggle } = useInteractiveAudio('bezos');
   const { materials: mat, leftPage, rightPage, binding, cover, pageStack } = SEATING_AREA.openBook;
   const [isHovered, setIsHovered] = useState(false);
-  const audioRef = useRef(null);
-  const ensureRandomAudioSource = () => {
-    if (!audioRef.current) return;
-    const randomSrc = getRandomAudioFile('bezos');
-    if (!randomSrc) return;
-    const absoluteNext = new URL(randomSrc, window.location.origin).href;
-    if (audioRef.current.src !== absoluteNext) {
-      audioRef.current.src = randomSrc;
-      audioRef.current.load();
-    }
-  };
 
   // Handle cursor change on hover
   useEffect(() => {
@@ -28,26 +22,13 @@ function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
     };
   }, [isHovered]);
 
-  const handleClick = async () => {
-    // Create audio on first click using config
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
-      audioRef.current.loop = false;
-      audioRef.current.addEventListener('ended', () => {
-        window.dispatchEvent(new CustomEvent(config.audio.endEvent, { detail: false }));
-      });
-    }
-
-    const wasPlaying = mediaManager.isPlaying(audioRef.current);
-    if (!wasPlaying) {
-      ensureRandomAudioSource();
-    }
-
-    await mediaManager.toggle(audioRef.current, config.audio.playEvent, config.audio.endEvent);
+  const handleClick = async (e) => {
+    e.stopPropagation();
+    await toggle();
   };
 
   return (
-    <group 
+    <group ref={group}
       position={position} 
       rotation={rotation} 
       name="Furniture_OpenBook"

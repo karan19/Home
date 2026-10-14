@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
+import { useHousePalette } from '../context/HousePalette';
+import { STAIRCASE, STAIR_TREADS } from '../config/staircase';
 import * as THREE from 'three';
 
 function Stairs() {
-  const treadMaterial = new THREE.MeshStandardMaterial({
-    color: 0x654321,
+  const palette = useHousePalette();
+  const treadMaterial = useMemo(() => new THREE.MeshStandardMaterial({
+    color: palette.stairs,
     roughness: 0.4,
     metalness: 0.0
-  });
+  }), [palette]);
+  useEffect(() => () => treadMaterial.dispose(), [treadMaterial]);
 
   const treads = [];
   const risers = [];
-  const stairStartX = -2.75;
-  const stairStartZ = 3.36; // Moved one step forward (3.08 + 0.28 = 3.36)
-  const treadDepth = 0.28;
-  const riserHeight = 0.25;
-  const treadWidth = 1.2;
-  const treadThickness = 0.05;
+  const { x: stairStartX, depth: treadDepth, width: treadWidth, thickness: treadThickness } = STAIRCASE;
   const riserThickness = 0.02;
 
-  for (let i = 0; i < 12; i++) {
-    const yPos = riserHeight * i + treadThickness / 2; // At ground level
-    const zPos = stairStartZ - (treadDepth * i);
-    
+  for (let i = 0; i < STAIR_TREADS.length; i++) {
+    const yPos = STAIR_TREADS[i].y - treadThickness / 2;
+    const zPos = STAIR_TREADS[i].z;
+    const riserHeight = (STAIR_TREADS[i+1]?.y ?? STAIRCASE.upper) - STAIR_TREADS[i].y;
     // Add tread
     treads.push(
       <mesh

@@ -251,54 +251,10 @@ export const ENTERTAINMENT = {
 export const LIVING_ROOM = {
   sofa: { 
     position: [1.5, 0, 1],
-    fabricMaterial: {
-      color: 0xF5F5DC,
-      roughness: 0.6,
-      metalness: 0.0
-    },
-    woodMaterial: {
-      color: 0x654321,
-      roughness: 0.4,
-      metalness: 0.0
-    },
-    seatBase: {
-      width: 1.8,
-      height: 0.45,
-      depth: 1.2,
-      radius: 0.08,
-      smoothness: 4,
-      positionY: 0.225
-    },
-    backCushion: {
-      width: 1.8,
-      height: 0.5,
-      depth: 0.25,
-      radius: 0.06,
-      smoothness: 4,
-      positionY: 0.7,
-      positionZ: -0.475
-    },
-    armrest: {
-      width: 0.2,
-      height: 0.5,
-      depth: 1.2,
-      radius: 0.05,
-      smoothness: 4,
-      leftPositionX: -1.0,
-      rightPositionX: 1.0,
-      positionY: 0.5
-    },
-    leg: {
-      radius: 0.04,
-      height: 0.15,
-      segments: 16,
-      positions: [
-        [-0.8, 0.075, -0.55],
-        [0.8, 0.075, -0.55],
-        [-0.8, 0.075, 0.55],
-        [0.8, 0.075, 0.55]
-      ]
-    }
+    modelPath: '/models/sofa/sofa.glb',
+    modelSize: [2.2, 0.72, 0.9], // Width, height, depth in meters
+    rotation: [0, 0, 0],
+    floorOffset: 0.1, // Ground floor's top surface
   },
   coffeeTable: { 
     position: [1.5, 0, 2.3],
@@ -332,7 +288,7 @@ export const LIVING_ROOM = {
     texturePath: '/FCBCrest.svg',
     frame: {
       widthScale: 0.44,
-      heightScale: 0.54,
+      heightScale: 0.45,
       depth: 0.02,
       color: 0xFFCC00,
       roughness: 0.3,
@@ -340,134 +296,19 @@ export const LIVING_ROOM = {
     },
     crest: {
       widthScale: 0.4,
-      heightScale: 0.5,
-      positionZ: 0.011,
-      alphaTest: 0.1,
+      heightScale: 0.4056338,
+      positionZ: 0.016,
+      alphaTest: 0.01,
       roughness: 0.4,
       metalness: 0.1
     }
   },
-  bookshelf: { 
-    position: [3.25, 0, -3.55], 
+  bookshelf: {
+    position: [3.25, 0, -3.55],
     rotation: [0, 0, 0],
-    shelfMaterial: {
-      color: "#D2B48C",
-      roughness: 0.4,
-      metalness: 0
-    },
-    bookMaterial: {
-      roughness: 0.6,
-      metalness: 0,
-      colors: [0x8B4513, 0x654321, 0xA0522D]
-    },
-    structure: {
-      backPanel: {
-        width: 1,
-        height: 1.8,
-        depth: 0.02,
-        positionY: 0.9,
-        positionZ: -0.15
-      },
-      sidePanel: {
-        width: 0.02,
-        height: 1.8,
-        depth: 0.3,
-        leftPositionX: -0.49,
-        rightPositionX: 0.49,
-        positionY: 0.9,
-        positionZ: -0.05
-      },
-      top: {
-        width: 1,
-        height: 0.02,
-        depth: 0.3,
-        positionY: 1.79,
-        positionZ: -0.05
-      },
-      bottom: {
-        width: 1,
-        height: 0.02,
-        depth: 0.3,
-        positionY: 0.01,
-        positionZ: -0.05
-      },
-      shelf: {
-        width: 0.96,
-        height: 0.02,
-        depth: 0.28,
-        positionZ: -0.05,
-        yPositions: [0.36, 0.72, 1.08, 1.44]
-      }
-    },
-    books: {
-      width: 0.03,
-      height: 0.25,
-      positionZ: -0.05,
-      shelves: [
-        {
-          y: 0.18,
-          books: [
-            { x: -0.3, depth: 0.15, colorIndex: 0 },
-            { x: -0.25, depth: 0.12, colorIndex: 1 },
-            { x: -0.2, depth: 0.18, colorIndex: 2 },
-            { x: -0.15, depth: 0.14, colorIndex: 0 },
-            { x: -0.1, depth: 0.16, colorIndex: 1 },
-            { x: -0.05, depth: 0.13, colorIndex: 2 },
-            { x: 0, depth: 0.17, colorIndex: 0 },
-            { x: 0.05, depth: 0.15, colorIndex: 1 },
-            { x: 0.1, depth: 0.14, colorIndex: 2 },
-            { x: 0.15, depth: 0.16, colorIndex: 0 }
-          ]
-        },
-        {
-          y: 0.54,
-          books: [
-            { x: -0.3, depth: 0.16, colorIndex: 1 },
-            { x: -0.25, depth: 0.14, colorIndex: 2 },
-            { x: -0.2, depth: 0.15, colorIndex: 0 },
-            { x: -0.15, depth: 0.17, colorIndex: 1 },
-            { x: -0.1, depth: 0.13, colorIndex: 2 },
-            { x: -0.05, depth: 0.16, colorIndex: 0 },
-            { x: 0, depth: 0.14, colorIndex: 1 },
-            { x: 0.05, depth: 0.15, colorIndex: 2 }
-          ]
-        },
-        {
-          y: 0.9,
-          books: [
-            { x: -0.3, depth: 0.15, colorIndex: 2 },
-            { x: -0.25, depth: 0.17, colorIndex: 1 },
-            { x: -0.2, depth: 0.14, colorIndex: 0 },
-            { x: -0.15, depth: 0.16, colorIndex: 2 },
-            { x: -0.1, depth: 0.13, colorIndex: 1 },
-            { x: -0.05, depth: 0.15, colorIndex: 0 },
-            { x: 0, depth: 0.14, colorIndex: 2 },
-            { x: 0.05, depth: 0.16, colorIndex: 1 },
-            { x: 0.1, depth: 0.17, colorIndex: 0 }
-          ]
-        },
-        {
-          y: 1.26,
-          books: [
-            { x: -0.3, depth: 0.14, colorIndex: 1 },
-            { x: -0.25, depth: 0.16, colorIndex: 0 },
-            { x: -0.2, depth: 0.15, colorIndex: 2 },
-            { x: -0.15, depth: 0.17, colorIndex: 1 },
-            { x: -0.1, depth: 0.13, colorIndex: 0 },
-            { x: -0.05, depth: 0.16, colorIndex: 2 }
-          ]
-        },
-        {
-          y: 1.62,
-          books: [
-            { x: -0.25, depth: 0.15, colorIndex: 0 },
-            { x: -0.2, depth: 0.14, colorIndex: 1 },
-            { x: -0.15, depth: 0.16, colorIndex: 2 },
-            { x: -0.1, depth: 0.13, colorIndex: 0 }
-          ]
-        }
-      ]
-    }
+    modelPath: '/models/bookshelf/bookshelf.glb',
+    modelSize: [1, 1.8, 0.3], // Width, height, depth in meters
+    floorOffset: 0.1
   }
 };
 

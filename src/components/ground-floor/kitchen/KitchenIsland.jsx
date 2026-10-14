@@ -1,24 +1,23 @@
 import React from 'react';
-import * as THREE from 'three';
 import BarStool from './BarStool';
 import { KITCHEN } from '../../../config/groundFloorCoordinates';
 
 function KitchenIsland({ position }) {
   const { cabinetMaterial, countertopMaterial, base, countertop, barStools, bowl, fruit } = KITCHEN.kitchenIsland;
 
-  const cabinetMat = new THREE.MeshStandardMaterial(cabinetMaterial);
-  const countertopMat = new THREE.MeshStandardMaterial(countertopMaterial);
 
   return (
     <group position={position} name="Kitchen_Island">
       {/* Island base */}
-      <mesh position={[0, base.positionY, 0]} castShadow receiveShadow material={cabinetMat}>
+      <mesh position={[0, base.positionY, 0]} castShadow receiveShadow>
         <boxGeometry args={[base.width, base.height, base.depth]} />
+        <meshStandardMaterial {...cabinetMaterial} />
       </mesh>
 
       {/* Countertop */}
-      <mesh position={[0, countertop.positionY, 0]} castShadow receiveShadow material={countertopMat}>
+      <mesh position={[0, countertop.positionY, 0]} castShadow receiveShadow>
         <boxGeometry args={[countertop.width, countertop.height, countertop.depth]} />
+        <meshStandardMaterial {...countertopMaterial} />
       </mesh>
 
       {/* Bar stools */}
@@ -30,8 +29,8 @@ function KitchenIsland({ position }) {
       <mesh 
         position={[0, bowl.positionY, 0]} 
         castShadow 
-        material={new THREE.MeshStandardMaterial({ color: bowl.color, roughness: bowl.roughness })}
       >
+        <meshStandardMaterial color={bowl.color} roughness={bowl.roughness} />
         <sphereGeometry 
           args={[
             bowl.radius, 
@@ -51,9 +50,9 @@ function KitchenIsland({ position }) {
           key={i}
           position={[fruit.baseX + i * fruit.spacing, fruit.positionY, 0]}
           castShadow
-          material={new THREE.MeshStandardMaterial({ color, roughness: fruit.roughness })}
         >
           <sphereGeometry args={[fruit.radius, fruit.segments, fruit.segments]} />
+          <meshStandardMaterial color={color} roughness={fruit.roughness} />
         </mesh>
       ))}
     </group>

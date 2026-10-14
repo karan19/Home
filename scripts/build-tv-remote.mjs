@@ -1,0 +1,17 @@
+import fs from 'node:fs/promises';
+import {Group,Mesh,MeshStandardMaterial,CylinderGeometry} from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
+globalThis.FileReader=class {readAsArrayBuffer(blob){blob.arrayBuffer().then(result=>{this.result=result;this.onloadend?.();});}};
+const remote=new Group();remote.name='TV_Remote';
+const material=color=>new MeshStandardMaterial({color,roughness:.65});
+const body=new Mesh(new RoundedBoxGeometry(.043,.016,.16,1,.006),material('#292D31'));body.position.y=.008;remote.add(body);
+const add=(geometry,mat,x,y,z,name)=>{const m=new Mesh(geometry,mat);m.name=name;m.position.set(x,y,z);remote.add(m);};
+add(new CylinderGeometry(.005,.005,.002,16),material('#C55D50'),-.012,.017,-.06,'Power');
+add(new CylinderGeometry(.014,.014,.002,32),material('#555B60'),0,.017,-.025,'Navigation_Ring');
+add(new CylinderGeometry(.007,.007,.0025,24),material('#90999D'),0,.018,-.025,'Select');
+const button=material('#757D82');
+for(let row=0;row<3;row++)for(let col=0;col<2;col++)add(new RoundedBoxGeometry(.012,.003,.009,1,.002),button,(col-.5)*.022,.017,.012+row*.017,'Control_Button');
+const data=await new GLTFExporter().parseAsync(remote,{binary:true});
+await fs.mkdir('public/models/tv-remote',{recursive:true});await fs.writeFile('public/models/tv-remote/remote.glb',Buffer.from(data));
+console.log('TV remote exported',data.byteLength);

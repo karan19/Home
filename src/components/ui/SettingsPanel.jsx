@@ -53,7 +53,7 @@ function SettingsPanel({ onSettingsChange }) {
           // Force immediate update with a small delay to ensure time is set first
           setTimeout(() => {
             if (onSettingsChange) {
-              onSettingsChange({ ...settings, _timeChanged: Date.now() });
+              onSettingsChange({ _timeChanged: Date.now() });
             }
           }, 0);
         }
@@ -119,36 +119,9 @@ function SettingsPanel({ onSettingsChange }) {
     // Performance
     Performance: folder({
       performanceMode: {
-        value: 'High',
-        options: ['Low', 'Medium', 'High'],
-        label: 'Quality Preset',
-        onChange: (value) => {
-          // Apply performance presets
-          const presets = {
-            Low: {
-              bloom: false,
-              ssao: false,
-              bloomIntensity: 0,
-              ssaoIntensity: 0
-            },
-            Medium: {
-              bloom: true,
-              ssao: false,
-              bloomIntensity: 0.3,
-              ssaoIntensity: 0
-            },
-            High: {
-              bloom: true,
-              ssao: true,
-              bloomIntensity: 0.5,
-              ssaoIntensity: 30
-            }
-          };
-          
-          if (onSettingsChange && presets[value]) {
-            onSettingsChange({ ...settings, ...presets[value] });
-          }
-        }
+        value: 'Auto',
+        options: ['Auto', 'Low', 'Medium', 'High'],
+        label: 'Quality Preset'
       }
     }),
     
@@ -159,9 +132,9 @@ function SettingsPanel({ onSettingsChange }) {
         label: 'Bloom Effect'
       },
       bloomIntensity: {
-        value: 0.5,
+        value: 0.2,
         min: 0,
-        max: 2,
+        max: 1,
         step: 0.1,
         label: 'Bloom Intensity'
       },
@@ -170,10 +143,10 @@ function SettingsPanel({ onSettingsChange }) {
         label: 'SSAO'
       },
       ssaoIntensity: {
-        value: 30,
-        min: 10,
-        max: 50,
-        step: 5,
+        value: 1.5,
+        min: 0,
+        max: 10,
+        step: 0.5,
         label: 'SSAO Intensity'
       }
     })

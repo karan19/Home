@@ -1,21 +1,23 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import * as THREE from 'three';
+import { useHousePalette } from '../context/HousePalette';
 
 function Structure() {
+  const palette = useHousePalette();
   // Memoize materials to prevent recreation on every render
   const materials = useMemo(() => ({
     base: new THREE.MeshStandardMaterial({
-      color: 0xE8E8E8,
+      color: palette.base,
       roughness: 0.7,
       metalness: 0.0
     }),
     wall: new THREE.MeshStandardMaterial({
-      color: 0xF5F5DC,
+      color: palette.wall,
       roughness: 0.8,
       metalness: 0.0
     }),
     hardwood: new THREE.MeshStandardMaterial({
-      color: 0xC19A6B,
+      color: palette.floor,
       roughness: 0.4,
       metalness: 0.0,
       polygonOffset: true,
@@ -23,16 +25,17 @@ function Structure() {
       polygonOffsetUnits: 1
     }),
     edge: new THREE.MeshStandardMaterial({
-      color: 0x654321,
+      color: palette.stairs,
       roughness: 0.4,
       metalness: 0.0
     }),
     roof: new THREE.MeshStandardMaterial({
-      color: 0xD2B48C,
+      color: palette.roof,
       roughness: 0.7,
       metalness: 0.0
     })
-  }), []);
+  }), [palette]);
+  useEffect(() => () => Object.values(materials).forEach(material => material.dispose()), [materials]);
 
   return (
     <group name="Structure">

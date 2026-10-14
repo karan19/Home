@@ -17,7 +17,6 @@
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@react-three/rapier": "^2.1.0",
     "@vitejs/plugin-react": "^4.7.0",
     "leva": "^0.10.0",
     "react": "^19.1.1",
@@ -28,5 +27,10 @@
   "overrides": {
     "@radix-ui/react-portal": "^1.1.9",
     "@radix-ui/react-tooltip": "^1.2.8"
+  },
+  "devDependencies": {
+    "meshoptimizer": "^0.22.0",
+    "potrace": "^2.1.8",
+    "sharp": "^0.35.5"
   }
 }
