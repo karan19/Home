@@ -34,6 +34,7 @@ const VIEWS={
 // The selected character uses authored poses fitted to each furniture contact.
 export default function BookReachResident(){
  const {camera,controls}=useThree();
+ const showDevTools=import.meta.env.DEV&&new URLSearchParams(window.location.search).get('debug')==='1';
  const {scene:source}=useGLTF(MODEL);
  const resident=useResident();
  const root=useRef();
@@ -79,6 +80,11 @@ export default function BookReachResident(){
   const spot=VIEWS[id];camera.position.set(...spot.camera);
   controls?.target.set(spot.position[0],spot.position[1]+.9,spot.position[2]);controls?.update();
  };
+ useEffect(()=>{
+  const returnToTV=()=>focusTV(camera,controls);
+  window.addEventListener('house-tv-focus',returnToTV);
+  return()=>window.removeEventListener('house-tv-focus',returnToTV);
+ },[camera,controls]);
  useEffect(()=>{
   if(!tvActive)return;
   // Keep the seated view after playback; only explicit navigation exits it.
@@ -145,7 +151,7 @@ export default function BookReachResident(){
   <group ref={root} name="Lofi_Resident" userData={{skipExport:true}}>
    <group scale={character.scale}><primitive object={character.scene} position={character.offset} dispose={null}/></group>
   </group>
-  <Html fullscreen calculatePosition={(_,__,size)=>[size.width/2,size.height/2]} zIndexRange={[10,0]} style={{pointerEvents:'none'}}>
+  {showDevTools && <Html fullscreen calculatePosition={(_,__,size)=>[size.width/2,size.height/2]} zIndexRange={[10,0]} style={{pointerEvents:'none'}}>
    <div style={{position:'absolute',bottom:20,left:20,maxWidth:310,pointerEvents:'auto',display:'flex',gap:7,flexWrap:'wrap',alignItems:'center',padding:'10px 14px',borderRadius:12,background:'rgba(45,49,44,.92)',color:'#f6f3ec',font:'12px system-ui'}}>
     <span>Resident</span>
     <select aria-label="Resident view" value={view} disabled={tvActive} onChange={changeView} style={buttonStyle}>
@@ -157,6 +163,6 @@ export default function BookReachResident(){
     <button style={buttonStyle} onClick={()=>focus()}>Focus</button>
     <button style={buttonStyle} disabled={tvActive} onClick={()=>setHidden(v=>!v)}>{hidden?'Show':'Hide'}</button>
    </div>
-  </Html>
+  </Html>}
  </>;
 }

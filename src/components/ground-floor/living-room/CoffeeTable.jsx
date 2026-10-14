@@ -6,7 +6,15 @@ import { LIVING_ROOM } from '../../../config/groundFloorCoordinates';
 
 function CoffeeTable({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const playback=useTVPlayback();
-  const useRemote=e=>{e.stopPropagation();playback.playNext();};
+  const useRemote=e=>{
+    e.stopPropagation();
+    if(playback.active){
+      // Returning to the couch must leave the current video's time and source intact.
+      window.dispatchEvent(new Event('house-tv-focus'));
+      return;
+    }
+    playback.playNext();
+  };
   const { material, tabletop, leg } = LIVING_ROOM.coffeeTable;
 
   return (

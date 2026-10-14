@@ -283,7 +283,7 @@ function App() {
       </Canvas>
 
       {showDevTools && metrics && <output data-testid="scene-metrics" data-metrics={JSON.stringify(metrics)} style={{position:'absolute',left:16,bottom:16,color:'#fff',background:'#222b',padding:'6px 10px',borderRadius:8,font:'11px monospace',pointerEvents:'none'}}>{qualityName} · {metrics.frameMs} ms · {metrics.calls} draws · DPR {metrics.dpr}</output>}
-      <SceneToolbar
+      {showDevTools && <SceneToolbar
         paletteId={paletteId}
         onPaletteChange={setPaletteId}
         canExport={Boolean(sceneActions && modelReady)}
@@ -293,7 +293,7 @@ function App() {
         onExport={handleExportGlb}
         onResetCamera={handleResetCamera}
         onToggleGrid={handleToggleGrid}
-      />
+      />}
 
       {/* Development tools are opt-in via ?debug=1 */}
       {showDevTools && (
