@@ -331,3 +331,19 @@ Foot support measurements include toe-weighted sole vertices; the old ankle-only
 missed the bottom of the V4 shoes. `resident-seating.test.mjs` loads the actual rig and
 checks all three poses for reachable planted feet and floor penetration. No new Meshy
 assets or credits were required for these poses.
+
+## Production hosting
+
+The site at `https://www.karankan19.com` is hosted by AWS Amplify, app `Home`
+(`d2rzcb85nwgh4m`, region `us-east-1`). The `main` branch automatically deploys.
+Check deployment status with:
+
+```sh
+aws amplify list-jobs --app-id d2rzcb85nwgh4m --branch-name main --region us-east-1 --max-results 3
+```
+
+Keep React and its CommonJS dependents under Rollup's automatic chunk ordering.
+The former package-based manual chunks introduced circular imports and caused
+`Cannot read properties of undefined (reading 'forwardRef')` in production.
+Verify release builds with `npm run build` and `npm run preview`; the dev server
+alone does not exercise production chunk initialization.

@@ -1,6 +1,5 @@
 import AnimatedPoster from './interactive/AnimatedPoster';
 import React from 'react';
-import FittedModel from './FittedModel';
 // Coordinate Configurations
 import { ENTERTAINMENT, LIVING_ROOM, KITCHEN } from '../config/groundFloorCoordinates';
 import { BEDROOM, OFFICE, SEATING_AREA, FITNESS, DECORATIONS } from '../config/upperFloorCoordinates';
@@ -80,11 +79,6 @@ function Furniture() {
           {/* TV Table with 4 legs */}
           <TVTable position={ENTERTAINMENT.tvTable.position} />
           
-          {/* Parked on the lawn behind the TV, clear of the stand and entrance. */}
-          <group position={[3.68,-.2375,5.3]} rotation={[0,Math.PI/2,0]} name="Bicycle_Behind_TV">
-            <FittedModel modelPath="/models/bicycle/bicycle.glb" targetSize={1.8} name="Bicycle" />
-          </group>
-
           {/* TV on table (near front wall) */}
           <TV position={ENTERTAINMENT.tv.position} rotation={ENTERTAINMENT.tv.rotation} />
           
