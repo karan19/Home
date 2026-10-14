@@ -12,6 +12,21 @@
  */
 
 export const INTERACTIVE_FEATURES = {
+  jordan: {
+    trigger: { component: 'SportsMemorabilia', position: [3.43, 3, 1.9] },
+    audio: { files: ['/celebrities/jordan/Jordan.mp3'], playEvent: 'jordanPlaying', endEvent: 'jordanPlaying' },
+    poster: { image: '/celebrities/gallery/jordan.svg', position: [3.72, 4.85, 1.9], rotation: [0, -Math.PI / 2, 0], size: [0.8, 1.0], wall: 'right' }
+  },
+  sachin: {
+    trigger: { component: 'SportsMemorabilia', position: [3.48, 0.1, -0.25] },
+    audio: { files: ['/celebrities/sachin/Sachin.mp3'], playEvent: 'sachinPlaying', endEvent: 'sachinPlaying' },
+    poster: { image: '/celebrities/gallery/sachin.svg?v=upper-body', position: [3.72, 1.95, -0.25], rotation: [0, -Math.PI / 2, 0], size: [1.0, 1.5], wall: 'right' }
+  },
+  federer: {
+    trigger: { component: 'SportsMemorabilia', position: [3.48, 3, -1.05] },
+    audio: { files: ['/celebrities/federer/Federer.mp3'], playEvent: 'federerPlaying', endEvent: 'federerPlaying' },
+    poster: { image: '/celebrities/gallery/federer.svg', position: [3.72, 4.65, -1.05], rotation: [0, -Math.PI / 2, 0], size: [0.75, 1.0], wall: 'right' }
+  },
   kalam: {
     trigger: { component: 'Bookshelf', position: [3.25, 0, -3.55] },
     audio: {
@@ -70,7 +85,7 @@ export const INTERACTIVE_FEATURES = {
     },
     poster: {
       image: '/celebrities/gallery/ali.svg',
-      position: [3.72, 4.85, 2.0],
+      position: [3.72, 4.85, 3.25],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
       wall: 'right'
@@ -126,7 +141,7 @@ export const INTERACTIVE_FEATURES = {
       rotation: [0, 0.3, 0]
     },
     audio: {
-      files: ['/celebrities/bezos/JeffBezos.mp3'],
+      files: ['/celebrities/bezos/Bezos.mp3'],
       playEvent: 'bezosAudioPlay',
       endEvent: 'bezosAudioEnd'
     },

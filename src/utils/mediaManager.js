@@ -15,6 +15,17 @@ class MediaManager {
     this.currentEndEvent = null;
   }
 
+  // Silent SVG previews use the same ownership as audio, so another interaction closes them.
+  preview(owner, playEvent, endEvent, duration = 12000) {
+    this.stopCurrent();
+    this.currentAudio = owner;
+    this.currentPlayEvent = playEvent;
+    this.currentEndEvent = endEvent;
+    this.previewTimer = setTimeout(() => this.stopCurrent(), duration);
+    window.dispatchEvent(new CustomEvent(playEvent, { detail: true }));
+    return true;
+  }
+
   /**
    * Play audio and show poster, stopping any previous media first
    * @param {HTMLAudioElement} audioElement - The audio element to play
@@ -49,16 +60,16 @@ class MediaManager {
    * Stop currently playing audio and close its poster
    */
   stopCurrent() {
-    if (this.currentAudio && !this.currentAudio.paused) {
+    clearTimeout(this.previewTimer);
+    this.previewTimer = null;
+    if (this.currentAudio) {
       this.currentAudio.pause();
       this.currentAudio.currentTime = 0;
-      
-      // Dispatch event to close the poster
       if (this.currentEndEvent) {
         window.dispatchEvent(new CustomEvent(this.currentEndEvent, { detail: false }));
       }
     }
-    
+
     this.currentAudio = null;
     this.currentPlayEvent = null;
     this.currentEndEvent = null;
@@ -70,7 +81,7 @@ class MediaManager {
    * @returns {boolean}
    */
   isPlaying(audioElement) {
-    return this.currentAudio === audioElement && !audioElement.paused;
+    return this.currentAudio === audioElement && (Boolean(this.previewTimer) || !audioElement.paused);
   }
 
   /**

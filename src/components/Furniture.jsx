@@ -1,3 +1,5 @@
+import { getFeatureConfig } from '../config/interactiveFeatures';
+import SportsMemorabilia from './interactive/SportsMemorabilia';
 import AnimatedPoster from './interactive/AnimatedPoster';
 import React from 'react';
 // Coordinate Configurations
@@ -83,6 +85,8 @@ function Furniture() {
           <TV position={ENTERTAINMENT.tv.position} rotation={ENTERTAINMENT.tv.rotation} />
           
           <WorldCupDisplay />
+          <SportsMemorabilia featureName="sachin" />
+          <AnimatedPoster featureName="sachin" />
 
           {/* PlayStation console (on table) */}
           <PlayStation position={ENTERTAINMENT.playstation.position} />
@@ -129,6 +133,10 @@ function Furniture() {
         <BezosPost />
         <AnimatedPoster featureName="kalam" />
         <AnimatedPoster featureName="einstein" />
+        <SportsMemorabilia featureName="jordan" />
+        {getFeatureConfig('jordan').poster.image && <AnimatedPoster featureName="jordan" />}
+        <SportsMemorabilia featureName="federer" />
+        <AnimatedPoster featureName="federer" />
         
         {/* Work desk with MacBook, monitor, and chair (against left wall) */}
         <WorkDesk position={OFFICE.workDesk.position} rotation={OFFICE.workDesk.rotation} />

@@ -1,0 +1,9 @@
+Tool: built-in image_gen (not CLI).
+Inputs: owner-supplied Desktop/Sachin.png and Desktop/Federer.png.
+Output: illustrated.png in each person's folder, converted to gallery SVG by scripts/build-sports-portraits.mjs.
+
+Sachin prompt:
+Edit target: supplied photo of Sachin Tendulkar batting. Convert to clean black ink outline/stencil illustration for subsequent SVG vector tracing and animated wall drawing. Preserve exact recognizable person, batting pose, complete raised bat, helmet, gloves, pads, shoes and full body framing. Remove checkerboard completely: genuinely transparent background. Black ink ONLY, transparent negative spaces, no white painted background, no gray shading, no stippling, no halftone, no sketchy scratch marks. Use clear smooth connected outer contours and selected interior details so the bat and light shirt remain fully legible, restrained solid black shadow shapes, face recognizable. Preserve proportions. No extra objects or captions. Professional sports editorial line art.
+
+Federer prompt:
+Edit target supplied Roger Federer thumbs-up photo. Convert to polished BLACK INK line-art portrait for SVG tracing and animated wall drawing. Preserve face identity, friendly expression, headband, hair, raised thumb, exact pose and waist-up framing. True transparent background, remove checkerboard. Strong clean connected outer contours, restrained black shadow shapes, elegant interior facial lines; retain white clothing shape through outlines. No gray, no stippling, no halftone, no texture or scribbles. One black ink color with transparent/white negative spaces; no scene or frame or captions. Clear recognizable sports editorial illustration, especially eyes, nose, mouth and hand.

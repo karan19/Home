@@ -1,0 +1,3 @@
+Federer.mp3: supplied by site owner from Desktop. Copied unchanged.
+Click the sports object to play audio and form the portrait. Click again to stop. The portrait fades when the clip ends.
+Configured in src/config/interactiveFeatures.js.

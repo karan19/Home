@@ -58,9 +58,12 @@ export function useInteractiveAudio(featureName) {
       return false;
     }
 
+    if (!config.audio.files.length) {
+      return mediaManager.preview(audio, config.audio.playEvent, config.audio.endEvent);
+    }
     setRandomAudioSource();
     return mediaManager.play(audio, config.audio.playEvent, config.audio.endEvent);
-  }, [config.audio.endEvent, config.audio.playEvent, setRandomAudioSource]);
+  }, [config.audio.files, config.audio.endEvent, config.audio.playEvent, setRandomAudioSource]);
 
   return {
     config,
