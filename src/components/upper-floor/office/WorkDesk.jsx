@@ -1,4 +1,5 @@
 import React from 'react';
+import BrainModel from './BrainModel';
 import { RoundedBox, useGLTF } from '@react-three/drei';
 import DeskLaptop from './MacBook';
 import MacMini from './MacMini';
@@ -15,6 +16,7 @@ function WorkDesk({ position = [2, 3, -2], rotation = 0 }) {
       <FittedModel modelPath={desk.modelPath} modelSize={desk.modelSize} name="Meshy_OfficeDesk" />
 
       <DeskLaptop />
+      <BrainModel position={[-.57, desk.modelSize[1], -.24]} />
 
       {/* Compact 24-inch display: thin bezel and a low, connected pedestal. */}
       <group name="Monitor" position={[monitor.positionX, desk.modelSize[1], monitor.positionZ]}>

@@ -1,0 +1,3 @@
+Tool: built-in image_gen. Input: owner's Desktop/Huberman.png.
+
+Edit supplied Andrew Huberman portrait into clean black ink stencil/line-art for SVG tracing and an animated wall reveal. Preserve recognizable face identity, forward gaze, expression, short hair, beard and black collared shirt. Head-and-shoulders framing. Strong smooth contours and clear facial details with controlled solid black shadows. No gray shading, no grain, no stippling, no tiny scratchy beard hairs. Simplify beard into clean shapes while retaining likeness. Transparent background, remove white photo background. Black ink with white/transparent negative space, no frame or text. Match professional monochrome editorial portrait illustration.

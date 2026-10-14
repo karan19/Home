@@ -12,6 +12,11 @@
  */
 
 export const INTERACTIVE_FEATURES = {
+  huberman: {
+    trigger: { component: 'BrainModel', position: [-3.24, 3.775, -1.43] },
+    audio: { files: ['/celebrities/huberman/Huberman.mp3'], playEvent: 'hubermanPlaying', endEvent: 'hubermanPlaying' },
+    poster: { image: '/celebrities/gallery/huberman.svg', position: [-1.65, 4.85, -3.72], rotation: [0, 0, 0], size: [0.8, 1.0], wall: 'back' }
+  },
   jordan: {
     trigger: { component: 'SportsMemorabilia', position: [3.43, 3, 1.9] },
     audio: { files: ['/celebrities/jordan/Jordan.mp3'], playEvent: 'jordanPlaying', endEvent: 'jordanPlaying' },

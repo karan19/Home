@@ -133,6 +133,7 @@ function Furniture() {
         <BezosPost />
         <AnimatedPoster featureName="kalam" />
         <AnimatedPoster featureName="einstein" />
+        <AnimatedPoster featureName="huberman" />
         <SportsMemorabilia featureName="jordan" />
         {getFeatureConfig('jordan').poster.image && <AnimatedPoster featureName="jordan" />}
         <SportsMemorabilia featureName="federer" />
