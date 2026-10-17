@@ -1,0 +1,19 @@
+{
+  "source": "Desktop/Typing.jpg",
+  "resource": "image-to-3d",
+  "taskId": "01a148ea-3a42-7083-824d-62dbfc9f028a",
+  "projectFolder": ".meshy/desk-typer/20261017_011121_desk-typer_01a148ea",
+  "creditsConsumed": 30,
+  "pose": "Static seated typing pose; no skeleton or typing animation",
+  "processing": "Blender chair and keyboard fitting, 55k triangle decimation, 2K base color; runtime shared off-white shirt and formation shader",
+  "bytes": 3165660,
+  "inferred": "Unseen back and depth generated from one illustrated reference",
+  "contactsMetres": {
+    "seat": 0.514935,
+    "sole": 0,
+    "leftFingertips": 0.788792,
+    "rightFingertips": 0.794996,
+    "keyboardTop": 0.7885
+  },
+  "clothingRepair": "Added welded garment mask closing small tear patches; clean cream shader and locally softened patch normals. Vertex positions, skinning, UVs and animations preserved."
+}

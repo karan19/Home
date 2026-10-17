@@ -78,7 +78,7 @@ function Structure() {
 
       {/* Roof */}
       <group name="Roof">
-        <mesh position={[0, 6.2, 0]} castShadow receiveShadow material={materials.roof}>
+        <mesh position={[0, 6.2, 0]} castShadow receiveShadow={false} material={materials.roof}>
           <boxGeometry args={[8.6, 0.4, 8.6]} />
         </mesh>
       </group>

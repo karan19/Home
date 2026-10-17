@@ -5,11 +5,21 @@ import Structure from './Structure';
 import AssetBoundary from './AssetBoundary';
 import * as THREE from 'three';
 import Stairs from './Stairs';
+import StairReader from './character/StairReader';
+import DeskTyper from './character/DeskTyper';
+import DipsResident from './character/DipsResident';
+import BookshelfResident from './character/BookshelfResident';
+import TVResident from './character/TVResident';
+import BoxingResident from './character/BoxingResident';
+import CookingResident from './character/CookingResident';
+import IslandResident from './character/IslandResident';
+import MeditationResident from './character/MeditationResident';
+import CoffeeResident from './character/CoffeeResident';
 import Furniture from './Furniture';
 import { ResidentProvider } from '../context/ResidentContext';
 import LofiResident from './character/LofiResident';
 import InteriorLights from './InteriorLights';
-import VideoRoofAnimation from './VideoRoofAnimation';
+import RoofPortraits from './RoofPortraits';
 // Outside components
 import Balcony from './outside/Balcony';
 import Compound from './outside/Compound';
@@ -20,7 +30,6 @@ import Gym from './outside/Gym';
 import InteractiveElements from './InteractiveElements';
 // Outside coordinates
 import { OUTSIDE } from '../config/outsideCoordinates';
-import { getRandomVideo } from '../config/roofVideos';
 
 const EXTERIOR_DELAY_MS = 900;
 
@@ -36,15 +45,13 @@ function House({
   const handleAssetReady = useCallback((id, ready) => {
     setLoaded(previous => previous[id] === ready ? previous : { ...previous, [id]: ready });
   }, []);
-  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym && loaded.resident);
+  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym && loaded.resident && loaded.stairReader && loaded.deskTyper && loaded.dipsResident && loaded.bookshelfResident && loaded.tvResident && loaded.boxingResident && loaded.coffeeResident && loaded.cookingResident && loaded.islandResident && loaded.meditationResident);
   useEffect(() => {
     onModelReadyChange(allReady);
     return () => onModelReadyChange(false);
   }, [allReady, onModelReadyChange]);
   const [exteriorReady, setExteriorReady] = useState(false);
   
-  // Select random video once on mount
-  const [roofVideo] = useState(() => getRandomVideo());
 
   // Preload exterior GLTF assets during the introductory animation
   useEffect(() => {
@@ -111,6 +118,16 @@ function House({
 
       {/* Stairs */}
       <Stairs />
+      <AssetBoundary id="stairReader" onReady={handleAssetReady}><StairReader /><StairReader placement="reading" /></AssetBoundary>
+      <AssetBoundary id="deskTyper" onReady={handleAssetReady}><DeskTyper /></AssetBoundary>
+      <AssetBoundary id="dipsResident" onReady={handleAssetReady}><DipsResident /></AssetBoundary>
+      <AssetBoundary id="bookshelfResident" onReady={handleAssetReady}><BookshelfResident /></AssetBoundary>
+      <AssetBoundary id="tvResident" onReady={handleAssetReady}><TVResident /></AssetBoundary>
+      <AssetBoundary id="cookingResident" onReady={handleAssetReady}><CookingResident /></AssetBoundary>
+      <AssetBoundary id="islandResident" onReady={handleAssetReady}><IslandResident /></AssetBoundary>
+      <AssetBoundary id="meditationResident" onReady={handleAssetReady}><MeditationResident /></AssetBoundary>
+      <AssetBoundary id="coffeeResident" onReady={handleAssetReady}><CoffeeResident /></AssetBoundary>
+      <AssetBoundary id="boxingResident" onReady={handleAssetReady}><BoxingResident /></AssetBoundary>
 
       {/* Furniture */}
       <AssetBoundary id="furniture" onReady={handleAssetReady}><Furniture /></AssetBoundary>
@@ -133,7 +150,7 @@ function House({
       <RolledNewspaper />
 
       {/* Video Texture on Roof - Random video selected on page load */}
-      <VideoRoofAnimation videoSrc={roofVideo} />
+      <RoofPortraits />
 
       {/* Exterior assets */}
       {exteriorReady && (

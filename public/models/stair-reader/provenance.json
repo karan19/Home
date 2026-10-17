@@ -1,0 +1,25 @@
+{
+  "source": "User-provided Desktop/Sitting.jpg",
+  "referencePreparation": "Chair removed using image generation; unseen surfaces inferred.",
+  "generator": "Meshy image-to-3d via meshy-cli 0.4.0",
+  "taskId": "01a148cc-c574-74d4-9888-0d4c2419941e",
+  "taskStatus": "SUCCEEDED",
+  "creditsConsumed": 30,
+  "asset": "reader.glb",
+  "pose": "Static seated reader holding an open book, without chair; no skeletal animation",
+  "processing": "Blender stair-contact fitting, sole flattening, decimation, smooth shading, removal of generated normal-map grain, texture optimization",
+  "triangles": 55000,
+  "bytes": 3471092,
+  "worldPosition": [
+    -2.75,
+    0.55,
+    2.52
+  ],
+  "seatTreadIndex": 4,
+  "footTreadIndex": 2,
+  "exportedMeshMaxPenetrationMetres": 0.000205129,
+  "validation": "Blender front/side/three-quarter renders; exported GLB contact test; Vite production build. Browser verification blocked by browser security policy.",
+  "hairEdit": "Restored the original head and hair geometry after the shortening deformation distorted the upper head. Shirt and book styling remain runtime material treatments.",
+  "clothingRepair": "Added welded garment mask closing small tear patches; clean cream shader and locally softened patch normals. Vertex positions, skinning, UVs and animations preserved.",
+  "hairMaskFix": "Exclude dark nape strands above local y=1.02 from the cream garment mask; restores original hair texture on both reader placements."
+}

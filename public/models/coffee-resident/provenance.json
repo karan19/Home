@@ -1,0 +1,22 @@
+{
+  "source": ".meshy/stair-reader/ref/chair-free.png, edited to a clean cream hoodie and coffee-sipping pose",
+  "resource": "image-to-3d",
+  "taskId": "01a14947-5adb-7402-8ab4-ea60062e66f7",
+  "projectFolder": ".meshy/coffee-resident/20261017_025315_coffee-resident_01a14947",
+  "creditsConsumed": 30,
+  "reference": ".meshy/coffee-resident/reference.png",
+  "processing": "Removed generated support block, capped underside, fitted pelvis to .708m mattress height, simplified to 54864 triangles, 2K base texture without grainy normal maps.",
+  "placement": {
+    "seatLocalHeight": 0.5096293687820435,
+    "verticalOffset": 0.1983706312179565,
+    "position": [
+      2.02,
+      3,
+      -1.54
+    ],
+    "triangles": 54864
+  },
+  "bytes": 3081936,
+  "behavior": "Static coffee-sipping pose replaces sleeping, with formation effect and review visibility. Original rumpled bed restored.",
+  "limitations": "Authored sipping pose, no arm sipping animation. Inspected in Blender renders and geometry checks; no browser inspection."
+}

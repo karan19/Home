@@ -1,0 +1,34 @@
+{
+  "resource": "image-to-3d",
+  "taskId": "01a1496d-4a8e-7602-a533-65fe8de5c39f",
+  "projectFolder": ".meshy/balcony-elbows/20261017_033448_balcony-elbows_01a1496d",
+  "creditsConsumed": 30,
+  "reference": ".meshy/balcony-elbows/reference.png",
+  "model": "elbow-rest.glb",
+  "processing": "Authored static forward lean and crossed forearms. Rigid yaw alignment and millimetre sleeve contact adjustment; no face reshaping or skin rig. 55K triangles, 2K color.",
+  "placement": {
+    "railY": -0.16155701875686646,
+    "position": [
+      0.9,
+      3,
+      5.0884429812431335
+    ],
+    "heading": 0,
+    "elbowTarget": 1.028,
+    "elbowX": [
+      -0.06534731388092041,
+      0.2176215648651123
+    ],
+    "triangles": 54999
+  },
+  "validation": {
+    "elbowClearanceMetres": [
+      0.004174,
+      0.002793
+    ],
+    "maximumSoleErrorMetres": 0.001207,
+    "animations": 0,
+    "skins": 0
+  },
+  "bytes": 3153716
+}

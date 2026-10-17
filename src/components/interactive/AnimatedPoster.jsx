@@ -4,14 +4,14 @@ import * as THREE from 'three';
 import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 import { getFeatureConfig } from '../../config/interactiveFeatures';
 
-function AnimatedPoster({ featureName }) {
+function AnimatedPoster({ featureName, placement, active }) {
   const config = getFeatureConfig(featureName);
   const svg = useLoader(SVGLoader, config.poster.image);
   const groupRef = useRef();
   const fillRef = useRef();
   const strokeRef = useRef();
   const animation = useRef({ playing: false, elapsed: 0, opacity: 0 });
-  const [width, height] = config.poster.size;
+  const [width, height] = placement?.size ?? config.poster.size;
 
   const artwork = useMemo(() => {
     const shapes = svg.paths.flatMap(path => SVGLoader.createShapes(path));
@@ -65,6 +65,13 @@ function AnimatedPoster({ featureName }) {
     };
   }, [config.audio.playEvent, config.audio.endEvent]);
 
+  // Roof copies receive activation from their parent; wall copies keep their events.
+  useEffect(() => {
+    if (active === undefined) return;
+    animation.current.playing = active;
+    if (active) { animation.current.elapsed = 0; animation.current.opacity = 0; }
+  }, [active]);
+
   useFrame((_, delta) => {
     const state = animation.current;
     if (!state.playing && state.opacity < 0.001) {
@@ -82,8 +89,8 @@ function AnimatedPoster({ featureName }) {
     groupRef.current.visible = true;
   });
 
-  return <group ref={groupRef} name={`Portrait_${featureName}`} position={config.poster.position}
-    rotation={config.poster.rotation} visible={false} userData={{ skipExport: true }}>
+  return <group ref={groupRef} name={`Portrait_${featureName}`} position={placement?.position ?? config.poster.position}
+    rotation={placement?.rotation ?? config.poster.rotation} visible={false} userData={{ skipExport: true }}>
     <lineSegments geometry={artwork.outline} raycast={() => null}>
       <lineBasicMaterial ref={strokeRef} color="#252923" transparent opacity={0} depthWrite={false} toneMapped={false} />
     </lineSegments>

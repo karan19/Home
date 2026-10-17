@@ -1,0 +1,8 @@
+{
+  "resource": "image-to-3d",
+  "task_id": "01a14974-1eb3-74d4-9c38-f5d062adc9c8",
+  "project": ".meshy/cooking-resident/20261017_034158_cooking-resident_01a14974",
+  "consumed_credits": 30,
+  "reference": "bookshelf character, new static cooking pose",
+  "fit": "1.65m height, both feet grounded, face unchanged, clean roughness, 55k triangles"
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { CHARACTER_REVIEW_MODE } from '../../../config/characterReview';
 import { useResident } from '../../../context/ResidentContext';
 import { RoundedBox } from '@react-three/drei';
 import { SEATING_AREA } from '../../../config/upperFloorCoordinates';
@@ -8,8 +9,8 @@ import { useInteractiveAudio } from '../../../hooks/useInteractiveAudio';
 function OpenBook({ position = [0, 0, 0], rotation = [0, 0, 0], held = false }) {
   const group=useRef();
   const resident=useResident();
-  useFrame(()=>{if(group.current){const reading=resident?.current?.location==='reading'&&!resident.current.hidden;group.current.visible=held?reading:!reading;
-   if(held)group.current.traverse(object=>{if(object.isMesh){object.material.transparent=true;object.material.opacity=resident.current.formation??1;object.castShadow=object.material.opacity>.95;}});}});
+  useFrame(()=>{if(group.current){const reading=CHARACTER_REVIEW_MODE||(resident?.current?.location==='reading'&&!resident.current.hidden);group.current.visible=held?reading:!reading;
+   if(held)group.current.traverse(object=>{if(object.isMesh){object.material.transparent=true;object.material.opacity=CHARACTER_REVIEW_MODE?1:resident.current.formation??1;object.castShadow=object.material.opacity>.95;}});}});
   const { toggle } = useInteractiveAudio('bezos');
   const { materials: mat, leftPage, rightPage, binding, cover, pageStack } = SEATING_AREA.openBook;
   const [isHovered, setIsHovered] = useState(false);

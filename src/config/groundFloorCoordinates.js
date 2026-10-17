@@ -338,7 +338,7 @@ export const KITCHEN = {
       positionY: 0.925
     },
     barStools: {
-      positions: [[-0.5, 0, 0.6], [0.5, 0, 0.6]]
+      positions: [[-0.5, 0, 1.05], [0.5, 0, 0.6]]
     },
     bowl: {
       radius: 0.15,

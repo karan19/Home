@@ -1,0 +1,32 @@
+{
+  "source": "Desktop/Dips.jpg, isolated middle variation",
+  "resource": "image-to-3d",
+  "taskId": "01a148f1-d21b-7472-a350-039d4a7e3d6d",
+  "projectFolder": ".meshy/dips-resident/20261017_011938_dips-resident_01a148f1",
+  "creditsConsumed": 30,
+  "pose": "Rigged 3.2-second dip cycle with nearly straight arms at the top and anchored hands",
+  "processing": "Blender fit to existing 2m gym model, grip contact shaping, 55K triangle decimation, 2K texture; runtime off-white shirt and formation effect",
+  "bytes": 4059600,
+  "inferred": "Unseen back and depth from one illustration",
+  "validation": {
+    "triangleIntersections": 988,
+    "gripContactIntersections": 988,
+    "outsideGripIntersections": 0,
+    "minimumHeight": 0.37476539611816406
+  },
+  "limitations": "Animation fitted to this machine; existing palm/bar contact overlap remains. Not a general-purpose motion rig. Browser verification blocked by browser security policy.",
+  "animation": {
+    "clip": "Controlled_Dips",
+    "durationSeconds": 3.2,
+    "descentMetres": 0.1587194602,
+    "maxExportedGripDriftMetres": 1.4092016128114376e-07,
+    "lowestLocalPointMetres": 0.2401419,
+    "outsideGripIntersectionsAcross17Samples": 0,
+    "rigging": "Locally authored Blender skeleton, baked two-bone arm solves, fixed hand bones",
+    "additionalMeshyCredits": 0,
+    "topElbowAngleDegrees": 172
+  },
+  "proportions": "Body and legs lengthened 10% vertically around grip height; head retains original proportions; facing reversed 180 degrees with hands shifted 6cm along bars.",
+  "hair": "Reduced upper crown height by up to 4cm and width/depth by 10%, smoothly blended above local height 1.48m; face and ears unchanged. Matches the more compact desk character hairstyle. Rear hair additionally tapered inward up to 38% in depth and 16% in width, blended above 1.445m.",
+  "clothingRepair": "Added welded garment mask closing small tear patches; clean cream shader and locally softened patch normals. Vertex positions, skinning, UVs and animations preserved."
+}

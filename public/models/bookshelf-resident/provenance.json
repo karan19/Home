@@ -1,0 +1,18 @@
+{
+  "source": "Desktop/Bookshelf.jpg",
+  "reference": ".meshy/bookshelf-resident/reference.png",
+  "resource": "image-to-3d",
+  "taskId": "01a1491b-4fd6-7690-a961-b5086b327b5b",
+  "projectFolder": ".meshy/bookshelf-resident/20261017_020501_bookshelf-resident_01a1491b",
+  "creditsConsumed": 30,
+  "bytes": 2987416,
+  "processing": "Isolated reference with clean cream hoodie, locally fitted 25-degree shoulder reach, 55K triangle decimation, 2K base color texture, flat grounded soles, reduced texture grain",
+  "position": [
+    3.25,
+    0.1,
+    -2.875
+  ],
+  "heading": "pi",
+  "behavior": "Static reaching pose, existing bookshelf spawn and dissolve slot, always visible in review mode",
+  "limitations": "Front appearance inferred from supplied rear view. Static GLB; no skeletal animation. Fit checked in Blender and geometry tests, not browser."
+}

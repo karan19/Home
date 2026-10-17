@@ -7,7 +7,14 @@ import { stabilizeResidentWaist } from './residentWaist';
 import { createResidentFists } from './residentFists';
 import { scheduleResidentVisit } from './residentSpawning';
 import { addResidentFormation, residentFormationDepth, formationAmount } from './residentFormation';
-import OpenBook from '../upper-floor/seating-area/OpenBook';
+import { COOKING_RESIDENT } from '../../config/cookingResident';
+import { ISLAND_RESIDENT } from '../../config/islandResident';
+import { MEDITATION_RESIDENT } from '../../config/meditationResident';
+import { COFFEE_RESIDENT } from '../../config/coffeeResident';
+import { BOXING_RESIDENT } from '../../config/boxingResident';
+import { STAIR_READER } from '../../config/stairReader';
+import { OUTSIDE } from '../../config/outsideCoordinates';
+import { CHARACTER_REVIEW_MODE } from '../../config/characterReview';
 import { SEATED_VIEWS, seatedRigData, applySeatedPose } from './seatedPoses';
 import { measureBootContacts } from './stairRig';
 import { useTVPlayback } from '../../context/TVPlaybackContext';
@@ -16,7 +23,8 @@ import { applyBookReach, captureBonePose, restoreBonePose, applyRelaxedArms } fr
 
 const MODEL='/models/lofi-resident-v4/resident.glb';
 // Seated eye height above the couch, looking at the center of the TV.
-const TV_EYE=[1.5,1.15,1.05];
+// Keep the TV viewing camera ahead of the seated character’s face.
+const TV_EYE=[1.5,1.15,1.78];
 const TV_TARGET=[1.5,.875,3.7];
 function focusTV(camera,controls){
  window.dispatchEvent(new CustomEvent('house-tv-view',{detail:true}));
@@ -25,29 +33,36 @@ function focusTV(camera,controls){
  if(controls){controls.target.set(...TV_TARGET);controls.update();}
 }
 const VIEWS={
+ meditation:{...MEDITATION_RESIDENT,label:"Meditation",camera:[1.4,4.8,.2]},
+ island:{...ISLAND_RESIDENT,label:"Island stool",camera:[-4.4,2.2,1.7]},
+ cooking:{...COOKING_RESIDENT,label:"Cooking",camera:[-.3,2.5,-.5]},
+ coffee:{...COFFEE_RESIDENT,label:"Morning coffee",camera:[4.6,5.1,1.2]},
+ boxing:{...BOXING_RESIDENT,label:"Balcony rest",camera:[3.8,5.2,8.3]},
  ...SEATED_VIEWS,
+ dips:{label:"Dips machine",position:OUTSIDE.gym.position,heading:OUTSIDE.gym.rotation,camera:[-9,2.4,3]},
+ stairs:{label:"Reading on the steps",position:STAIR_READER.position,heading:0,camera:[-4,2.7,5]},
  sofa:{label:"Watching TV",position:[1.25,.1,.28],heading:Math.atan2(.25,3.42),camera:[-1,2.0,2.8],tv:true},
  character:{position:[.1,.1,.1],heading:0,camera:[-1.5,1.7,3.0]},
  bookshelf:{position:[3.20,.1,-2.91],heading:Math.PI,camera:[.5,2.3,.9]},
 };
 
 // The selected character uses authored poses fitted to each furniture contact.
-export default function BookReachResident(){
+export default function BookReachResident({ fixedView } = {}){
  const {camera,controls}=useThree();
- const showDevTools=import.meta.env.DEV&&new URLSearchParams(window.location.search).get('debug')==='1';
+ const showDevTools=!fixedView&&!CHARACTER_REVIEW_MODE&&import.meta.env.DEV&&new URLSearchParams(window.location.search).get('debug')==='1';
  const {scene:source}=useGLTF(MODEL);
  const resident=useResident();
  const root=useRef();
  const tvActive=Boolean(useTVPlayback()?.active);
  const [selectedView,setView]=useState('sofa');
- const view=tvActive?'sofa':selectedView;
+ const view=fixedView??(tvActive||CHARACTER_REVIEW_MODE?'sofa':selectedView);
  const [reaching,setReaching]=useState(false);
  const [userHidden,setHidden]=useState(false);
- const hidden=tvActive?false:userHidden;
+ const hidden=CHARACTER_REVIEW_MODE||tvActive?false:userHidden;
  const [roamingEnabled,setAutomatic]=useState(true);
- const automatic=roamingEnabled&&!tvActive;
+ const automatic=roamingEnabled&&!tvActive&&!CHARACTER_REVIEW_MODE&&!fixedView;
  const [roamingDeparture,setDeparting]=useState(false);
- const departing=roamingDeparture&&!tvActive;
+ const departing=roamingDeparture&&!tvActive&&!CHARACTER_REVIEW_MODE&&!fixedView;
  const progress=useRef(0);
  const transitionTime=useRef(0);
  const dirty=useRef(true);
@@ -81,15 +96,16 @@ export default function BookReachResident(){
   controls?.target.set(spot.position[0],spot.position[1]+.9,spot.position[2]);controls?.update();
  };
  useEffect(()=>{
+  if(fixedView)return;
   const returnToTV=()=>focusTV(camera,controls);
   window.addEventListener('house-tv-focus',returnToTV);
   return()=>window.removeEventListener('house-tv-focus',returnToTV);
- },[camera,controls]);
+ },[camera,controls,fixedView]);
  useEffect(()=>{
-  if(!tvActive)return;
+  if(!tvActive||fixedView)return;
   // Keep the seated view after playback; only explicit navigation exits it.
   focusTV(camera,controls);
- },[tvActive,camera,controls]);
+ },[tvActive,camera,controls,fixedView]);
  useEffect(()=>{
   ready.current=true;dirty.current=true;
   return()=>{ready.current=false;character.materials.forEach(m=>m.dispose());character.geometries.forEach(g=>g.dispose());};
@@ -114,9 +130,10 @@ export default function BookReachResident(){
   transitionTime.current+=Math.min(delta,.1)*1000;
   const amount=automatic&&!reducedMotion?formationAmount(transitionTime.current,departing):departing?0:1;
   character.formation.value=amount;
-  resident.current={formation:amount,laptop:'desk',tv:!!VIEWS[view].tv&&!hidden&&!departing,paused:!automatic,location:view,hidden:hidden||amount<=0.001};
-  root.current.visible=!hidden&&amount>0.001;
-  const target=view==='bookshelf'&&(reaching||automatic)?1:0;
+  if(!fixedView)resident.current={formation:amount,laptop:'desk',tv:!!VIEWS[view].tv&&!hidden&&!departing,paused:!automatic,location:view,hidden:hidden||amount<=0.001};
+  root.current.visible=view!=='stairs'&&view!=='desk'&&view!=='dips'&&view!=='reading'&&view!=='bookshelf'&&view!=='sofa'&&view!=='boxing'&&view!=='coffee'&&view!=='meditation'&&view!=='island'&&view!=='cooking'&&!hidden&&amount>0.001;
+  if(view==='stairs'||view==='desk'||view==='dips')return;
+  const target=view==='bookshelf'&&(reaching||automatic||CHARACTER_REVIEW_MODE)?1:0;
   const next=reducedMotion?target:THREE.MathUtils.clamp(target,progress.current-delta/.9,progress.current+delta/.9);
   if(next===progress.current&&!dirty.current)return;
   progress.current=next;dirty.current=false;
@@ -143,11 +160,7 @@ export default function BookReachResident(){
  },-1);
  const changeView=e=>{setAutomatic(false);setDeparting(false);setView(e.target.value);setHidden(false);focus(e.target.value);};
  const buttonStyle={font:'inherit',cursor:'pointer',padding:'5px 8px',borderRadius:5,border:'1px solid #ffffff40',background:'#41483d',color:'inherit'};
- const reading=SEATED_VIEWS.reading;
  return <>
-  <group position={reading.position} rotation={[0,reading.heading,0]} userData={{skipExport:true}}>
-   <OpenBook position={reading.book} rotation={[.32,0,0]} held />
-  </group>
   <group ref={root} name="Lofi_Resident" userData={{skipExport:true}}>
    <group scale={character.scale}><primitive object={character.scene} position={character.offset} dispose={null}/></group>
   </group>
@@ -155,7 +168,7 @@ export default function BookReachResident(){
    <div style={{position:'absolute',bottom:20,left:20,maxWidth:310,pointerEvents:'auto',display:'flex',gap:7,flexWrap:'wrap',alignItems:'center',padding:'10px 14px',borderRadius:12,background:'rgba(45,49,44,.92)',color:'#f6f3ec',font:'12px system-ui'}}>
     <span>Resident</span>
     <select aria-label="Resident view" value={view} disabled={tvActive} onChange={changeView} style={buttonStyle}>
-     <option value="character">Character</option><option value="bookshelf">Bookshelf reach</option><option value="sofa">Watching TV</option>
+     <option value="cooking">Cooking</option><option value="island">Island stool</option><option value="meditation">Meditation</option><option value="coffee">Morning coffee</option><option value="boxing">Balcony rest</option><option value="dips">Dips machine</option><option value="stairs">Reading on the steps</option><option value="character">Character</option><option value="bookshelf">Bookshelf reach</option><option value="sofa">Watching TV</option>
      {Object.entries(SEATED_VIEWS).map(([id,spot])=><option key={id} value={id}>{spot.label}</option>)}
     </select>
     {view==='bookshelf'&&!automatic&&<button style={buttonStyle} onClick={()=>setReaching(v=>!v)}>{reaching?'Lower arm':'Reach for book'}</button>}

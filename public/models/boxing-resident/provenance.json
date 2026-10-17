@@ -1,0 +1,42 @@
+{
+  "source": "Desktop/Boxing.jpg, middle punching pose",
+  "resource": "image-to-3d",
+  "taskId": "01a1492a-792f-7571-8ae8-dbfc32b6fc0d",
+  "projectFolder": ".meshy/boxing-resident/20261017_022142_boxing-resident_01a1492a",
+  "creditsConsumed": 30,
+  "reference": ".meshy/boxing-resident/reference.png",
+  "processing": "Isolated full-body reference with clean cream hoodie, 1.72m normalized height, grounded toes, 55K triangle web mesh, 2K base color and no grainy normal map",
+  "bytes": 2910000,
+  "placement": {
+    "position": [
+      1.9066430835723878,
+      3,
+      3.2914372098068116
+    ],
+    "heading": 0.7853981633974483,
+    "bagRelative": [
+      0.9663569164276123,
+      0.04143720980681164,
+      1.4
+    ],
+    "fistMaxX": 0.6713569164276123,
+    "gap": 0.12
+  },
+  "validation": {
+    "triangles": 54999,
+    "minimumBagClearanceAcross33SamplesMetres": 0.1041813,
+    "maximumSoleErrorMetres": 0.000295
+  },
+  "behavior": "Animated punch and return with formation and reduced-motion support",
+  "limitations": "Locally weighted arm rig on inferred geometry; not motion capture. Verified with Blender renders and sampled animated geometry.",
+  "animation": {
+    "file": "boxing-face-fixed.glb",
+    "clip": "Controlled_Punch",
+    "durationSeconds": 2,
+    "method": "Local shoulder, elbow and wrist rig; guard, extension and return. Bag recoil synchronized to mixer time.",
+    "additionalMeshyCredits": 0,
+    "measuredFistTravelMetres": 0.3143
+  },
+  "faceRevision": "Intact boxing head turned 43 degrees toward the bag through a blended neck transition, rigid throughout punching. Reader-matched warm skin tone applied at runtime. Direct reader-head replacement was not used.",
+  "faceRigFix": "Compute arm weights from the original unturned mesh, then retain them after the head turn. Prevents lower jaw receiving upper-arm weights. Regression samples now include all vertices above 1.445m throughout 61 frames, not only the upper head."
+}

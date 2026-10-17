@@ -1,0 +1,23 @@
+{
+  "source": "Desktop/TV sitting.jpg",
+  "reference": ".meshy/tv-resident/reference.png",
+  "resource": "image-to-3d",
+  "taskId": "01a1491f-1b43-7555-a87e-614194ae9e02",
+  "projectFolder": ".meshy/tv-resident/20261017_020910_tv-resident_01a1491f",
+  "creditsConsumed": 30,
+  "processing": "Completed reference lower legs and feet, removed generated support seat, closed trouser underside, fit hips to 0.365m sofa cushion and shins beyond front edge, decimated to 55198 triangles, 2K base texture",
+  "bytes": 2687012,
+  "position": [
+    1.5,
+    0.1,
+    1
+  ],
+  "behavior": "Static seated TV-watching pose, sofa forming schedule and TV playback lock retained",
+  "validation": {
+    "soleErrorMetres": 1.6e-05,
+    "seatHeight": 0.362379,
+    "shinsClearFront": true
+  },
+  "limitations": "Static model; hidden underside repaired locally. Blender-rendered fit preview; browser inspection unavailable.",
+  "seatContactRevision": "fit=4b: replaced broad non-planar underside patches with refined triangles; fitted both thighs to cushion surface, pelvis at 42.5cm and another 3cm forward, feet remain grounded. New asset tv-seat-v4.glb prevents reuse of the older cached model."
+}

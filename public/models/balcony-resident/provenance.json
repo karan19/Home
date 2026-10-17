@@ -1,0 +1,22 @@
+{
+  "resource": "image-to-3d",
+  "taskId": "01a14967-1a5d-73a9-a185-b0a5a56c723d",
+  "projectFolder": ".meshy/balcony-resident/20261017_032754_balcony-resident_01a14967",
+  "reference": ".meshy/balcony-resident/reference.png",
+  "creditsConsumed": 30,
+  "processing": "1.72m height, static authored lean. Red glove contacts fitted to 1.025m balcony top rail with smooth sleeve adjustment. Feet grounded. No head editing, skinning, or skeletal animation. 55K triangles and 2K base color.",
+  "placement": {
+    "railY": -0.29852160811424255,
+    "position": [
+      0.9,
+      3,
+      4.9514783918857574
+    ],
+    "heading": 0,
+    "gloveBottomTarget": 1.027,
+    "triangles": 54999
+  },
+  "bytes": 3164636,
+  "behavior": "Replaces animated boxer with static balcony rest; keeps formation schedule and all-visible review mode.",
+  "validation": "Blender rendered preview and exported mesh contact tests. Browser inspection unavailable."
+}

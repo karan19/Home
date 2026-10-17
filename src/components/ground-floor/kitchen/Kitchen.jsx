@@ -1,4 +1,5 @@
 import React from 'react';
+import FryingPan from './FryingPan';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
 import { KITCHEN } from '../../../config/groundFloorCoordinates';
@@ -81,6 +82,8 @@ function Kitchen({ position = [0, 0, 0] }) {
             </mesh>
           </group>
         ))}
+
+        <FryingPan />
 
         {/* Control knobs */}
         {stove.knobs.xPositions.map((x, i) => (

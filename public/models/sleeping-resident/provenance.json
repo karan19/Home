@@ -1,0 +1,62 @@
+{
+  "source": "/Users/karan/Desktop/Sleeping.jpg",
+  "resource": "image-to-3d",
+  "taskId": "01a14932-5ee3-7356-9280-ccc90495c537",
+  "projectFolder": ".meshy/sleeping-resident/20261017_023011_sleeping-resident_01a14932",
+  "creditsConsumed": 30,
+  "reference": ".meshy/sleeping-resident/reference.png",
+  "processing": "Single full-body cream-hoodie reference; 1.78m longitudinal length; 55K triangles; 2K base color; smooth rough materials. Cross-sections fitted to existing blanket and pillow support without modifying furniture.",
+  "bytes": 3254488,
+  "placement": {
+    "position": [
+      2.5,
+      3,
+      -2.5
+    ],
+    "heading": 0
+  },
+  "validation": {
+    "uncompressedBeddingOverlap": 0.12275642156600952,
+    "minimumGapBeforeCompression": -0.12275642156600952,
+    "triangles": 54999,
+    "longitudinalSupportOffsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.02,
+      0.08,
+      0.16,
+      0.18
+    ]
+  },
+  "behavior": "Static sleeping pose, review visibility and sleeping spawn slot with longitudinal formation and matching shadows.",
+  "limitations": "Back geometry inferred. Geometry and Blender preview inspected; browser inspection unavailable.",
+  "blanket": {
+    "file": "bed-blanket.glb",
+    "method": "Locally authored fitted cloth with SleepingDrape morph; rests over torso and legs, face exposed. Settles with resident formation amount.",
+    "additionalMeshyCredits": 0
+  },
+  "contactRevision": "Back and legs lowered to mattress height, head supported at pillow height. Soft bedding now has a SleepingSupport compression morph synchronized with formation, instead of lifting the body above blanket folds.",
+  "supportContact": {
+    "heels": {
+      "minimumGap": 0.0003339052200317383,
+      "maximumGap": 0.0753597617149353
+    },
+    "hips": {
+      "minimumGap": -0.010146737098693848,
+      "maximumGap": 0.0064966678619384766
+    },
+    "back": {
+      "minimumGap": -0.022350311279296875,
+      "maximumGap": 0.1812429428100586
+    },
+    "shoulders": {
+      "minimumGap": -0.009696424007415771,
+      "maximumGap": 0.17546981573104858
+    },
+    "head": {
+      "minimumGap": -0.01066732406616211,
+      "maximumGap": 0.12073135375976562
+    }
+  }
+}

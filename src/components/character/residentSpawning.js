@@ -1,5 +1,5 @@
 import {FORM_MS,DISSOLVE_MS} from './residentFormation.js';
-export const SPAWN_LOCATIONS = ['sofa', 'desk', 'reading', 'bookshelf'];
+export const SPAWN_LOCATIONS = ['sofa', 'desk', 'reading', 'bookshelf', 'stairs', 'dips', 'boxing', 'coffee', 'cooking', 'island', 'meditation'];
 export const RESIDENT_STAY_MS = 5000;
 export const RESIDENT_GAP_MS = 250;
 

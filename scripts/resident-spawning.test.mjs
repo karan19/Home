@@ -20,7 +20,7 @@ test('pause or hide cancels departure and pending arrival',()=>{
 });
 test('random selection uses all established placements without immediate repeats',()=>{
  for(const current of SPAWN_LOCATIONS){
-  const selected=[0,.4,.9].map(random=>nextResidentLocation(current,()=>random));
+  const selected=Array.from({length:SPAWN_LOCATIONS.length-1},(_,i)=>nextResidentLocation(current,()=> (i+.5)/(SPAWN_LOCATIONS.length-1)));
   assert(!selected.includes(current));assert.deepEqual(new Set(selected),new Set(SPAWN_LOCATIONS.filter(x=>x!==current)));
  }
 });
