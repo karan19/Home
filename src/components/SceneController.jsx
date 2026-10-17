@@ -16,7 +16,7 @@ function SceneController({ controlsRef, modelRef, onActionsReady }) {
     camera.updateProjectionMatrix();
 
     if (controlsRef.current) {
-      controlsRef.current.minDistance = 5;
+      controlsRef.current.minDistance = .75;
       controlsRef.current.target.set(...INITIAL_CAMERA_TARGET);
       controlsRef.current.update();
     }

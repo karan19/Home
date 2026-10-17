@@ -204,7 +204,8 @@ function App() {
             ref={controlsRef}
             enableDamping
             dampingFactor={0.05}
-            minDistance={5}
+            zoomToCursor
+            minDistance={0.75}
             maxDistance={50}
             maxPolarAngle={Math.PI / 2}
             target={[0, 3, 0]}
