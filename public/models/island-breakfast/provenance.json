@@ -1,0 +1,83 @@
+[
+  {
+    "name": "board",
+    "project": ".meshy/island-breakfast/20261018_001321_board_01a14ddb",
+    "tasks": [
+      {
+        "id": "01a14ddc-5de1-7013-a9ba-9d5f34fdd8af",
+        "resource": "text-to-3d",
+        "mode": "refine",
+        "consumedCredits": 10
+      },
+      {
+        "id": "01a14ddb-725a-75b4-a14a-6430e1b6a3f4",
+        "resource": "text-to-3d",
+        "mode": "preview",
+        "consumedCredits": 20
+      }
+    ],
+    "model": "board.glb",
+    "fit": {
+      "dimensionsXYZ": [
+        0.4,
+        0.1,
+        0.26
+      ],
+      "triangles": 11997
+    }
+  },
+  {
+    "name": "plate",
+    "project": ".meshy/island-breakfast/20261018_001322_plate_01a14ddb",
+    "tasks": [
+      {
+        "id": "01a14ddb-772a-7234-b73b-80cc37ee20c8",
+        "resource": "text-to-3d",
+        "mode": "preview",
+        "consumedCredits": 20
+      },
+      {
+        "id": "01a14ddc-62c3-74ed-9e06-f180cd126144",
+        "resource": "text-to-3d",
+        "mode": "refine",
+        "consumedCredits": 10
+      }
+    ],
+    "model": "plate.glb",
+    "fit": {
+      "dimensionsXYZ": [
+        0.19,
+        0.022,
+        0.19
+      ],
+      "triangles": 4000
+    }
+  },
+  {
+    "name": "towel",
+    "project": ".meshy/island-breakfast/20261018_001322_towel_01a14ddb",
+    "tasks": [
+      {
+        "id": "01a14ddc-672e-73cd-8278-5c59ce082bde",
+        "resource": "text-to-3d",
+        "mode": "refine",
+        "consumedCredits": 10
+      },
+      {
+        "id": "01a14ddb-7ba5-76a5-9739-fe67acbfb2c9",
+        "resource": "text-to-3d",
+        "mode": "preview",
+        "consumedCredits": 20
+      }
+    ],
+    "model": "towel.glb",
+    "fit": {
+      "dimensionsXYZ": [
+        0.18,
+        0.025,
+        0.23
+      ],
+      "triangles": 3998
+    }
+  }
+]

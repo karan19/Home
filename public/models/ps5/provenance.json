@@ -1,0 +1,11 @@
+{
+  "source": "Locally modeled in Blender from Sony PS5 reference",
+  "reference": "https://blog.playstation.com/2020/11/09/ps5-the-ultimate-faq/",
+  "model": "ps5-upright.glb",
+  "heightMetres": 0.405,
+  "triangles": 8948,
+  "meshes": 4,
+  "materials": "White plastic, glossy dark core, matte vents/base, blue light",
+  "inferred": "Side and back curvature, stand diameter, panel thickness and small port details. Simplified decorative recreation; not a measured exact replica.",
+  "externalDependencies": []
+}

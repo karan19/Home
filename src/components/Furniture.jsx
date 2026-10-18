@@ -93,7 +93,7 @@ function Furniture() {
           {/* PlayStation console (on table) */}
           <PlayStation position={ENTERTAINMENT.playstation.position} />
           
-          {/* PS Controller (on sofa) */}
+          {/* PS Controller (on coffee table) */}
           <PSController position={ENTERTAINMENT.psController.position} rotation={ENTERTAINMENT.psController.rotation} />
           
           {/* Barcelona Crest on right wall */}

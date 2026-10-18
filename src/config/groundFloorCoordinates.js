@@ -40,7 +40,7 @@ export const ENTERTAINMENT = {
   tvTable: { 
     position: [1.5, 0, 3.7],
     tabletop: {
-      width: 1.4,
+      width: 1.7,
       thickness: 0.05,
       depth: 0.4,
       radius: 0.01,
@@ -60,81 +60,16 @@ export const ENTERTAINMENT = {
       metalness: 0.1
     }
   },
-  playstation: { 
-    position: [1.5, 0.525, 3.6],
-    mainBody: {
-      width: 0.35,
-      height: 0.08,
-      depth: 0.25,
-      radius: 0.015,
-      smoothness: 4,
-      positionY: 0.04,
-      color: 0xFFFFFF,
-      roughness: 0.4,
-      metalness: 0.1
-    },
-    accentPanel: {
-      width: 0.15,
-      height: 0.08,
-      depth: 0.25,
-      radius: 0.01,
-      smoothness: 4,
-      positionX: -0.1,
-      positionY: 0.04,
-      color: 0x1C1C1C,
-      roughness: 0.6,
-      metalness: 0.1,
-      polygonOffset: true,
-      polygonOffsetFactor: 1,
-      polygonOffsetUnits: 1
-    },
-    powerLight: {
-      positionX: 0.12,
-      positionY: 0.08,
-      positionZ: 0.08,
-      radius: 0.005,
-      widthSegments: 8,
-      heightSegments: 8,
-      color: 0x0066FF,
-      emissive: 0x0066FF,
-      emissiveIntensity: 0.5,
-      roughness: 0.3
-    },
-    discSlot: {
-      positionY: 0.06,
-      positionZ: 0.126,
-      width: 0.12,
-      height: 0.002,
-      depth: 0.001,
-      color: 0x000000,
-      roughness: 0.2,
-      metalness: 0.3
-    },
-    usbPort: {
-      basePositionX: 0.05,
-      spacing: 0.02,
-      positionY: 0.02,
-      positionZ: 0.126,
-      width: 0.015,
-      height: 0.008,
-      depth: 0.001,
-      color: 0x000000,
-      roughness: 0.2,
-      metalness: 0.3
-    },
-    stand: {
-      width: 0.3,
-      height: 0.01,
-      depth: 0.2,
-      radius: 0.005,
-      smoothness: 4,
-      positionY: 0.005,
-      color: 0x2C2C2C,
-      roughness: 0.5
-    }
+  playstation: {
+    // Upright console beside the TV; base rests on the TV table at 0.525 m.
+    position: [2.24, 0.525, 3.7],
+    rotation: [0, Math.PI, 0],
+    modelPath: '/models/ps5/ps5-upright.glb',
+    height: 0.405,
   },
   psController: { 
-    position: [1.3, 0.5, 1.2], 
+    // Grip bottoms meet the coffee tabletop (0.425 m).
+    position: [1.78, 0.45756, 2.3],
     rotation: [0, 0.3, 0],
     mainBody: {
       width: 0.15,
@@ -339,27 +274,6 @@ export const KITCHEN = {
     },
     barStools: {
       positions: [[-0.5, 0, 1.05], [0.5, 0, 0.6]]
-    },
-    bowl: {
-      radius: 0.15,
-      widthSegments: 16,
-      heightSegments: 16,
-      phiStart: 0,
-      phiLength: Math.PI * 2,
-      thetaStart: 0,
-      thetaLength: Math.PI / 2,
-      positionY: 0.95,
-      color: 0xFFFFFF,
-      roughness: 0.3
-    },
-    fruit: {
-      colors: [0xFF6347, 0xFFD700, 0x32CD32],
-      radius: 0.05,
-      segments: 8,
-      positionY: 0.98,
-      baseX: -0.08,
-      spacing: 0.08,
-      roughness: 0.6
     }
   },
   kitchen: { 

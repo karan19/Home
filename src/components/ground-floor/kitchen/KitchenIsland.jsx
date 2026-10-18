@@ -1,9 +1,10 @@
 import React from 'react';
 import BarStool from './BarStool';
+import IslandBreakfast from './IslandBreakfast';
 import { KITCHEN } from '../../../config/groundFloorCoordinates';
 
 function KitchenIsland({ position }) {
-  const { cabinetMaterial, countertopMaterial, base, countertop, barStools, bowl, fruit } = KITCHEN.kitchenIsland;
+  const { cabinetMaterial, countertopMaterial, base, countertop, barStools } = KITCHEN.kitchenIsland;
 
 
   return (
@@ -20,41 +21,13 @@ function KitchenIsland({ position }) {
         <meshStandardMaterial {...countertopMaterial} />
       </mesh>
 
+      <IslandBreakfast />
+
       {/* Bar stools */}
       {barStools.positions.map((pos, i) => (
         <BarStool key={i} position={pos} />
       ))}
 
-      {/* Decorative bowl */}
-      <mesh 
-        position={[0, bowl.positionY, 0]} 
-        castShadow 
-      >
-        <meshStandardMaterial color={bowl.color} roughness={bowl.roughness} />
-        <sphereGeometry 
-          args={[
-            bowl.radius, 
-            bowl.widthSegments, 
-            bowl.heightSegments, 
-            bowl.phiStart, 
-            bowl.phiLength, 
-            bowl.thetaStart, 
-            bowl.thetaLength
-          ]} 
-        />
-      </mesh>
-
-      {/* Fruit in bowl */}
-      {fruit.colors.map((color, i) => (
-        <mesh
-          key={i}
-          position={[fruit.baseX + i * fruit.spacing, fruit.positionY, 0]}
-          castShadow
-        >
-          <sphereGeometry args={[fruit.radius, fruit.segments, fruit.segments]} />
-          <meshStandardMaterial color={color} roughness={fruit.roughness} />
-        </mesh>
-      ))}
     </group>
   );
 }
