@@ -48,7 +48,9 @@ export const OUTSIDE = {
     modelPath: '/Car/scene-draco.glb'
   },
   gym: {
-    position: [-6.8, -0.05, 0],
+    // FittedModel puts the base at y=0; the lawn surface is y=-0.25.
+    // The dips character shares this origin to preserve its grip alignment.
+    position: [-6.8, -0.25, 0],
     rotation: Math.PI / 2,
     targetSize: 2.0,
     modelPath: '/Gym/scene-draco.glb'

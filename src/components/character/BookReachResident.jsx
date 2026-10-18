@@ -10,6 +10,7 @@ import { addResidentFormation, residentFormationDepth, formationAmount } from '.
 import { COOKING_RESIDENT } from '../../config/cookingResident';
 import { ISLAND_RESIDENT } from '../../config/islandResident';
 import { MEDITATION_RESIDENT } from '../../config/meditationResident';
+import { STARGAZER } from '../../config/stargazer';
 import { COFFEE_RESIDENT } from '../../config/coffeeResident';
 import { BOXING_RESIDENT } from '../../config/boxingResident';
 import { STAIR_READER } from '../../config/stairReader';
@@ -33,6 +34,7 @@ function focusTV(camera,controls){
  if(controls){controls.target.set(...TV_TARGET);controls.update();}
 }
 const VIEWS={
+ stargazer:{...STARGAZER,label:"Stargazing",camera:[-.6,1.5,8]},
  meditation:{...MEDITATION_RESIDENT,label:"Meditation",camera:[1.4,4.8,.2]},
  island:{...ISLAND_RESIDENT,label:"Island stool",camera:[-4.4,2.2,1.7]},
  cooking:{...COOKING_RESIDENT,label:"Cooking",camera:[-.3,2.5,-.5]},
@@ -131,7 +133,7 @@ export default function BookReachResident({ fixedView } = {}){
   const amount=automatic&&!reducedMotion?formationAmount(transitionTime.current,departing):departing?0:1;
   character.formation.value=amount;
   if(!fixedView)resident.current={formation:amount,laptop:'desk',tv:!!VIEWS[view].tv&&!hidden&&!departing,paused:!automatic,location:view,hidden:hidden||amount<=0.001};
-  root.current.visible=view!=='stairs'&&view!=='desk'&&view!=='dips'&&view!=='reading'&&view!=='bookshelf'&&view!=='sofa'&&view!=='boxing'&&view!=='coffee'&&view!=='meditation'&&view!=='island'&&view!=='cooking'&&!hidden&&amount>0.001;
+  root.current.visible=view!=='stairs'&&view!=='desk'&&view!=='dips'&&view!=='reading'&&view!=='bookshelf'&&view!=='sofa'&&view!=='boxing'&&view!=='coffee'&&view!=='stargazer'&&view!=='meditation'&&view!=='island'&&view!=='cooking'&&!hidden&&amount>0.001;
   if(view==='stairs'||view==='desk'||view==='dips')return;
   const target=view==='bookshelf'&&(reaching||automatic||CHARACTER_REVIEW_MODE)?1:0;
   const next=reducedMotion?target:THREE.MathUtils.clamp(target,progress.current-delta/.9,progress.current+delta/.9);
@@ -168,7 +170,7 @@ export default function BookReachResident({ fixedView } = {}){
    <div style={{position:'absolute',bottom:20,left:20,maxWidth:310,pointerEvents:'auto',display:'flex',gap:7,flexWrap:'wrap',alignItems:'center',padding:'10px 14px',borderRadius:12,background:'rgba(45,49,44,.92)',color:'#f6f3ec',font:'12px system-ui'}}>
     <span>Resident</span>
     <select aria-label="Resident view" value={view} disabled={tvActive} onChange={changeView} style={buttonStyle}>
-     <option value="cooking">Cooking</option><option value="island">Island stool</option><option value="meditation">Meditation</option><option value="coffee">Morning coffee</option><option value="boxing">Balcony rest</option><option value="dips">Dips machine</option><option value="stairs">Reading on the steps</option><option value="character">Character</option><option value="bookshelf">Bookshelf reach</option><option value="sofa">Watching TV</option>
+     <option value="cooking">Cooking</option><option value="island">Island stool</option><option value="meditation">Meditation</option><option value="stargazer">Stargazing</option><option value="coffee">Morning coffee</option><option value="boxing">Balcony rest</option><option value="dips">Dips machine</option><option value="stairs">Reading on the steps</option><option value="character">Character</option><option value="bookshelf">Bookshelf reach</option><option value="sofa">Watching TV</option>
      {Object.entries(SEATED_VIEWS).map(([id,spot])=><option key={id} value={id}>{spot.label}</option>)}
     </select>
     {view==='bookshelf'&&!automatic&&<button style={buttonStyle} onClick={()=>setReaching(v=>!v)}>{reaching?'Lower arm':'Reach for book'}</button>}

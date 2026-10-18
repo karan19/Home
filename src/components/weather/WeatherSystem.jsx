@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sky } from '@react-three/drei';
+import NightSky from './NightSky';
 import * as THREE from 'three';
 
 /**
@@ -127,13 +128,14 @@ function WeatherSystem({
   return (
     <group name="Weather_System">
       {/* Dynamic Sky */}
-      <Sky
+      {dayMode && <Sky
         distance={450000}
         sunPosition={skyConfig.sunPosition}
         inclination={0}
         azimuth={0.25}
         {...skyConfig}
-      />
+      />}
+      {!dayMode && weather === 'clear' && <NightSky />}
 
       {/* Rain Particles */}
       {weather === 'rain' && rainParticles && (

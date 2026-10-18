@@ -14,6 +14,7 @@ import BoxingResident from './character/BoxingResident';
 import CookingResident from './character/CookingResident';
 import IslandResident from './character/IslandResident';
 import MeditationResident from './character/MeditationResident';
+import Stargazer from './character/Stargazer';
 import CoffeeResident from './character/CoffeeResident';
 import Furniture from './Furniture';
 import { ResidentProvider } from '../context/ResidentContext';
@@ -23,6 +24,7 @@ import RoofPortraits from './RoofPortraits';
 // Outside components
 import Balcony from './outside/Balcony';
 import Compound from './outside/Compound';
+import RoofEdgeLighting from './outside/RoofEdgeLighting';
 import FlyingPaper from './outside/FlyingPaper';
 import RolledNewspaper from './outside/RolledNewspaper';
 import Car from './outside/Car';
@@ -45,7 +47,7 @@ function House({
   const handleAssetReady = useCallback((id, ready) => {
     setLoaded(previous => previous[id] === ready ? previous : { ...previous, [id]: ready });
   }, []);
-  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym && loaded.resident && loaded.stairReader && loaded.deskTyper && loaded.dipsResident && loaded.bookshelfResident && loaded.tvResident && loaded.boxingResident && loaded.coffeeResident && loaded.cookingResident && loaded.islandResident && loaded.meditationResident);
+  const allReady = Boolean(loaded.furniture && loaded.car && loaded.gym && loaded.resident && loaded.stairReader && loaded.deskTyper && loaded.dipsResident && loaded.bookshelfResident && loaded.tvResident && loaded.boxingResident && loaded.coffeeResident && loaded.cookingResident && loaded.islandResident && loaded.meditationResident && loaded.stargazer);
   useEffect(() => {
     onModelReadyChange(allReady);
     return () => onModelReadyChange(false);
@@ -115,6 +117,7 @@ function House({
 
       {/* Structure: Foundation, Walls, Floors, Roof */}
       <Structure />
+      <RoofEdgeLighting active={!dayMode} />
 
       {/* Stairs */}
       <Stairs />
@@ -126,6 +129,7 @@ function House({
       <AssetBoundary id="cookingResident" onReady={handleAssetReady}><CookingResident /></AssetBoundary>
       <AssetBoundary id="islandResident" onReady={handleAssetReady}><IslandResident /></AssetBoundary>
       <AssetBoundary id="meditationResident" onReady={handleAssetReady}><MeditationResident /></AssetBoundary>
+      <AssetBoundary id="stargazer" onReady={handleAssetReady}><Stargazer /></AssetBoundary>
       <AssetBoundary id="coffeeResident" onReady={handleAssetReady}><CoffeeResident /></AssetBoundary>
       <AssetBoundary id="boxingResident" onReady={handleAssetReady}><BoxingResident /></AssetBoundary>
 

@@ -1,0 +1,84 @@
+{
+  "created": "2026-10-17",
+  "resource": "text-to-3d",
+  "assets": [
+    {
+      "name": "oak-island-stool",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/oak-island-stool",
+      "preview": "01a14da4-374b-713c-9b93-91cdb2124ed5",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/oak-island-stool/20261017_231308_oak-island-stool_01a14da4",
+      "refine": "01a14da5-4496-7695-8d59-38f14156ddbd",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "canvas-backpack",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/canvas-backpack",
+      "preview": "01a14da4-40f8-7799-af56-6c7bb70b8438",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/canvas-backpack/20261017_231309_canvas-backpack_01a14da4",
+      "refine": "01a14da5-9580-7204-9583-097c753315e2",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "bedside-lamp",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/bedside-lamp",
+      "preview": "01a14da4-4e6e-72a7-b6bd-59dcef62ba08",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/bedside-lamp/20261017_231309_bedside-lamp_01a14da4",
+      "refine": "01a14da5-9861-701a-bc6d-7855adc5cf77",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "espresso-machine",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/espresso-machine",
+      "preview": "01a14da4-5c89-73c5-905a-318e40094fd4",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/espresso-machine/20261017_231310_espresso-machine_01a14da4",
+      "refine": "01a14da5-9b42-77d5-a8ea-7141621088da",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "folded-throw",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/folded-throw",
+      "preview": "01a14dab-23df-72bc-aba6-5eff407c3e91",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/folded-throw/20261017_232028_folded-throw_01a14dab",
+      "refine": "01a14dac-1383-7105-85e9-19f6a09d4ecb",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "dumbbell-rack",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/dumbbell-rack",
+      "preview": "01a14dab-2d0c-73ac-bd07-6102153063f3",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/dumbbell-rack/20261017_232029_dumbbell-rack_01a14dab",
+      "refine": "01a14dac-1653-7478-9a06-c0302fbbe2f4",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    },
+    {
+      "name": "garden-bench",
+      "ws": "/Users/karan/workspace/Home/.meshy/props-oct17/garden-bench",
+      "preview": "01a14dc2-02a6-73f6-b3f6-6be9c053ce27",
+      "project": "/Users/karan/workspace/Home/.meshy/props-oct17/garden-bench/20261017_234534_garden-bench_01a14dc2",
+      "refine": "01a14dc2-d1af-740d-b7cf-b7e2eca1e3ac",
+      "credits": {
+        "preview": 20,
+        "refine": 10
+      }
+    }
+  ],
+  "totalReportedCredits": 210
+}

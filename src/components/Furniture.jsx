@@ -1,6 +1,7 @@
 import { getFeatureConfig } from '../config/interactiveFeatures';
 import SportsMemorabilia from './interactive/SportsMemorabilia';
 import AnimatedPoster from './interactive/AnimatedPoster';
+import PersonalProps from './upper-floor/decorations/PersonalProps';
 import React from 'react';
 // Coordinate Configurations
 import { ENTERTAINMENT, LIVING_ROOM, KITCHEN } from '../config/groundFloorCoordinates';
@@ -119,6 +120,7 @@ function Furniture() {
       </group>
       <group name="Furniture_UpperLevel">
         {/* Bed in back-right corner (where back wall meets right wall) */}
+        <PersonalProps />
         <Bed position={BEDROOM.bed.position} rotation={BEDROOM.bed.rotation} />
         
         {/* Pillow on bed (clickable for Steve Jobs audio) */}

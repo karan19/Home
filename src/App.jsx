@@ -60,7 +60,8 @@ function App() {
     ambientVolume: 0.5,
     bloom: true,
     bloomIntensity: 0.2,
-    ssao: true,
+    // Screen-space AO introduced speckled patches on bedding and plain walls.
+    ssao: false,
     ssaoIntensity: 1.5,
     performanceMode: 'Auto'
   });
@@ -157,14 +158,15 @@ function App() {
   }, [settings.dayMode]);
 
   // Dynamic lighting based on day/night mode from settings
-  const dayMode = settings.dayMode ?? isDayTime(isDevelopment);
+  const eveningPreview = new URLSearchParams(window.location.search).get('time') === 'evening';
+  const dayMode = eveningPreview ? false : settings.dayMode ?? isDayTime(isDevelopment);
   const showGrid = settings.showGrid !== undefined ? settings.showGrid : showDevTools;
   
   const ambientIntensity = dayMode ? 0.45 : 0.18;
   const mainLightIntensity = dayMode ? 2.0 : 0.45;
   const secondaryLightIntensity = dayMode ? 0.65 : 0.15;
   const hemisphereIntensity = dayMode ? 0.75 : 0.25;
-  const backgroundColor = dayMode ? '#C8B4D4' : '#1A1A2E';
+  const backgroundColor = dayMode ? '#C8B4D4' : '#202c40';
   const toneMapExposure = dayMode ? 1.0 : 0.85;
 
   return (
@@ -263,7 +265,7 @@ function App() {
           {/* Weather System - Sky, Rain, Snow */}
           <WeatherSystem 
             dayMode={dayMode}
-            weather={settings.weather}
+            weather={eveningPreview ? 'clear' : settings.weather}
           />
 
           {/* Spatial Audio System - Ambient sounds (DISABLED - See AUDIO_SETUP_GUIDE.md) */}

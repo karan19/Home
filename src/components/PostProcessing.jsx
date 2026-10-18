@@ -4,7 +4,7 @@ import { BlendFunction, ToneMappingMode } from 'postprocessing';
 
 export default function PostProcessing({
   bloomEnabled = true, bloomIntensity = 0.2,
-  ssaoEnabled = true, ssaoIntensity = 1.5,
+  ssaoEnabled = false, ssaoIntensity = 1.5,
 }) {
   // No offscreen render targets or fullscreen passes in the low quality tier.
   if (!bloomEnabled && !ssaoEnabled) return null;

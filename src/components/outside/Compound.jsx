@@ -1,11 +1,16 @@
 import React from 'react';
+import { RoundedBox } from '@react-three/drei';
+import EveningLights from './EveningLights';
+import GardenBorders from './GardenBorders';
 import RepeatedMesh from '../RepeatedMesh';
 
 function Compound({ dayMode = false }) {
   // Simple toggle: ON = day (white), OFF = night (orange)
-  const lightColor = dayMode ? '#FFFFCC' : '#FFA500';
+  const lightColor = '#ffe0ac';
   return (
     <group name="Compound">
+      <EveningLights active={!dayMode} />
+      <GardenBorders />
       {/* GROUND PLANE - Mixed surfaces */}
       {/* Grass areas - very light green with texture (lowered to prevent z-fighting) */}
       <mesh position={[0, -0.3, 0]} receiveShadow>
@@ -23,11 +28,15 @@ function Compound({ dayMode = false }) {
         positions={[-6, -4, -2, 0, 2, 4, 6].map(x => [x, -0.24, 0])}
         material={{color:'#91aa83',roughness:0.95}} receiveShadow />
 
-      {/* Concrete pathway (from gate to house) */}
-      <mesh position={[0, -0.18, 2]} receiveShadow>
-        <boxGeometry args={[1.5, 0.02, 6]} />
-        <meshStandardMaterial color="#CCCCCC" roughness={0.6} metalness={0} />
-      </mesh>
+      {/* Spaced stones leave the existing lawn visible between each step. */}
+      <group name="Grass_Stepping_Stone_Walkway">
+        {[4.45, 5.15, 5.85, 6.55, 7.25].map((z, i) => (
+          <RoundedBox key={z} args={[1.12, .055, .50]} radius={.025} smoothness={3}
+            position={[i % 2 ? .025 : -.025, -.2225, z]} castShadow receiveShadow>
+            <meshStandardMaterial color={i % 2 ? '#c5bfb0' : '#d0c9b9'} roughness={.95} />
+          </RoundedBox>
+        ))}
+      </group>
 
       {/* Slanted ramp to platform */}
       <mesh 
@@ -49,7 +58,7 @@ function Compound({ dayMode = false }) {
 
 
       {/* MAILBOX (at edge of green grass, facing outward) */}
-      <group name="Mailbox" position={[-0.05, -0.25, 8]} rotation={[0, Math.PI, 0]}>
+      <group name="Mailbox" position={[-1.9, -0.25, 7.45]} rotation={[0, Math.PI, 0]}>
         {/* Post */}
         <mesh position={[0, 0.6, 0]} castShadow>
           <cylinderGeometry args={[0.04, 0.04, 1.2, 8]} />
@@ -87,7 +96,7 @@ function Compound({ dayMode = false }) {
         material={{color:'#35332e',roughness:0.4,metalness:0.6}} castShadow />
       <RepeatedMesh name="Lamp_Fixtures" args={[0.2, 0.2, 0.2]}
         positions={[[-7, 2.75, -7],[7, 2.75, -7],[-7, 2.75, 7],[7, 2.75, 7]]}
-        material={{color:lightColor,emissive:lightColor,emissiveIntensity:dayMode ? 0.2 : 1.5,roughness:0.2}} />
+        material={{color:lightColor,emissive:lightColor,emissiveIntensity:dayMode ? 0 : 1.2,roughness:0.2}} />
 
     </group>
   );
