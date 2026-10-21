@@ -1,10 +1,15 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useLoader, useThree } from '@react-three/fiber';
+import { useCursor } from '@react-three/drei';
+import { useInteractiveAudio } from '../../../hooks/useInteractiveAudio';
 import { TextureLoader } from 'three';
 import * as THREE from 'three';
 import { LIVING_ROOM } from '../../../config/groundFloorCoordinates';
 
 function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
+  const { toggle } = useInteractiveAudio('barca');
+  const [hovered, setHovered] = useState(false);
+  useCursor(hovered);
   const { texturePath, frame, crest } = LIVING_ROOM.barcelonaCrest;
   
   // Load the SVG as a texture
@@ -21,7 +26,14 @@ function BarcelonaCrest({ position, rotation = [0, 0, 0], scale = 1 }) {
   }, [texture, gl]);
 
   return (
-    <group position={position} rotation={rotation} name="Barcelona_Crest">
+    <group position={position} rotation={rotation} name="Barcelona_Crest"
+      onPointerOver={event => { event.stopPropagation(); setHovered(true); }}
+      onPointerOut={() => setHovered(false)}
+      onClick={event => {
+        event.stopPropagation();
+        if (event.delta > 5) return;
+        void toggle();
+      }}>
       {/* Optional gold frame */}
       <mesh castShadow>
         <boxGeometry args={[frame.widthScale * scale, frame.heightScale * scale, frame.depth]} />

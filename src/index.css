@@ -23,26 +23,46 @@ canvas {
 }
 
 .house-loading {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 10000;
   display: grid;
   place-items: center;
-  background: #eaece4;
+  background: radial-gradient(ellipse at 50% 35%, #f0f1e9, #dfe5d7);
   color: #344333;
   transition: opacity 400ms ease;
   touch-action: none;
+  overflow: auto;
 }
 .house-loading--done { opacity: 0; }
-.house-loading__card { width: min(320px, calc(100vw - 48px)); text-align: center; }
-.house-loading__icon { font-size: 58px; line-height: 1; margin-bottom: 24px; }
-.house-loading h1 { font-size: 23px; font-weight: 500; letter-spacing: -.6px; }
-.house-loading p { margin: 12px 0 28px; font-size: 13px; color: #63715e; }
-.house-loading__track { height: 5px; background: #d3d9cb; border-radius: 8px; overflow: hidden; }
+.house-loading__card { width: min(400px, calc(100vw - 48px)); padding: 28px 0; text-align: center; }
+.house-loading__eyebrow { font-size: 9px; font-weight: 500; letter-spacing: 2.5px; color: #76816e; }
+.house-loading__drawing { display: block; width: 100%; height: auto; margin: 12px 0 8px; }
+.house-loading h1 { font: 400 clamp(28px, 5vw, 36px)/1.18 Georgia, serif; letter-spacing: -.8px; }
+.house-loading h1 em { font-weight: 400; color: #637758; }
+.house-loading p { margin: 18px 0 26px; font-size: 12px; line-height: 1.5; color: #63715e; }
+.house-loading__track { width: 180px; margin: auto; height: 2px; background: #cbd4c3; border-radius: 8px; overflow: hidden; }
 .house-loading__fill { height: 100%; background: #65795d; border-radius: inherit; transition: width 200ms ease; }
-.house-loading__percent { display: block; margin-top: 12px; font-size: 12px; font-variant-numeric: tabular-nums; color: #63715e; }
+.house-loading__percent { display: block; margin-top: 12px; font-size: 10px; letter-spacing: 1px; font-variant-numeric: tabular-nums; color: #63715e; }
 .house-loading button { margin-top: 22px; padding: 10px 20px; border: 1px solid #65795d; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
 .house-loading button:focus-visible { outline: 2px solid #344333; outline-offset: 4px; }
+.house-loading__draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: house-draw 1.4s ease forwards; }
+.house-loading__draw--walls { animation-delay: .35s; }
+.house-loading__draw--roof { animation-delay: .8s; }
+.house-loading__details { opacity: 0; animation: house-details 1s 1.4s ease forwards; }
+.house-loading__windows path { transition: opacity 800ms ease; }
+.house-loading__resident { transition: opacity 1.2s ease; }
+.house-loading__spark { animation: house-spark 3s ease-in-out infinite; }
+@keyframes house-draw { to { stroke-dashoffset: 0; } }
+@keyframes house-details { to { opacity: 1; } }
+@keyframes house-spark { 0%, 100% { opacity: .2; } 50% { opacity: .9; } }
+@media (max-height: 640px) {
+  .house-loading__drawing { width: 250px; max-width: 100%; margin: 0 auto; }
+  .house-loading__card { padding: 16px 0; }
+  .house-loading h1 { font-size: 28px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .house-loading, .house-loading__fill { transition: none; }
+  .house-loading *, .house-loading { animation: none; transition: none; }
+  .house-loading__draw { stroke-dashoffset: 0; }
+  .house-loading__details { opacity: 1; }
 }

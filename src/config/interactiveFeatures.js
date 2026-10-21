@@ -12,6 +12,14 @@
  */
 
 export const INTERACTIVE_FEATURES = {
+  barca: {
+    trigger: { component: 'BarcelonaCrest' },
+    audio: {
+      files: ['/audio/barca-anthem.mp3'],
+      playEvent: 'barcaPlaying',
+      endEvent: 'barcaPlaying'
+    }
+  },
   huberman: {
     trigger: { component: 'SupplementBox', position: [-3.63, 3.515, -3.18] },
     audio: { files: ['/celebrities/huberman/Huberman.mp3'], playEvent: 'hubermanPlaying', endEvent: 'hubermanPlaying' },
