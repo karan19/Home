@@ -19,7 +19,7 @@ export const INTERACTIVE_FEATURES = {
       playEvent: 'barcaPlaying',
       endEvent: 'barcaPlaying'
     },
-    poster: { image: '/FCBCrest.svg', preserveColors: true, size: [5.6, 6.6] }
+    poster: { image: '/FCBCrest.svg', preserveColors: true, size: [5.6, 6.6], roofSize: [6.8, 6.9] }
   },
   huberman: {
     trigger: { component: 'SupplementBox', position: [-3.63, 3.515, -3.18] },

@@ -3,11 +3,12 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+import { portraitSvgLoader } from './portraitSvgLoader';
 import { getFeatureConfig } from '../../config/interactiveFeatures';
 
 function AnimatedPoster({ featureName, placement, active }) {
   const config = getFeatureConfig(featureName);
-  const svg = useLoader(SVGLoader, config.poster.image);
+  const svg = useLoader(portraitSvgLoader, config.poster.image);
   const groupRef = useRef();
   const fillRef = useRef();
   const strokeRef = useRef();

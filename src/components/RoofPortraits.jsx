@@ -32,7 +32,7 @@ export default function RoofPortraits() {
     </mesh>
     <RoofQuotes portraitActive={Boolean(portrait?.active)} />
     <Suspense fallback={null}>
-      {portrait && <AnimatedPoster key={`${portrait.name}-${portrait.visit}`} featureName={portrait.name} placement={placement} active={portrait.active} />}
+      {portrait && <AnimatedPoster key={`${portrait.name}-${portrait.visit}`} featureName={portrait.name} placement={{ ...placement, size: INTERACTIVE_FEATURES[portrait.name].poster.roofSize ?? placement.size }} active={portrait.active} />}
     </Suspense>
   </group>;
 }
