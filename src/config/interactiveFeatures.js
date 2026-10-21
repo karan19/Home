@@ -18,7 +18,8 @@ export const INTERACTIVE_FEATURES = {
       files: ['/audio/barca-anthem.mp3'],
       playEvent: 'barcaPlaying',
       endEvent: 'barcaPlaying'
-    }
+    },
+    poster: { image: '/FCBCrest.svg', preserveColors: true, size: [5.6, 6.6] }
   },
   huberman: {
     trigger: { component: 'SupplementBox', position: [-3.63, 3.515, -3.18] },

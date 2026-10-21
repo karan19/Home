@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 import { getFeatureConfig } from '../../config/interactiveFeatures';
 
@@ -13,9 +14,26 @@ function AnimatedPoster({ featureName, placement, active }) {
   const animation = useRef({ playing: false, elapsed: 0, opacity: 0 });
   const [width, height] = placement?.size ?? config.poster.size;
 
+  const preserveColors = Boolean(config.poster.preserveColors);
   const artwork = useMemo(() => {
-    const shapes = svg.paths.flatMap(path => SVGLoader.createShapes(path));
-    const fill = new THREE.ShapeGeometry(shapes, 8);
+    let fill;
+    if (preserveColors) {
+      // Retain SVG paint order and colors: flattening a crest into one dark fill
+      // loses the cross, stripes, lettering, and ball inside the shield.
+      const layers = svg.paths.filter(path => path.userData?.style?.fill !== 'none').map((path, index) => {
+        const geometry = new THREE.ShapeGeometry(SVGLoader.createShapes(path), 8).toNonIndexed();
+        geometry.translate(0, 0, index * 0.0001);
+        const colors = new Float32Array(geometry.attributes.position.count * 3);
+        for (let i = 0; i < colors.length; i += 3) path.color.toArray(colors, i);
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        return geometry;
+      });
+      fill = mergeGeometries(layers);
+      layers.forEach(geometry => geometry.dispose());
+    } else {
+      const shapes = svg.paths.flatMap(path => SVGLoader.createShapes(path));
+      fill = new THREE.ShapeGeometry(shapes, 8);
+    }
     fill.computeBoundingBox();
     const center = fill.boundingBox.getCenter(new THREE.Vector3());
     const size = fill.boundingBox.getSize(new THREE.Vector3());
@@ -40,7 +58,7 @@ function AnimatedPoster({ featureName, placement, active }) {
     outline.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
     outline.setDrawRange(0, 0);
     return { fill, outline, segments: vertices.length / 6 };
-  }, [svg, width, height]);
+  }, [svg, width, height, preserveColors]);
 
   useEffect(() => () => {
     artwork.fill.dispose();
@@ -95,7 +113,7 @@ function AnimatedPoster({ featureName, placement, active }) {
       <lineBasicMaterial ref={strokeRef} color="#252923" transparent opacity={0} depthWrite={false} toneMapped={false} />
     </lineSegments>
     <mesh geometry={artwork.fill} raycast={() => null}>
-      <meshBasicMaterial ref={fillRef} color="#252923" side={THREE.DoubleSide} transparent opacity={0}
+      <meshBasicMaterial ref={fillRef} color={preserveColors ? "#ffffff" : "#252923"} vertexColors={preserveColors} side={THREE.DoubleSide} transparent opacity={0}
         depthWrite={false} toneMapped={false} />
     </mesh>
   </group>;

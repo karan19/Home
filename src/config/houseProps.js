@@ -4,6 +4,6 @@ export const HOUSE_PROPS = {
   dumbbells: { modelPath: '/models/house-props/dumbbell-rack.glb', modelSize: [.95, .65, .45], position: [-6.8, -.245, -1.65] },
   stool: { modelPath: '/models/house-props/oak-island-stool.glb', modelSize: [.44, .775, .44] },
   espresso: { modelPath: '/models/house-props/espresso-machine.glb', modelSize: [.36, .36, .34] },
-  backpack: { modelPath: '/models/house-props/canvas-backpack.glb', modelSize: [.30, .42, .20], position: [-2.45, 3, -1.2] },
+  backpack: { modelPath: '/models/house-props/canvas-backpack.glb', modelSize: [.30, .42, .20], position: [-2.95, 3, -1.08] },
   lamp: { modelPath: '/models/house-props/bedside-lamp.glb', modelSize: [.24, .40, .24], position: [1.25, 3.55, -3] },
 };
