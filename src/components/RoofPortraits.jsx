@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { INTERACTIVE_FEATURES } from '../config/interactiveFeatures';
 import AnimatedPoster from './interactive/AnimatedPoster';
+import RoofQuotes from './RoofQuotes';
 
 const placement = { position: [0, 6.42, 0], rotation: [-Math.PI / 2, 0, 0], size: [5.6, 6.6] };
 
@@ -29,6 +30,7 @@ export default function RoofPortraits() {
       <planeGeometry args={[8.6, 8.6]} />
       <meshBasicMaterial color="#e8e5da" toneMapped={false} />
     </mesh>
+    <RoofQuotes portraitActive={Boolean(portrait?.active)} />
     <Suspense fallback={null}>
       {portrait && <AnimatedPoster key={`${portrait.name}-${portrait.visit}`} featureName={portrait.name} placement={placement} active={portrait.active} />}
     </Suspense>
