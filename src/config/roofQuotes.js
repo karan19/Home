@@ -30,6 +30,27 @@ const LINES = [
   'Notice when loyalty to your past decisions is costing you your future.',
   'Let the people closest to you benefit from the person you are trying to become.',
   'When you reach the life you are chasing, will you know how to be present in it?',
+  // Creating, discovering, and opening possibilities for others.
+  "Making something is a way of finding out what you actually understand.",
+  "The first version gives reality a chance to answer you.",
+  "You don’t have to know everything your idea will become to give it a beginning.",
+  "Build the thing that would have helped you when you were starting.",
+  "Some questions can only be answered by making something.",
+  "What you make can become the starting point for someone you will never meet.",
+  "An imperfect thing in the world can teach you more than a perfect thing in your head.",
+  "Pay attention to what you keep wishing existed.",
+  "You may discover what you wanted to create only after you begin creating it.",
+  "The world you take for granted is full of things someone once had to imagine.",
+  "Make something that gives another person a possibility they didn’t have before.",
+  "A small creation can change your relationship with the world: you begin to see what else could be different.",
+  "Once an idea takes shape, you can have a conversation with it that thinking alone could never offer.",
+  "Something you build for one purpose may help someone else discover another.",
+  "Each thing you finish gives your next idea somewhere firmer to begin.",
+  "A working example can make a possibility easier to believe in than a thousand explanations.",
+  "The things you create may travel further than your reasons for creating them.",
+  "When someone uses what you made in a way you never imagined, the idea has begun a life beyond you.",
+  "Building something small can reveal an opportunity too specific for anyone to have predicted.",
+  "Leave something in the world that someone else can build upon.",
 ];
 
 export const ROOF_QUOTES = LINES.map(text => ({ text, font: 'Georgia', original: true }));
