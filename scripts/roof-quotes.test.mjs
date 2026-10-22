@@ -66,10 +66,11 @@ test('manual refresh selects another quote and restarts formation without interr
 });
 
 
-test('quote collection contains 80 unique original reflections and questions', async () => {
+test('quote collection contains 100 unique reflections, questions, and mental models', async () => {
   const { ROOF_QUOTES } = await import('../src/config/roofQuotes.js');
-  assert.equal(ROOF_QUOTES.length, 80);
+  assert.equal(ROOF_QUOTES.length, 100);
   assert.equal(new Set(ROOF_QUOTES.map(q => q.text)).size, ROOF_QUOTES.length);
+  assert.equal(ROOF_QUOTES.filter(q => q.label).length, 20);
   for (const quote of ROOF_QUOTES) {
     assert(quote.text.length <= 200, quote.text);
     assert.equal(quote.original, true);

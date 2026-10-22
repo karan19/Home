@@ -84,4 +84,111 @@ const LINES = [
   "What would you explore if you allowed yourself to stay uncertain a little longer?",
 ];
 
-export const ROOF_QUOTES = LINES.map(text => ({ text, font: 'Georgia', original: true }));
+// Original wording adapted from established mental models; labels are not author credits.
+const MENTAL_MODELS = [
+  {
+    "label": "First principles",
+    "text": "What remains true when you remove the assumptions?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Inversion",
+    "text": "Imagine how this fails. What could you prevent now?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Second-order thinking",
+    "text": "After the immediate benefit, what happens next?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Opportunity cost",
+    "text": "What worthwhile alternative does this choice leave behind?",
+    "source": "https://www.openstax.org/books/principles-economics-2e/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint"
+  },
+  {
+    "label": "Circle of competence",
+    "text": "Know where your understanding ends and your guessing begins.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Map versus territory",
+    "text": "Your explanation of reality is still only an explanation.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Probabilistic thinking",
+    "text": "How likely is it—not merely, is it possible?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Bayesian updating",
+    "text": "Let new evidence change the strength of your beliefs.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Margin of safety",
+    "text": "Leave room for your estimates to be wrong.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Sunk costs",
+    "text": "Decide from what lies ahead, not what you cannot recover.",
+    "source": "https://www.openstax.org/books/principles-economics-2e/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint"
+  },
+  {
+    "label": "Compounding",
+    "text": "Repeated gains can grow from what earlier gains made possible.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Feedback loops",
+    "text": "Does the result weaken the cause—or strengthen it?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Bottlenecks",
+    "text": "Improve what limits the whole, not what is easiest.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Incentives",
+    "text": "Look at what gets rewarded, not just what gets requested.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Emergence",
+    "text": "Understand the interactions, not only the individual parts.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Diminishing returns",
+    "text": "Is the next increment still worth the extra effort?",
+    "source": "https://www.openstax.org/books/principles-economics-2e/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint"
+  },
+  {
+    "label": "Trade-offs",
+    "text": "What are you giving up to make this better?",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Occam’s razor",
+    "text": "Prefer explanations that need fewer unsupported assumptions.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Hanlon’s razor",
+    "text": "Consider error or misunderstanding before assuming harmful intent.",
+    "source": "https://fs.blog/mental-models/"
+  },
+  {
+    "label": "Thought experiments",
+    "text": "Change one assumption. What else must change with it?",
+    "source": "https://fs.blog/mental-models/"
+  }
+];
+
+export const ROOF_QUOTES = [
+  ...LINES.map(text => ({ text, font: 'Georgia', original: true })),
+  ...MENTAL_MODELS.map(model => ({ ...model, font: 'Georgia', original: true })),
+];

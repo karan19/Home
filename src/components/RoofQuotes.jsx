@@ -3,9 +3,11 @@ import { useFrame } from '@react-three/fiber';
 import { useCursor } from '@react-three/drei';
 import { CanvasTexture, LinearFilter, SRGBColorSpace } from 'three';
 import { ROOF_QUOTES } from '../config/roofQuotes';
-import { advanceQuoteCycle, createQuoteCycle, nextQuote } from './roofQuoteCycle';
+import { restoreQuoteCycle, saveQuoteCycle } from './roofQuoteStorage';
+import { advanceQuoteCycle, nextQuote } from './roofQuoteCycle';
 
-function drawQuoteCanvas({ text, author, font }, canvas) {
+function drawQuoteCanvas({ text, author, label, font }, canvas) {
+  const caption = label || author;
   canvas.width = 1536;
   canvas.height = 1232;
   const ctx = canvas.getContext('2d');
@@ -29,12 +31,12 @@ function drawQuoteCanvas({ text, author, font }, canvas) {
     fontSize -= 4;
   } while (fontSize > 32);
   const lineHeight = fontSize * 1.12;
-  const start = (author ? 540 : canvas.height / 2) - (lines.length - 1) * lineHeight / 2;
+  const start = (caption ? 540 : canvas.height / 2) - (lines.length - 1) * lineHeight / 2;
   lines.forEach((line, i) => ctx.fillText(line, 768, start + i * lineHeight));
-  if (author) {
+  if (caption) {
     ctx.font = '600 44px Arial, sans-serif';
     ctx.fillStyle = '#414b3e';
-    ctx.fillText(`— ${author}`, 768, start + lines.length * lineHeight + 45);
+    ctx.fillText(label || `— ${author}`, 768, start + lines.length * lineHeight + 45);
   }
   return canvas;
 }
@@ -83,7 +85,8 @@ export default function RoofQuotes({ portraitActive }) {
   const material = useRef();
   const mesh = useRef();
   const cycle = useRef(null);
-  if (cycle.current === null) cycle.current = createQuoteCycle(ROOF_QUOTES.length);
+  if (cycle.current === null) cycle.current = restoreQuoteCycle(ROOF_QUOTES);
+  const savedIndex = useRef(null);
   const source = useMemo(() => ({ canvas: document.createElement('canvas'), index: -1 }), []);
   const motion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)'), []);
   const display = useMemo(() => {
@@ -101,6 +104,10 @@ export default function RoofQuotes({ portraitActive }) {
     advanceQuoteCycle(cycle.current, delta, portraitActive, ROOF_QUOTES.length);
     const state = cycle.current;
     mesh.current.visible = !portraitActive && state.progress > 0;
+    if (mesh.current.visible && savedIndex.current !== state.index) {
+      saveQuoteCycle(state, ROOF_QUOTES);
+      savedIndex.current = state.index;
+    }
     if (source.quote !== ROOF_QUOTES[state.index]) {
       drawQuoteCanvas(ROOF_QUOTES[state.index], source.canvas);
       source.quote = ROOF_QUOTES[state.index];
