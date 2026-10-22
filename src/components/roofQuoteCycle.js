@@ -5,8 +5,9 @@ export const GAP_SECONDS = .6;
 export const PORTRAIT_CLEAR_SECONDS = 1.1;
 const TOTAL = FORM_SECONDS + HOLD_SECONDS + DISSOLVE_SECONDS + GAP_SECONDS;
 
-export function createQuoteCycle() {
-  return { index: 0, elapsed: 0, delay: 0, blocked: false, progress: 0, remaining: null, count: null };
+export function createQuoteCycle(count = 1, random = Math.random) {
+  const index = count > 1 ? Math.min(count - 1, Math.floor(random() * count)) : 0;
+  return { index, elapsed: 0, delay: 0, blocked: false, progress: 0, remaining: null, count: null };
 }
 
 // Vite preserves refs during edits: a smaller quote list must invalidate old indexes.

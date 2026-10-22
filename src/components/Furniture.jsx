@@ -38,8 +38,7 @@ import WorkDesk from './upper-floor/office/WorkDesk';
 // Upper Floor - Seating Area
 import AccentChair from './upper-floor/seating-area/AccentChair';
 import SmallTable from './upper-floor/seating-area/SmallTable';
-import OpenBook from './upper-floor/seating-area/OpenBook';
-import Pen from './upper-floor/seating-area/Pen';
+import ChessBoard from './upper-floor/seating-area/ChessBoard';
 
 // Upper Floor - Fitness
 import PunchingBag from './upper-floor/fitness/PunchingBag';
@@ -132,7 +131,7 @@ function Furniture() {
         {/* Musk Poster on back wall (appears when MacBook is clicked) */}
         <MuskPoster />
         
-        {/* Bezos Poster on right wall (appears when OpenBook is clicked) */}
+        {/* Bezos Poster on right wall (appears when the chessboard is clicked) */}
         <BezosPost />
         <AnimatedPoster featureName="kalam" />
         <AnimatedPoster featureName="einstein" />
@@ -150,9 +149,8 @@ function Furniture() {
         <SmallTable position={SEATING_AREA.smallTable.position} />
         <AccentChair position={SEATING_AREA.accentChair2.position} rotation={SEATING_AREA.accentChair2.rotation} />
         
-        {/* Blog writing setup on small table (J6-K7 area) */}
-        <OpenBook position={SEATING_AREA.openBook.position} rotation={SEATING_AREA.openBook.rotation} />
-        <Pen position={SEATING_AREA.pen.position} rotation={SEATING_AREA.pen.rotation} />
+        {/* Chess set centered on the small table between the chairs. */}
+        <ChessBoard />
         
         {/* Potted plants (in square C1, side by side) */}
         <PottedPlant position={DECORATIONS.pottedPlant1.position} height={DECORATIONS.pottedPlant1.height} rotation={DECORATIONS.pottedPlant1.rotation} />

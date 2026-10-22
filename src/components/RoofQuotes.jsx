@@ -82,7 +82,8 @@ function RoofRefresh({ disabled, onRefresh }) {
 export default function RoofQuotes({ portraitActive }) {
   const material = useRef();
   const mesh = useRef();
-  const cycle = useRef(createQuoteCycle());
+  const cycle = useRef(null);
+  if (cycle.current === null) cycle.current = createQuoteCycle(ROOF_QUOTES.length);
   const source = useMemo(() => ({ canvas: document.createElement('canvas'), index: -1 }), []);
   const motion = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)'), []);
   const display = useMemo(() => {

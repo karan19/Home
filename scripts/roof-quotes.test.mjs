@@ -119,3 +119,22 @@ test('shrinking the collection during a live edit drops stale shuffle indexes', 
   nextQuote(legacy, 82, () => .999);
   assert.equal(legacy.index, 81);
 });
+
+
+test('each quote can open the page and the initial quote is excluded from the first shuffle', async () => {
+  const { nextQuote } = await import('../src/components/roofQuoteCycle.js');
+  for (let initial = 0; initial < 80; initial++) {
+    const state = createQuoteCycle(80, () => (initial + .5) / 80);
+    assert.equal(state.index, initial);
+    advanceQuoteCycle(state, .01, false, 80);
+    assert.equal(state.index, initial);
+    const seen = new Set([initial]);
+    for (let i = 1; i < 80; i++) {
+      nextQuote(state, 80, () => .5);
+      assert(!seen.has(state.index));
+      seen.add(state.index);
+    }
+    assert.equal(seen.size, 80);
+  }
+  assert.equal(createQuoteCycle(1, () => .9).index, 0);
+});
