@@ -30,7 +30,7 @@ npm run preview
 - Provides a viewer toolbar with reset view, grid toggle, and GLB export.
 - Provides clickable interactive objects:
   - TV shows the Messi poster and plays audio.
-  - Pillow shows the Steve Jobs poster and plays audio.
+  - Pillow shows the Steve Jobs poster and plays one of six Jobs clips at random on each click (files in `public/celebrities/jobs/`, named by each clip's opening words; music credits in `public/celebrities/credits.html`).
   - MacBook shows the Elon Musk poster and plays audio.
   - Open book shows the Jeff Bezos poster and plays audio.
   - Punching bag shows the Muhammad Ali poster and plays audio.

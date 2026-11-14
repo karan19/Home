@@ -113,7 +113,16 @@ export const INTERACTIVE_FEATURES = {
       position: [2.5, 3.9, -2.3]
     },
     audio: {
-      files: ['/celebrities/jobs/SteveJobs.mp3'],
+      // Six Jobs clips; useInteractiveAudio picks one at random on each click.
+      // Files are named by the opening words of each clip.
+      files: [
+        '/celebrities/jobs/your-time-is-limited.mp3',
+        '/celebrities/jobs/im-convinced-that-about-half.mp3',
+        '/celebrities/jobs/youve-got-to-start-with-the-customer-experience.mp3',
+        '/celebrities/jobs/i-dont-really-care-about-being-right.mp3',
+        '/celebrities/jobs/in-my-career-i-found-that-the-best-people.mp3',
+        '/celebrities/jobs/life-can-be-much-broader.mp3'
+      ],
       playEvent: 'pillowPlaying',
       endEvent: 'pillowPlaying'
     },
