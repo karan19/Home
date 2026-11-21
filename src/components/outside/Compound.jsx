@@ -1,6 +1,7 @@
 import React from 'react';
 import { RoundedBox } from '@react-three/drei';
 import EveningLights from './EveningLights';
+import LampPostHotspot from './LampPostHotspot';
 import RepeatedMesh from '../RepeatedMesh';
 
 function Compound({ dayMode = false }) {
@@ -9,6 +10,8 @@ function Compound({ dayMode = false }) {
   return (
     <group name="Compound">
       <EveningLights active={!dayMode} />
+      {/* Clickable backyard lamp post (kitchen side): Dwight Schrute audio */}
+      <LampPostHotspot />
       {/* GROUND PLANE - Mixed surfaces */}
       {/* Grass areas - very light green with texture (lowered to prevent z-fighting) */}
       <mesh position={[0, -0.3, 0]} receiveShadow>

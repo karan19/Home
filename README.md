@@ -31,6 +31,7 @@ npm run preview
 - Provides clickable interactive objects:
   - TV shows the Messi poster and plays audio.
   - Pillow shows the Steve Jobs poster and plays one of six Jobs clips at random on each click (files in `public/celebrities/jobs/`, named by each clip's opening words; music credits in `public/celebrities/credits.html`).
+  - Backyard lamp post (kitchen side) shows the Dwight Schrute poster on the back wall above the kitchen — mirrored on the roof like the other portraits — and plays one of five Dwight clips at random on each click (files in `public/celebrities/dwight/`, named by each clip's signature line; credits in `public/celebrities/credits.html`). The visible lamp posts are instanced, so a transparent, non-exported hit region (`LampPostHotspot`) carries the interaction, the same pattern as the pillow.
   - MacBook shows the Elon Musk poster and plays audio.
   - Open book shows the Jeff Bezos poster and plays audio.
   - Punching bag shows the Muhammad Ali poster and plays audio.

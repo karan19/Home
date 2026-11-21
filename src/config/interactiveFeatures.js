@@ -135,6 +135,36 @@ export const INTERACTIVE_FEATURES = {
     }
   },
 
+  dwight: {
+    // Backyard lamp post on the kitchen side (back-left corner of the yard)
+    trigger: {
+      component: 'LampPost',
+      position: [-7, 1.25, -7]
+    },
+    audio: {
+      // Five Dwight Schrute clips; useInteractiveAudio picks one at random on each click.
+      // Files are named by the signature line of each clip.
+      files: [
+        '/celebrities/dwight/dont-be-an-idiot.mp3',
+        '/celebrities/dwight/volunteer-sheriffs-deputy.mp3',
+        '/celebrities/dwight/i-keep-various-weaponry.mp3',
+        '/celebrities/dwight/im-all-about-loyalty.mp3',
+        '/celebrities/dwight/no-limit-to-what-i-think-i-deserve.mp3'
+      ],
+      playEvent: 'dwightPlaying',
+      endEvent: 'dwightPlaying'
+    },
+    poster: {
+      image: '/celebrities/gallery/dwight.svg',
+      // Back wall above the kitchen cabinets: the kitchen run spans
+      // x -3.0..-0.5, upper cabinets top out at y 2.2, floor slab at y 3.0.
+      position: [-1.75, 2.59, -3.72],
+      rotation: [0, 0, 0],
+      size: [1.0, 0.75],
+      wall: 'back'
+    }
+  },
+
   musk: {
     // MacBook on work desk, upper floor
     trigger: {

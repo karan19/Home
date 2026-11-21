@@ -55,6 +55,7 @@ import PottedPlant from './upper-floor/decorations/PottedPlant';
 import MessiPoster from './interactive/MessiPoster';
 import AliPoster from './interactive/AliPoster';
 import JobsPoster from './interactive/JobsPoster';
+import DwightPoster from './interactive/DwightPoster';
 import MuskPoster from './interactive/MuskPoster';
 import BezosPost from './interactive/BezosPost';
 
@@ -72,6 +73,8 @@ function Furniture() {
           {/* French door refrigerator (left side of cabinets) */}
           <Refrigerator position={KITCHEN.refrigerator.position} />
         </group>
+        {/* Dwight Poster on back wall above the kitchen (appears when the backyard lamp post is clicked) */}
+        <DwightPoster />
         <group name="Living">
           {/* Sofa with rounded cushions */}
           <Sofa position={LIVING_ROOM.sofa.position} />
