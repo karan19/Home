@@ -45,12 +45,13 @@ export const INTERACTIVE_FEATURES = {
     // Chess set on the small table between the chairs, upper floor
     trigger: { component: 'ChessBoard', position: [0.95, 3.65, 1.05] },
     audio: {
-      // Three Magnus Carlsen clips; useInteractiveAudio picks one at random on each click.
+      // Four Magnus Carlsen clips; useInteractiveAudio picks one at random on each click.
       // Files are named by the opening words of each clip.
       files: [
         '/celebrities/carlsen/if-you-want-to-be-great.mp3',
         '/celebrities/carlsen/i-think-about-chess-all-the-time.mp3',
-        '/celebrities/carlsen/best-player-in-the-world.mp3'
+        '/celebrities/carlsen/best-player-in-the-world.mp3',
+        '/celebrities/carlsen/what-separates-the-great-players.mp3'
       ],
       playEvent: 'carlsenPlaying', endEvent: 'carlsenPlaying'
     },

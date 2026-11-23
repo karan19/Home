@@ -34,7 +34,7 @@ npm run preview
   - Backyard lamp post (kitchen side) shows the Dwight Schrute poster on the back wall above the kitchen — mirrored on the roof like the other portraits — and plays one of five Dwight clips at random on each click (files in `public/celebrities/dwight/`, named by each clip's signature line; the clips carry dramatic music beds mixed ~7 dB below the voice, same treatment as the Jobs clips; credits in `public/celebrities/credits.html`). The visible lamp posts are instanced, so a transparent, non-exported hit region (`LampPostHotspot`) carries the interaction, the same pattern as the pillow.
   - MacBook shows the Elon Musk poster and plays audio.
   - Open book and the downstairs bookshelf play Jeff Bezos audio; his poster forms on the downstairs right wall beside the bookshelf.
-  - Chess set shows the Magnus Carlsen poster on the upstairs back wall and plays one of three Carlsen clips at random on each click (files in `public/celebrities/carlsen/`, named by each clip's opening words; credits in `public/celebrities/credits.html`).
+  - Chess set shows the Magnus Carlsen poster on the upstairs back wall and plays one of four Carlsen clips at random on each click (files in `public/celebrities/carlsen/`, named by each clip's opening words; credits in `public/celebrities/credits.html`).
   - Punching bag shows the Muhammad Ali poster and plays audio.
 - Runs development-only controls through Leva.
 
@@ -183,7 +183,7 @@ excluded from GLB export.
 
 Bezos activates from the downstairs bookshelf (the open book upstairs also plays
 him) and appears on the adjacent right wall. Magnus Carlsen activates from the
-upstairs chess set and appears on the back wall, with three clips in his own voice
+upstairs chess set and appears on the back wall, with four clips in his own voice
 cut from interview excerpts. Einstein activates from the upstairs digital clock
 and appears to its right; his is an archival speech recording. Sources, authors,
 licenses and conversion details are available at
