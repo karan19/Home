@@ -56,6 +56,7 @@ import MessiPoster from './interactive/MessiPoster';
 import AliPoster from './interactive/AliPoster';
 import JobsPoster from './interactive/JobsPoster';
 import DwightPoster from './interactive/DwightPoster';
+import CarlsenPoster from './interactive/CarlsenPoster';
 import MuskPoster from './interactive/MuskPoster';
 import BezosPost from './interactive/BezosPost';
 
@@ -134,9 +135,9 @@ function Furniture() {
         {/* Musk Poster on back wall (appears when MacBook is clicked) */}
         <MuskPoster />
         
-        {/* Bezos Poster on right wall (appears when the chessboard is clicked) */}
+        {/* Bezos Poster on the downstairs right wall (appears when the bookshelf is clicked) */}
         <BezosPost />
-        <AnimatedPoster featureName="kalam" />
+        <CarlsenPoster />
         <AnimatedPoster featureName="einstein" />
         <AnimatedPoster featureName="huberman" />
         <SportsMemorabilia featureName="jordan" />

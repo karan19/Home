@@ -41,16 +41,23 @@ export const INTERACTIVE_FEATURES = {
     audio: { files: ['/celebrities/federer/Federer.mp3'], playEvent: 'federerPlaying', endEvent: 'federerPlaying' },
     poster: { image: '/celebrities/gallery/federer.svg', position: [3.72, 4.65, -1.05], rotation: [0, -Math.PI / 2, 0], size: [0.75, 1.0], wall: 'right' }
   },
-  kalam: {
-    trigger: { component: 'Bookshelf', position: [3.25, 0, -3.55] },
+  carlsen: {
+    // Chess set on the small table between the chairs, upper floor
+    trigger: { component: 'ChessBoard', position: [0.95, 3.65, 1.05] },
     audio: {
-      files: ['/celebrities/kalam/speech.mp3'],
-      playEvent: 'kalamPlaying', endEvent: 'kalamPlaying'
+      // Three Magnus Carlsen clips; useInteractiveAudio picks one at random on each click.
+      // Files are named by the opening words of each clip.
+      files: [
+        '/celebrities/carlsen/if-you-want-to-be-great.mp3',
+        '/celebrities/carlsen/i-think-about-chess-all-the-time.mp3',
+        '/celebrities/carlsen/best-player-in-the-world.mp3'
+      ],
+      playEvent: 'carlsenPlaying', endEvent: 'carlsenPlaying'
     },
     poster: {
-      image: '/celebrities/gallery/kalam.svg',
-      position: [3.72, 1.9, -2.0], rotation: [0, -Math.PI / 2, 0],
-      size: [0.8, 1.0], wall: 'right'
+      image: '/celebrities/gallery/carlsen.svg',
+      position: [2.3, 4.85, -3.72], rotation: [0, 0, 0],
+      size: [0.8, 1.0], wall: 'back'
     }
   },
   einstein: {
@@ -187,11 +194,10 @@ export const INTERACTIVE_FEATURES = {
   },
 
   bezos: {
-    // Open book on small table between chairs, upper floor
+    // Bookshelf downstairs (the open book upstairs also plays Bezos)
     trigger: {
-      component: 'OpenBook',
-      position: [0.95, 3.525, 1.05],
-      rotation: [0, 0.3, 0]
+      component: 'Bookshelf',
+      position: [3.25, 0, -3.55]
     },
     audio: {
       files: ['/celebrities/bezos/Bezos.mp3'],
@@ -200,7 +206,7 @@ export const INTERACTIVE_FEATURES = {
     },
     poster: {
       image: '/celebrities/gallery/bezos.svg',
-      position: [3.72, 4.85, -0.3],
+      position: [3.72, 1.9, -2.0],
       rotation: [0, -Math.PI / 2, 0],
       size: [0.8, 1.0],
       wall: 'right'

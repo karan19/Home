@@ -8,7 +8,7 @@ function Bookshelf({
   position = LIVING_ROOM.bookshelf.position,
   rotation = LIVING_ROOM.bookshelf.rotation
 }) {
-  const { toggle } = useInteractiveAudio('kalam');
+  const { toggle } = useInteractiveAudio('bezos');
   const { modelPath, modelSize, floorOffset } = LIVING_ROOM.bookshelf;
 
   return (
